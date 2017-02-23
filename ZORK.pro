@@ -18,7 +18,8 @@ SOURCES += \
     Parser.cpp \
     Room.cpp \
     ZorkUL.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    characterinfo.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -42,4 +43,5 @@ HEADERS += \
     Parser.h \
     Room.h \
     ZorkUL.h \
-    mainwindow.h
+    mainwindow.h \
+    characterinfo.h

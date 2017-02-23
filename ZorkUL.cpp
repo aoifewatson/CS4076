@@ -3,6 +3,7 @@
 #include "Character.h"
 #include "item.h"
 #include "mainwindow.h"
+#include "characterinfo.h"
 
 using namespace std;
 #include "ZorkUL.h"
@@ -10,7 +11,7 @@ using namespace std;
 Character * me;
 vector <Room*> roomList;
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
     MainWindow mainWin;
@@ -35,7 +36,7 @@ void ZorkUL::createRooms()  {
 	b = new Room("b");
         b->addItem(new Item("xx", 3, 33));
         b->addItem(new Item("yy", 4, 44));
-        roomList.push_back((b));
+        roomList.push_back(b);
 	c = new Room("c");
     roomList.push_back(c);
     d = new Room("d");

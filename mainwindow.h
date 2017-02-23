@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
 private slots:
-    void startHandler();
+    int startHandler();
     void exitHandler();
 private:
     QPushButton *startButton;
