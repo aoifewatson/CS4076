@@ -10,20 +10,21 @@ class Item {
 private:
 	string description;
 	string longDescription;
-	int weightGrams;
-	float value;
+    //int weightGrams;
+    //float value;
 	bool weaponCheck;
 
 public:
-    Item (string description, int inWeight, float inValue);
+    //Item (string description, int inWeight, float inValue);
+    Item (string description, bool weaponCheck);
     Item (string description);
 	string getShortDescription();
     string getLongDescription();
-	int getWeight();
-	void setWeight(int weightGrams);
-	float getValue();
-	void setValue(float value);
-	int getWeaponCheck();
+    //int getWeight();
+    //void setWeight(int weightGrams);
+    //float getValue();
+    //void setValue(float value);
+    bool getWeaponCheck(bool weaponCheck);
 	void setWeaponCheck(int weaponCheck);
 };
 

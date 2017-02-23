@@ -27,6 +27,7 @@ ZorkUL::ZorkUL() {
 }
 
 void ZorkUL::createRooms()  {
+<<<<<<< Updated upstream
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
 
 	a = new Room("a");
@@ -68,6 +69,72 @@ void ZorkUL::createRooms()  {
     j->setExits(i, NULL, NULL, NULL);
 
         currentRoom = a;
+=======
+    Room *one, *two, *three, *four, *five, *six, *seven, *eight, *nine, *ten, *eleven, *twelve, *thirteen, *fourteen, *fifteen, *sixteen;
+
+    one = new Room("one");
+    two = new Room("two");
+    three = new Room("three");
+    four = new Room("four");
+    five = new Room("five");
+    six = new Room("six");
+    seven = new Room("seven");
+    eight = new Room("eight");
+    nine = new Room("nine");
+    ten = new Room("ten");
+    eleven = new Room("eleven");
+    twelve = new Room("tweleve");
+    thirteen = new Room("thirteen");
+    fourteen = new Room("fourteen");
+    fifteen = new Room("fifteen");
+    sixteen = new Room("sixteen");
+
+    //adding rooms to vector of rooms
+    roomList.push_back(one);
+    roomList.push_back(two);
+    roomList.push_back(three);
+    roomList.push_back(four);
+    roomList.push_back(five);
+    roomList.push_back(six);
+    roomList.push_back(seven);
+    roomList.push_back(eight);
+    roomList.push_back(nine);
+    roomList.push_back(ten);
+    roomList.push_back(eleven);
+    roomList.push_back(twelve);
+    roomList.push_back(thirteen);
+    roomList.push_back(fourteen);
+    roomList.push_back(fifteen);
+    roomList.push_back(sixteen);
+
+    //adding items to rooms
+    three->addItem(new Item("Key", false));
+    four->addItem(new Item("Knife", true));
+    five->addItem(new Item("Torch", true));
+    seven->addItem(new Item("Envelope", true));
+    eleven->addItem(new Item("Trap", false));
+    fifteen->addItem(new Item("Water", false));
+
+
+//    (N, E, S, W)(up, left, down, right)
+    one->setExits(NULL, five, NULL, two);
+    two->setExits(three, NULL, four, NULL);
+    three->setExits(NULL, NULL, two, NULL);
+    four->setExits(two, NULL, NULL, NULL);
+    five->setExits(NULL, NULL, six, one);
+    six->setExits(five, NULL, seven, NULL);
+    seven->setExits(six, NULL, eight, NULL);
+    eight->setExits(seven, nine, NULL, NULL);
+    nine->setExits(NULL, eight, eleven, ten);
+    ten->setExits(NULL, nine, NULL, NULL);
+    eleven->setExits(nine, NULL, twelve, NULL);
+    twelve->setExits(eleven, NULL, NULL, thirteen);
+    thirteen->setExits(NULL, twelve, NULL, fourteen);
+    fourteen->setExits(NULL, thirteen, sixteen, NULL);
+    fifteen->setExits(twelve, NULL, NULL, NULL);
+    sixteen->setExits(fourteen, NULL, NULL, NULL);
+    currentRoom = one;
+>>>>>>> Stashed changes
 }
 
 /**
@@ -117,18 +184,32 @@ bool ZorkUL::processCommand(Command command) {
 		printHelp();
 
 	else if (commandWord.compare("map") == 0)
-		{
-        cout << "[h] --- [f] --- [g]" << endl;
-		cout << "         |         " << endl;
-        cout << "         |         " << endl;
-		cout << "[c] --- [a] --- [b]" << endl;
-		cout << "         |         " << endl;
-		cout << "         |         " << endl;
-		cout << "[i] --- [d] --- [e]" << endl;
-        cout << " | " << endl;
-        cout << " | " << endl;
-        cout << "[j]" << endl;
-		}
+        //only print out rooms on map if they have been visited.
+    {
+        cout << "                [3]" << endl;
+        cout << "                 | " << endl;
+        cout << "                 | " << endl;
+        cout << "[5] --- [1] --- [2]" << endl;
+        cout << " |               | " << endl;
+        cout << " |               | " << endl;
+        cout << "[6]             [4]" << endl;
+        cout << " | "                 << endl;
+        cout << " | "                 << endl;
+        cout << "[7]"                 << endl;
+        cout << " | "                 << endl;
+        cout << " | | "               << endl;
+        cout << "[8] --- [9] --- [10]"<< endl;
+        cout << "         | "         << endl;
+        cout << "         | "         << endl;
+        cout << "[5] --- [11] --- [2]"<< endl;
+        cout << "          | " << endl;
+        cout << "          | " << endl;
+        cout << "        [12] --- [13] --- [14]" << endl;
+        cout << "          |                 |"  << endl;
+        cout << "                            | " << endl;
+        cout << "         [15]              [16]"<< endl;
+
+    }
 
 	else if (commandWord.compare("go") == 0)
 		goRoom(command);

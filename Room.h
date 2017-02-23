@@ -20,7 +20,7 @@ private:
 public:
     int numberOfItems();
     Room(string description);
-    void setExits(Room *north, Room *east, Room *south, Room *west);
+    void setExits(Room *up, Room *left, Room *down, Room *right);
     string shortDescription();
     string longDescription();
     Room* nextRoom(string direction);
