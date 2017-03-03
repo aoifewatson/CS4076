@@ -19,16 +19,17 @@ MainWindow::MainWindow(QWidget *parent)
 
 int MainWindow::startHandler()
 {
-    QApplication app();
+    /*QApplication app();
 
     CharacterInfo charInfo;
     charInfo.setFixedSize(400,400);
     charInfo.show();
 
-    return app.exec();
-    //ZorkUL temp;
+    return app.exec();*/
+    ZorkUL temp;
     //close();
-    //temp.play();
+    temp.play();
+    return 0;
 }
 
 void MainWindow::exitHandler()

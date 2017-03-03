@@ -4,74 +4,33 @@
 #include "item.h"
 #include "mainwindow.h"
 #include "characterinfo.h"
-
-using namespace std;
 #include "ZorkUL.h"
 
-Character * me;
+using namespace std;
+
 vector <Room*> roomList;
 
 int main(int argc, char **argv) {
-    QApplication app(argc, argv);
+   /*QApplication app(argc, argv);
 
     MainWindow mainWin;
     mainWin.setFixedSize(400,400);
     mainWin.show();
 
-    return app.exec();
+    return app.exec();*/
+
+    ZorkUL temp;
+    //close();
+    temp.play();
+    return 0;
 }
 
 ZorkUL::ZorkUL() {
-    //me = new Character("default");
 	createRooms();
 }
 
 void ZorkUL::createRooms()  {
-<<<<<<< Updated upstream
-    Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
-
-	a = new Room("a");
-        a->addItem(new Item("x", 1, 11));
-        a->addItem(new Item("y", 2, 22));
-        roomList.push_back(a);
-	b = new Room("b");
-        b->addItem(new Item("xx", 3, 33));
-        b->addItem(new Item("yy", 4, 44));
-        roomList.push_back(b);
-	c = new Room("c");
-    roomList.push_back(c);
-    d = new Room("d");
-    roomList.push_back(d);
-	e = new Room("e");
-    roomList.push_back(e);
-	f = new Room("f");
-    roomList.push_back(f);
-	g = new Room("g");
-    roomList.push_back(g);
-	h = new Room("h");
-    roomList.push_back(h);
-	i = new Room("i");
-    roomList.push_back(i);
-    j = new Room("j");
-        j->addItem(new Item("xyz", 5, 55));
-        roomList.push_back(j);
-
-//             (N, E, S, W)
-	a->setExits(f, b, d, c);
-	b->setExits(NULL, NULL, NULL, a);
-	c->setExits(NULL, a, NULL, NULL);
-	d->setExits(a, e, NULL, i);
-	e->setExits(NULL, NULL, NULL, d);
-	f->setExits(NULL, g, a, h);
-	g->setExits(NULL, NULL, NULL, f);
-	h->setExits(NULL, f, NULL, NULL);
-    i->setExits(NULL, d, j, NULL);
-    j->setExits(i, NULL, NULL, NULL);
-
-        currentRoom = a;
-=======
     Room *one, *two, *three, *four, *five, *six, *seven, *eight, *nine, *ten, *eleven, *twelve, *thirteen, *fourteen, *fifteen, *sixteen;
-
     one = new Room("one");
     two = new Room("two");
     three = new Room("three");
@@ -107,6 +66,7 @@ void ZorkUL::createRooms()  {
     roomList.push_back(fifteen);
     roomList.push_back(sixteen);
 
+    //creating items
     //adding items to rooms
     three->addItem(new Item("Key", false));
     four->addItem(new Item("Knife", true));
@@ -134,7 +94,6 @@ void ZorkUL::createRooms()  {
     fifteen->setExits(twelve, NULL, NULL, NULL);
     sixteen->setExits(fourteen, NULL, NULL, NULL);
     currentRoom = one;
->>>>>>> Stashed changes
 }
 
 /**
@@ -278,7 +237,6 @@ void ZorkUL::goRoom(Command command) {
 		cout << "incomplete input"<< endl;
 		return;
 	}
-
 	string direction = command.getSecondWord();
 
 	// Try to leave current room.
@@ -292,7 +250,7 @@ void ZorkUL::goRoom(Command command) {
 	}
 }
 
-string ZorkUL::go(string direction) {
+string ZorkUL::go(string direction) { // is this method needed????
 	//Make the direction lowercase
 	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
 	//Move to the next room
@@ -309,7 +267,6 @@ string ZorkUL::go(string direction) {
 void ZorkUL::takeItem(Command command){
     cout << "You are taking " + command.getSecondWord() << endl;
     string name = command.getSecondWord();
-    Item *itemTaken = new Item(name);
     //*me->addItem(itemTaken);
     int location = currentRoom->isItemInRoom(command.getSecondWord());
     if (location  < 0 )

@@ -8,22 +8,15 @@ using namespace std;
 
 class Item {
 private:
-	string description;
+    string name;
 	string longDescription;
-    //int weightGrams;
-    //float value;
 	bool weaponCheck;
 
 public:
-    //Item (string description, int inWeight, float inValue);
-    Item (string description, bool weaponCheck);
-    Item (string description);
-	string getShortDescription();
+    Item (string name, bool weaponCheck);
+    Item (string name);
+    string getName();
     string getLongDescription();
-    //int getWeight();
-    //void setWeight(int weightGrams);
-    //float getValue();
-    //void setValue(float value);
     bool getWeaponCheck(bool weaponCheck);
 	void setWeaponCheck(int weaponCheck);
 };

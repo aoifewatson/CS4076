@@ -24,7 +24,7 @@ public:
     string shortDescription();
     string longDescription();
     Room* nextRoom(string direction);
-    void addItem(Item *inItem);
+    void addItem(Item *item);
     string displayItem();
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);

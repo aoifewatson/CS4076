@@ -47,15 +47,13 @@ void Room::addItem(Item *inItem) {
 
 string Room::displayItem() {
     string tempString = "items in room = ";
-    int sizeItems = (itemsInRoom.size());
+    int sizeItems = itemsInRoom.size();
     if (itemsInRoom.size() < 1) {
         tempString = "no items in room";
         }
-    else if (itemsInRoom.size() > 0) {
-       int x = (0);
-        for (int n = sizeItems; n > 0; n--) {
-            tempString = tempString + itemsInRoom[x].getShortDescription() + "  " ;
-            x++;
+    else {
+        for (int n =0; n < sizeItems; n++) {
+            tempString += itemsInRoom[n].getName()+"  ";
             }
         }
     return tempString;
@@ -75,7 +73,7 @@ int Room::isItemInRoom(string inString)
        int x = (0);
         for (int n = sizeItems; n > 0; n--) {
             // compare inString with short description
-            int tempFlag = inString.compare( itemsInRoom[x].getShortDescription());
+            int tempFlag = inString.compare( itemsInRoom[x].getName());
             if (tempFlag == 0) {
                 itemsInRoom.erase(itemsInRoom.begin()+x);
                 return x;

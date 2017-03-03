@@ -23,7 +23,7 @@ private:
     void displayItems();
     void teleport();
     void takeItem(Command command);
-
+    Character *me = new Character();
 
 public:
 	ZorkUL();
