@@ -30,6 +30,15 @@ ZorkUL::ZorkUL() {
 }
 
 void ZorkUL::createRooms()  {
+    //creating items
+
+    Item key = new Item("Key", false);
+    Item knife = new Item("Knife", true);
+    Item *torch = new Item("Torch", true);
+    Item *envelope = new Item("Envelope", true);
+    Item *trap = new Item("Trap", false);
+    Item *water = new Item("Water", false);
+
     Room *one, *two, *three, *four, *five, *six, *seven, *eight, *nine, *ten, *eleven, *twelve, *thirteen, *fourteen, *fifteen, *sixteen;
     one = new Room("one");
     two = new Room("two");
@@ -68,17 +77,17 @@ void ZorkUL::createRooms()  {
 
     //creating items
     //adding items to rooms
-    three->addItem(new Item("Key", false));
+    /*three->addItem(new Item("Key", false));
     four->addItem(new Item("Knife", true));
     five->addItem(new Item("Torch", true));
     seven->addItem(new Item("Envelope", true));
     eleven->addItem(new Item("Trap", false));
-    fifteen->addItem(new Item("Water", false));
+    fifteen->addItem(new Item("Water", false));*/
 
 
 //    (N, E, S, W)(up, left, down, right)
     one->setExits(NULL, five, NULL, two);
-    two->setExits(three, NULL, four, NULL);
+    two->setExits(three, one, four, NULL);
     three->setExits(NULL, NULL, two, NULL);
     four->setExits(two, NULL, NULL, NULL);
     five->setExits(NULL, NULL, six, one);

@@ -1,9 +1,13 @@
 #include "Room.h"
 #include "Command.h"
 
+Room::Room(string description){
+   description = description;
+}
 
-Room::Room(string description) {
-	this->description = description;
+Room::Room(string description, Item item) {
+    description = description;
+    itemsInRoom.push_back(item);
 }
 
 void Room::setExits(Room *up, Room *left, Room *down, Room *right) {
@@ -22,7 +26,9 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-	return "room = " + description + ".\n" + displayItem() + exitString();
+    //return "room = " + description + ".\n" + displayItem() + exitString();
+    return "room = " + description + ".\n" + getItems() + exitString();
+
 }
 
 string Room::exitString() {
@@ -33,34 +39,43 @@ string Room::exitString() {
 	return returnString;
 }
 
+
 Room* Room::nextRoom(string direction) {
-	map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
-	if (next == exits.end())
+    map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
+    if (next == exits.end())
 		return NULL; // if exits.end() was returned, there's no room in that direction.
 	return next->second; // If there is a room, remove the "second" (Room*)
 				// part of the "pair" (<string, Room*>) and return it.
 }
 
-void Room::addItem(Item *inItem) {
-    itemsInRoom.push_back(*inItem);
+void Room::addItem(Item inItem) {
+    itemsInRoom.push_back(inItem);
 }
 
 string Room::displayItem() {
-    string tempString = "items in room = ";
+    string tempString = "";
     int sizeItems = itemsInRoom.size();
-    if (itemsInRoom.size() < 1) {
+    if (itemsInRoom.size() < 1)
         tempString = "no items in room";
-        }
     else {
-        for (int n =0; n < sizeItems; n++) {
-            tempString += itemsInRoom[n].getName()+"  ";
-            }
+        for(int n =0; n < sizeItems; n++) {
+            tempString = (itemsInRoom[n].getName());
         }
+    }
     return tempString;
     }
 
+/*string Room::displayItem() {
+    string tempString = "Item is room is ";
+    if (itemInRoom==NULL)
+        tempString = "no items in room";
+    else
+        tempString = tempString + itemInRoom.getName();
+    return tempString;
+    }*/
+
 int Room::numberOfItems() {
-    return itemsInRoom.size();
+    //return itemsInRoom.size();
 }
 
 int Room::isItemInRoom(string inString)
@@ -82,5 +97,18 @@ int Room::isItemInRoom(string inString)
             }
         }
     return -1;
+}
+
+string Room:: getItems(){
+    string items;
+    int sizeItems = (itemsInRoom.size());
+    if (itemsInRoom.size() < 1)
+        items = "No items in room";
+    else{
+        for(int i=0; i < sizeItems; i++){
+            items = items + itemsInRoom[i].getName();
+        }
+    }
+    return items;
 }
 
