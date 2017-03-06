@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Room.h"
 #include "Command.h"
 
@@ -46,17 +47,22 @@ void Room::addItem(Item *inItem) {
 }
 
 string Room::displayItem() {
-    string tempString = "items in room = ";
+    stringstream ss;
+    //string tempString = "items in room = ";
+    ss << "Items in room: ";
     int sizeItems = itemsInRoom.size();
     if (itemsInRoom.size() < 1) {
-        tempString = "no items in room";
+        //tempString = "no items in room";
+        ss << "No items." << endl;
         }
     else {
         for (int n =0; n < sizeItems; n++) {
-            tempString += itemsInRoom[n].getName()+"  ";
+            //tempString += itemsInRoom[n].getName()+"  ";
+            ss << itemsInRoom[n].getName() << " " << endl;
             }
         }
-    return tempString;
+    //return tempString;
+    return ss.str();
     }
 
 int Room::numberOfItems() {

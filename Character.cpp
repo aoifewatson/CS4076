@@ -7,7 +7,7 @@ Character::Character(string description) { //constuctor with name - do we need t
     this->description = description;
 }
 
-void Character::addItem(Item *item) {
+void Character::addItem(Item item) {
     itemsInCharacter.push_back(item);
     //delete item;
 }
@@ -20,7 +20,7 @@ string Character::getName() {
     return name;
 }
 
-vector <Item*> Character::getItemsInCharacter()
+vector <Item> Character::getItemsInCharacter()
 {
     return itemsInCharacter;
 }

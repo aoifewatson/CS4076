@@ -11,14 +11,14 @@ using std::vector;
 class Character {
 private:
 	string description;
-     vector < Item* > itemsInCharacter;
+    vector <Item> itemsInCharacter;
 
 public:
-    void addItem(Item *Item);
+    void addItem(Item item);
     Character(string description);
     Character();
 	string shortDescription();
-    vector <Item*> getItemsInCharacter();
+    vector <Item> getItemsInCharacter();
     void setName(string newName);
     string getName();
 

@@ -74,6 +74,7 @@ void ZorkUL::createRooms()  {
     three->addItem(new Item("Key", false));
     four->addItem(new Item("Knife", true));
     five->addItem(new Item("Torch", true));
+    five->addItem(new Item("Chocolate", false));
     seven->addItem(new Item("Envelope", true));
     eleven->addItem(new Item("Trap", false));
     fifteen->addItem(new Item("Water", false));
@@ -155,21 +156,21 @@ bool ZorkUL::processCommand(Command command) {
         cout << " |               | " << endl;
         cout << " |               | " << endl;
         cout << "[6]             [4]" << endl;
-        cout << " | "                 << endl;
-        cout << " | "                 << endl;
+        cout << " |"                  << endl;
+        cout << " |"                  << endl;
         cout << "[7]"                 << endl;
-        cout << " | "                 << endl;
-        cout << " | | "               << endl;
+        cout << " |"                  << endl;
+        cout << " |"                  << endl;
         cout << "[8] --- [9] --- [10]"<< endl;
         cout << "         | "         << endl;
         cout << "         | "         << endl;
-        cout << "[5] --- [11] --- [2]"<< endl;
-        cout << "          | " << endl;
-        cout << "          | " << endl;
-        cout << "        [12] --- [13] --- [14]" << endl;
-        cout << "          |                 |"  << endl;
-        cout << "                            | " << endl;
-        cout << "         [15]              [16]"<< endl;
+        cout << "[5] --- [11] --- [2]" << endl;
+        cout << "         | "         << endl;
+        cout << "         | "         << endl;
+        cout << "        [12] --- [13] -- [14]" << endl;
+        cout << "         |                |"   << endl;
+        cout << "         |                |"   << endl;
+        cout << "        [15]             [16]" << endl;
 
     }
 
