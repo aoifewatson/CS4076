@@ -17,12 +17,15 @@ public:
     //void addItems(string Item);
     //void addItem(Item &Item);
     void addItem(Item *Item);
-
-public:
 	Character(string description);
 	string shortDescription();
 	string longDescription();
     vector <Item*> getItemsInCharacter();
+    void setName(string newName);
+    string getName();
+
+private:
+    string name;
 
 };
 

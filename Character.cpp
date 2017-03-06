@@ -20,6 +20,14 @@ string Character::longDescription()
   return ret;
 }
 
+void Character::setName(string newName) {
+    name = newName;
+}
+
+string Character::getName() {
+    return name;
+}
+
 vector <Item*> Character::getItemsInCharacter()
 {
     return itemsInCharacter;

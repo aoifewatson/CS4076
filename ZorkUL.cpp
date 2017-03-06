@@ -5,6 +5,9 @@
 #include "mainwindow.h"
 #include "characterinfo.h"
 
+//Initializer list??
+//Friends
+
 using namespace std;
 #include "ZorkUL.h"
 
