@@ -6,22 +6,25 @@
 #include "characterinfo.h"
 #include "ZorkUL.h"
 
+//Initializer list??
+//Friends
+
 using namespace std;
 
 vector <Room*> roomList;
 
 int main(int argc, char **argv) {
-   /*QApplication app(argc, argv);
+   QApplication app(argc, argv);
 
     MainWindow mainWin;
     mainWin.setFixedSize(400,400);
     mainWin.show();
 
-    return app.exec();*/
+    return app.exec();
 
-    ZorkUL temp;
+    //ZorkUL temp;
     //close();
-    temp.play();
+    //temp.play();
     return 0;
 }
 

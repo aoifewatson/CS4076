@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ZorkUL.h"
 #include "characterinfo.h"
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QDir>
 
 #include <QCoreApplication>
 
@@ -17,19 +20,25 @@ MainWindow::MainWindow(QWidget *parent)
     connect(exitButton, SIGNAL (clicked()), this, SLOT (exitHandler()));
 }
 
-int MainWindow::startHandler()
+void MainWindow::startHandler()
 {
+    //charInfo = new CharacterInfo;
+    //charInfo->setFixedSize(400,400);
+    //charInfo->show();
+    //close();
+
+    //return app.exec();
     /*QApplication app();
 
     CharacterInfo charInfo;
     charInfo.setFixedSize(400,400);
     charInfo.show();
 
-    return app.exec();*/
+    return app.exec(); */
+
     ZorkUL temp;
-    //close();
+    close();
     temp.play();
-    return 0;
 }
 
 void MainWindow::exitHandler()

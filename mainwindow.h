@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include "characterinfo.h"
 
 namespace Ui {
     class MainWindow;
@@ -14,11 +15,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
 private slots:
-    int startHandler();
+    void startHandler();
     void exitHandler();
 private:
     QPushButton *startButton;
     QPushButton *exitButton;
+    CharacterInfo *charInfo;
 };
 
 #endif

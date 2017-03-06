@@ -1,6 +1,6 @@
 #include "Character.h"
 
-Character::Character(){ //no args construtor
+Character::Character() {
 }
 
 Character::Character(string description) { //constuctor with name - do we need this method??
@@ -10,6 +10,14 @@ Character::Character(string description) { //constuctor with name - do we need t
 void Character::addItem(Item *item) {
     itemsInCharacter.push_back(item);
     //delete item;
+}
+
+void Character::setName(string newName) {
+    name = newName;
+}
+
+string Character::getName() {
+    return name;
 }
 
 vector <Item*> Character::getItemsInCharacter()

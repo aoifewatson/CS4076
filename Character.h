@@ -15,12 +15,15 @@ private:
 
 public:
     void addItem(Item *Item);
-
-public:
     Character(string description);
     Character();
 	string shortDescription();
     vector <Item*> getItemsInCharacter();
+    void setName(string newName);
+    string getName();
+
+private:
+    string name;
 };
 
 #endif /*CHARACTER_H_*/

@@ -3,24 +3,31 @@
 
 #include <QMainWindow>
 #include <QPushButton>
-#include <QTextEdit>
+#include <QInputDialog>
+#include <Character.h>
+#include <QGridLayout>
+#include <QGroupBox>
+#include <QLineEdit>
+#include <QDialogButtonBox>
+#include <QLabel>
 
-using namespace std;
 
 namespace Ui {
     class CharacterInfo;
 }
 
-class CharacterInfo : public QMainWindow
-{
+class CharacterInfo : public QMainWindow {
     Q_OBJECT
-public:
-    explicit CharacterInfo(QWidget *parent = 0);
-private slots:
-    bool validateText(string);
-private:
-    QPushButton *confirmButton;
-    QTextEdit *askName;
+    public:
+        explicit CharacterInfo(QWidget *parent = 0);
+
+    private slots:
+    void submitHandler();
+
+    private:
+        QLineEdit *name;
+        QPushButton *submit;
+
 };
 
 #endif
