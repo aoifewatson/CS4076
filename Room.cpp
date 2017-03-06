@@ -6,15 +6,15 @@ Room::Room(string description) {
 	this->description = description;
 }
 
-void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
-	if (north != NULL)
-		exits["north"] = north;
-	if (east != NULL)
-		exits["east"] = east;
-	if (south != NULL)
-		exits["south"] = south;
-	if (west != NULL)
-		exits["west"] = west;
+void Room::setExits(Room *up, Room *left, Room *down, Room *right) {
+    if (up != NULL)
+        exits["up"] = up;
+    if (left != NULL)
+        exits["left"] = left;
+    if (down != NULL)
+        exits["down"] = down;
+    if (right != NULL)
+        exits["right"] = right;
 }
 
 string Room::shortDescription() {
@@ -42,22 +42,18 @@ Room* Room::nextRoom(string direction) {
 }
 
 void Room::addItem(Item *inItem) {
-    cout <<endl;
-    cout << "Just added" + inItem->getLongDescription();
     itemsInRoom.push_back(*inItem);
 }
 
 string Room::displayItem() {
     string tempString = "items in room = ";
-    int sizeItems = (itemsInRoom.size());
+    int sizeItems = itemsInRoom.size();
     if (itemsInRoom.size() < 1) {
         tempString = "no items in room";
         }
-    else if (itemsInRoom.size() > 0) {
-       int x = (0);
-        for (int n = sizeItems; n > 0; n--) {
-            tempString = tempString + itemsInRoom[x].getShortDescription() + "  " ;
-            x++;
+    else {
+        for (int n =0; n < sizeItems; n++) {
+            tempString += itemsInRoom[n].getName()+"  ";
             }
         }
     return tempString;
@@ -77,7 +73,7 @@ int Room::isItemInRoom(string inString)
        int x = (0);
         for (int n = sizeItems; n > 0; n--) {
             // compare inString with short description
-            int tempFlag = inString.compare( itemsInRoom[x].getShortDescription());
+            int tempFlag = inString.compare( itemsInRoom[x].getName());
             if (tempFlag == 0) {
                 itemsInRoom.erase(itemsInRoom.begin()+x);
                 return x;

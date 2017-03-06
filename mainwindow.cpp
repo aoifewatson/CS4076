@@ -22,15 +22,23 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::startHandler()
 {
-    charInfo = new CharacterInfo();
-    charInfo->setFixedSize(400,400);
-    charInfo->show();
-    close();
+    //charInfo = new CharacterInfo;
+    //charInfo->setFixedSize(400,400);
+    //charInfo->show();
+    //close();
 
     //return app.exec();
-    //ZorkUL temp;
-    //close();
-    //temp.play();
+    /*QApplication app();
+
+    CharacterInfo charInfo;
+    charInfo.setFixedSize(400,400);
+    charInfo.show();
+
+    return app.exec(); */
+
+    ZorkUL temp;
+    close();
+    temp.play();
 }
 
 void MainWindow::exitHandler()

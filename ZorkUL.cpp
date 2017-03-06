@@ -4,73 +4,99 @@
 #include "item.h"
 #include "mainwindow.h"
 #include "characterinfo.h"
+#include "ZorkUL.h"
 
 //Initializer list??
 //Friends
 
 using namespace std;
-#include "ZorkUL.h"
 
-Character * me;
 vector <Room*> roomList;
 
 int main(int argc, char **argv) {
-    QApplication app(argc, argv);
+   QApplication app(argc, argv);
 
     MainWindow mainWin;
     mainWin.setFixedSize(400,400);
     mainWin.show();
 
     return app.exec();
+
+    //ZorkUL temp;
+    //close();
+    //temp.play();
+    return 0;
 }
 
 ZorkUL::ZorkUL() {
-    //me = new Character("default");
 	createRooms();
 }
 
 void ZorkUL::createRooms()  {
-    Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
+    Room *one, *two, *three, *four, *five, *six, *seven, *eight, *nine, *ten, *eleven, *twelve, *thirteen, *fourteen, *fifteen, *sixteen;
+    one = new Room("one");
+    two = new Room("two");
+    three = new Room("three");
+    four = new Room("four");
+    five = new Room("five");
+    six = new Room("six");
+    seven = new Room("seven");
+    eight = new Room("eight");
+    nine = new Room("nine");
+    ten = new Room("ten");
+    eleven = new Room("eleven");
+    twelve = new Room("tweleve");
+    thirteen = new Room("thirteen");
+    fourteen = new Room("fourteen");
+    fifteen = new Room("fifteen");
+    sixteen = new Room("sixteen");
 
-	a = new Room("a");
-        a->addItem(new Item("x", 1, 11));
-        a->addItem(new Item("y", 2, 22));
-        roomList.push_back(a);
-	b = new Room("b");
-        b->addItem(new Item("xx", 3, 33));
-        b->addItem(new Item("yy", 4, 44));
-        roomList.push_back(b);
-	c = new Room("c");
-    roomList.push_back(c);
-    d = new Room("d");
-    roomList.push_back(d);
-	e = new Room("e");
-    roomList.push_back(e);
-	f = new Room("f");
-    roomList.push_back(f);
-	g = new Room("g");
-    roomList.push_back(g);
-	h = new Room("h");
-    roomList.push_back(h);
-	i = new Room("i");
-    roomList.push_back(i);
-    j = new Room("j");
-        j->addItem(new Item("xyz", 5, 55));
-        roomList.push_back(j);
+    //adding rooms to vector of rooms
+    roomList.push_back(one);
+    roomList.push_back(two);
+    roomList.push_back(three);
+    roomList.push_back(four);
+    roomList.push_back(five);
+    roomList.push_back(six);
+    roomList.push_back(seven);
+    roomList.push_back(eight);
+    roomList.push_back(nine);
+    roomList.push_back(ten);
+    roomList.push_back(eleven);
+    roomList.push_back(twelve);
+    roomList.push_back(thirteen);
+    roomList.push_back(fourteen);
+    roomList.push_back(fifteen);
+    roomList.push_back(sixteen);
 
-//             (N, E, S, W)
-	a->setExits(f, b, d, c);
-	b->setExits(NULL, NULL, NULL, a);
-	c->setExits(NULL, a, NULL, NULL);
-	d->setExits(a, e, NULL, i);
-	e->setExits(NULL, NULL, NULL, d);
-	f->setExits(NULL, g, a, h);
-	g->setExits(NULL, NULL, NULL, f);
-	h->setExits(NULL, f, NULL, NULL);
-    i->setExits(NULL, d, j, NULL);
-    j->setExits(i, NULL, NULL, NULL);
+    //creating items
+    //adding items to rooms
+    three->addItem(new Item("Key", false));
+    four->addItem(new Item("Knife", true));
+    five->addItem(new Item("Torch", true));
+    seven->addItem(new Item("Envelope", true));
+    eleven->addItem(new Item("Trap", false));
+    fifteen->addItem(new Item("Water", false));
 
-        currentRoom = a;
+
+//    (N, E, S, W)(up, left, down, right)
+    one->setExits(NULL, five, NULL, two);
+    two->setExits(three, NULL, four, NULL);
+    three->setExits(NULL, NULL, two, NULL);
+    four->setExits(two, NULL, NULL, NULL);
+    five->setExits(NULL, NULL, six, one);
+    six->setExits(five, NULL, seven, NULL);
+    seven->setExits(six, NULL, eight, NULL);
+    eight->setExits(seven, nine, NULL, NULL);
+    nine->setExits(NULL, eight, eleven, ten);
+    ten->setExits(NULL, nine, NULL, NULL);
+    eleven->setExits(nine, NULL, twelve, NULL);
+    twelve->setExits(eleven, NULL, NULL, thirteen);
+    thirteen->setExits(NULL, twelve, NULL, fourteen);
+    fourteen->setExits(NULL, thirteen, sixteen, NULL);
+    fifteen->setExits(twelve, NULL, NULL, NULL);
+    sixteen->setExits(fourteen, NULL, NULL, NULL);
+    currentRoom = one;
 }
 
 /**
@@ -120,18 +146,32 @@ bool ZorkUL::processCommand(Command command) {
 		printHelp();
 
 	else if (commandWord.compare("map") == 0)
-		{
-        cout << "[h] --- [f] --- [g]" << endl;
-		cout << "         |         " << endl;
-        cout << "         |         " << endl;
-		cout << "[c] --- [a] --- [b]" << endl;
-		cout << "         |         " << endl;
-		cout << "         |         " << endl;
-		cout << "[i] --- [d] --- [e]" << endl;
-        cout << " | " << endl;
-        cout << " | " << endl;
-        cout << "[j]" << endl;
-		}
+        //only print out rooms on map if they have been visited.
+    {
+        cout << "                [3]" << endl;
+        cout << "                 | " << endl;
+        cout << "                 | " << endl;
+        cout << "[5] --- [1] --- [2]" << endl;
+        cout << " |               | " << endl;
+        cout << " |               | " << endl;
+        cout << "[6]             [4]" << endl;
+        cout << " | "                 << endl;
+        cout << " | "                 << endl;
+        cout << "[7]"                 << endl;
+        cout << " | "                 << endl;
+        cout << " | | "               << endl;
+        cout << "[8] --- [9] --- [10]"<< endl;
+        cout << "         | "         << endl;
+        cout << "         | "         << endl;
+        cout << "[5] --- [11] --- [2]"<< endl;
+        cout << "          | " << endl;
+        cout << "          | " << endl;
+        cout << "        [12] --- [13] --- [14]" << endl;
+        cout << "          |                 |"  << endl;
+        cout << "                            | " << endl;
+        cout << "         [15]              [16]"<< endl;
+
+    }
 
 	else if (commandWord.compare("go") == 0)
 		goRoom(command);
@@ -200,7 +240,6 @@ void ZorkUL::goRoom(Command command) {
 		cout << "incomplete input"<< endl;
 		return;
 	}
-
 	string direction = command.getSecondWord();
 
 	// Try to leave current room.
@@ -214,7 +253,7 @@ void ZorkUL::goRoom(Command command) {
 	}
 }
 
-string ZorkUL::go(string direction) {
+string ZorkUL::go(string direction) { // is this method needed????
 	//Make the direction lowercase
 	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
 	//Move to the next room
@@ -231,7 +270,6 @@ string ZorkUL::go(string direction) {
 void ZorkUL::takeItem(Command command){
     cout << "You are taking " + command.getSecondWord() << endl;
     string name = command.getSecondWord();
-    Item *itemTaken = new Item(name);
     //*me->addItem(itemTaken);
     int location = currentRoom->isItemInRoom(command.getSecondWord());
     if (location  < 0 )
