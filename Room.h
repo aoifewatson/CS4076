@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "item.h"
+#include "Character.h"
 using namespace std;
 using std::vector;
 
@@ -14,22 +15,24 @@ private:
     string description;
     map<string, Room*> exits;
     string exitString();
-    vector <Item> itemsInRoom;
+    vector <Item*> itemsInRoom;
+    vector <Character*> othersInRoom;
 
 
 public:
     int numberOfItems();
-    Room(string description, Item item);
+    //Room(string description, Item item);
     Room(string description);
     void setExits(Room *up, Room *left, Room *down, Room *right);
     string shortDescription();
     string longDescription();
     Room* nextRoom(string direction);
-    void addItem(Item item);
+    void addItem(Item *item);
     string displayItem();
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
-    string getItems();
+    //string getItems();
+    void addCharacter(Character *monster);
 
 
 };

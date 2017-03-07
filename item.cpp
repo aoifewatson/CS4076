@@ -1,8 +1,8 @@
 #include "item.h"
 
 Item::Item(string name, bool weaponCheck) {
-    name = name;
-    weaponCheck = weaponCheck;
+    this->name = name;
+    this->weaponCheck = weaponCheck;
 }
 
 bool Item::getWeaponCheck(bool w)

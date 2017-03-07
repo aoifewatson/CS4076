@@ -2,13 +2,13 @@
 #include "Command.h"
 
 Room::Room(string description){
-   description = description;
+   this->description = description;
 }
 
-Room::Room(string description, Item item) {
-    description = description;
-    itemsInRoom.push_back(item);
-}
+/*Room::Room(string description, Item item) {
+    this->description = description;
+    this->itemsInRoom.push_back(item);
+}*/
 
 void Room::setExits(Room *up, Room *left, Room *down, Room *right) {
     if (up != NULL)
@@ -26,9 +26,7 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-    //return "room = " + description + ".\n" + displayItem() + exitString();
-    return "room = " + description + ".\n" + getItems() + exitString();
-
+    return "room = " + description + ".\n" + displayItem() + exitString();
 }
 
 string Room::exitString() {
@@ -48,7 +46,7 @@ Room* Room::nextRoom(string direction) {
 				// part of the "pair" (<string, Room*>) and return it.
 }
 
-void Room::addItem(Item inItem) {
+void Room::addItem(Item *inItem) {
     itemsInRoom.push_back(inItem);
 }
 
@@ -59,7 +57,8 @@ string Room::displayItem() {
         tempString = "no items in room";
     else {
         for(int n =0; n < sizeItems; n++) {
-            tempString = (itemsInRoom[n].getName());
+            Item *temp = itemsInRoom[n];
+            tempString = temp->getName();
         }
     }
     return tempString;
@@ -75,12 +74,12 @@ string Room::displayItem() {
     }*/
 
 int Room::numberOfItems() {
-    //return itemsInRoom.size();
+    return itemsInRoom.size();
 }
 
 int Room::isItemInRoom(string inString)
 {
-    int sizeItems = (itemsInRoom.size());
+    /*int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1) {
         return false;
         }
@@ -95,11 +94,11 @@ int Room::isItemInRoom(string inString)
             }
             x++;
             }
-        }
+        }*/
     return -1;
 }
 
-string Room:: getItems(){
+/*string Room:: getItems(){
     string items;
     int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1)
@@ -110,5 +109,9 @@ string Room:: getItems(){
         }
     }
     return items;
-}
+}*/
 
+void Room::addCharacter(Character *monster){
+    othersInRoom.push_back(monster);
+    cout << "monster created in " << this->shortDescription() << endl;
+}

@@ -21,9 +21,10 @@ private:
 	void goRoom(Command command);
     void createItems();
     void displayItems();
-    void teleport();
+    //void teleport();
     void takeItem(Command command);
     Character *me = new Character();
+    vector <Room*> roomList;
 
 public:
 	ZorkUL();

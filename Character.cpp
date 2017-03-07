@@ -3,8 +3,10 @@
 Character::Character() {
 }
 
-Character::Character(string description) { //constuctor with name - do we need this method??
-    this->description = description;
+Character::Character(string newDescription, int startingHealth, double newHitChance) {
+    this->description = newDescription;
+    this->health = startingHealth;
+    this->hitChance = newHitChance;
 }
 
 void Character::addItem(Item *item) {
@@ -12,18 +14,28 @@ void Character::addItem(Item *item) {
     //delete item;
 }
 
-void Character::setName(string newName) {
+void Character::setName(string newName){
     name = newName;
 }
 
-string Character::getName() {
+string Character::getName() const {
     return name;
 }
 
-vector <Item*> Character::getItemsInCharacter()
-{
+vector <Item*> Character::getItemsInCharacter(){
     return itemsInCharacter;
 }
 
+double Character::getHitChance() const {
+    return this->hitChance;
+}
+
+int Character::getHealth() const {
+    return this->health;
+}
+
+void Character::setHealth(int newHealth){
+    this->health = newHealth;
+}
 
 
