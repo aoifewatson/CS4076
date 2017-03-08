@@ -15,6 +15,7 @@ public:
 	string getSecondWord();
 	bool isUnknown();
 	bool hasSecondWord();
+    bool processCommand(Command command);
 };
 
 #endif /*COMMAND_H_*/
