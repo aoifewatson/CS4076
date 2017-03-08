@@ -29,7 +29,6 @@ string Room::shortDescription() {
 string Room::longDescription() {
     return "Room = " + description + "\n" + displayItem() + exitString();
     //return "room = " + this->description + ".\n" + getItems() + exitString();
-
 }
 
 string Room::exitString() {
@@ -97,7 +96,8 @@ int Room::isItemInRoom(string inString)
     return -1;
 }
 
-string Room::getItems(){
+
+string Room:: getItems(){
     string items;
     int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1)
@@ -118,7 +118,6 @@ Item Room::getItemByName(string itemName) {
             item = itemsInRoom[i];
         }
     }
-
     return item;
 }
 
@@ -147,3 +146,7 @@ int Room::getItemLocation(Item item) {
     return index;
 }
 
+void Room::addCharacter(Character *monster){
+    othersInRoom.push_back(monster);
+    cout << "monster created in " << this->shortDescription() << endl;
+}

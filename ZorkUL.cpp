@@ -11,8 +11,6 @@
 
 using namespace std;
 
-vector <Room*> roomList;
-
 int main(int argc, char **argv) {
    QApplication app(argc, argv);
 
@@ -29,11 +27,12 @@ int main(int argc, char **argv) {
 }
 
 ZorkUL::ZorkUL() {
+    Character *me = new Character("default", 10, .85);
 	createRooms();
 }
 
 void ZorkUL::createRooms()  {
-    //creating items
+    //creating items and extra characters
 
     //Item key = new Item("Key", false);
     //Item knife = new Item("Knife", true);
@@ -41,6 +40,16 @@ void ZorkUL::createRooms()  {
     //Item envelope = new Item("Envelope", true);
     //Item trap = new Item("Trap", false);
     //Item water = new Item("Water", false);
+
+    Item *key = new Item("Key", false);
+    Item *knife = new Item("Knife", true);
+    Item *torch = new Item("Torch", true);
+    Item *envelope = new Item("Envelope", true);
+    Item *trap = new Item("Trap", false);
+    Item *water = new Item("Water", false);
+    Character *monsterOne = new Character("Monster One", 5, .55);
+    Character *monsterTwo = new Character("Monster Two", 10, .75);
+
 
     Room *one, *two, *three, *four, *five, *six, *seven, *eight, *nine, *ten, *eleven, *twelve, *thirteen, *fourteen, *fifteen, *sixteen;
     one = new Room("one");
@@ -78,8 +87,8 @@ void ZorkUL::createRooms()  {
     roomList.push_back(fifteen);
     roomList.push_back(sixteen);
 
-    //creating items
     //adding items to rooms
+/*
     three->addItem(new Item("Key", false));
     four->addItem(new Item("Knife", true));
     five->addItem(new Item("Torch", true));
@@ -87,7 +96,18 @@ void ZorkUL::createRooms()  {
     seven->addItem(new Item("Envelope", true));
     eleven->addItem(new Item("Trap", false));
     fifteen->addItem(new Item("Water", false));
+*/
 
+    three->addItem(key);
+    four->addItem(knife);
+    five->addItem(torch);
+    seven->addItem(envelope);
+    eleven->addItem(trap);
+    fifteen->addItem(water);
+    six->addCharacter(monsterOne);
+    fifteen->addCharacter(monsterTwo);
+
+    //added character monster to room 15 here
 
 //    (N, E, S, W)(up, left, down, right)
     one->setExits(NULL, five, NULL, two);
@@ -113,7 +133,6 @@ void ZorkUL::createRooms()  {
  *  Main play routine.  Loops until end of play.
  */
 void ZorkUL::play() {
-
 	printWelcome();
 
 	// Enter the main command loop.  Here we repeatedly read commands and
@@ -180,7 +199,6 @@ bool ZorkUL::processCommand(Command command) {
         cout << "         |                |"   << endl;
         cout << "         |                |"   << endl;
         cout << "        [15]             [16]" << endl;
-
     }
 
 	else if (commandWord.compare("go") == 0)
@@ -213,7 +231,8 @@ bool ZorkUL::processCommand(Command command) {
     }
 
     else if (commandWord.compare("teleport") == 0)
-        teleport();
+        //teleport();
+        cout << currentRoom->longDescription() << endl;
 
     else if (commandWord.compare("take") == 0)
         takeItem(command);
@@ -282,8 +301,8 @@ void ZorkUL::takeItem(Command command){
         else {
             cout << "Item is in room" << endl;
             me->addItem(currentRoom->getItemByName(itemName));
-            int index = currentRoom->getItemIndex(itemName);
-            currentRoom->removeItemFromRoom(currentRoom->getItemLocation(itemName));
+            //int index = currentRoom->getItemIndex(itemName);
+            //currentRoom->removeItemFromRoom(currentRoom->getItemLocation(itemName));
         }
         cout << endl;
         cout << currentRoom->longDescription() << endl;
@@ -302,12 +321,12 @@ void ZorkUL::displayItems(){
    cout << currentRoom->longDescription() << endl;
 }
 
-void ZorkUL::teleport() {
+/*void ZorkUL::teleport() {
     //currentRoom = a;
     cout << "attempting to teleport" << endl;
     int i = (rand()%9)+1;
     currentRoom = roomList[i];
     cout <<"You are now in room" << currentRoom->shortDescription() << endl;
     cout << currentRoom->longDescription() << endl;
-}
+}*/
 
