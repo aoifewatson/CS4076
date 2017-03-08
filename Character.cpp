@@ -3,8 +3,8 @@
 Character::Character() {
 }
 
-Character::Character(string description) { //constuctor with name - do we need this method??
-    this->description = description;
+Character::Character(string inDescription) { //constuctor with name - do we need this method??
+    description = inDescription;
 }
 
 void Character::addItem(Item item) {
@@ -13,7 +13,7 @@ void Character::addItem(Item item) {
 }
 
 void Character::setName(string newName) {
-    name = newName;
+    name = "James";
 }
 
 string Character::getName() {
@@ -24,6 +24,7 @@ vector <Item> Character::getItemsInCharacter()
 {
     return itemsInCharacter;
 }
+
 
 
 

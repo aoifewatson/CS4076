@@ -1,20 +1,23 @@
 #include "item.h"
 
+//pass by const reference because it is NOT a cheap copy - slightly improves performance
+bool Item::operator==(const Item& item) {
+    return((name == item.getName()) && (weaponCheck == item.getWeaponCheck()));
+}
+
 Item::Item(string newName, bool newWeaponCheck) {
     name = newName;
     weaponCheck = newWeaponCheck;
 }
 
-bool Item::getWeaponCheck(bool w)
-{
-    if(w == false)
-        cout << "Item not a weapon" ;
-    else
-        cout << "Item is a weapon" ;
-    return w;
+Item::Item() {
 }
 
-string Item::getName(){
+bool Item::getWeaponCheck() const {
+    return weaponCheck;
+}
+
+string Item::getName() const {
     return name;
 }
 
@@ -22,4 +25,5 @@ string Item::getLongDescription()
 {
     return " item(s), " + name + ".\n";
 }
+
 

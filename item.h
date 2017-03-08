@@ -13,12 +13,14 @@ private:
 	bool weaponCheck;
 
 public:
-    Item (string name, bool weaponCheck);
+    bool operator==(const Item& item);
+
+    Item (string newName, bool newWeaponCheck);
     Item (string name);
-    string getName();
+    Item ();
+    string getName() const;
     string getLongDescription();
-    bool getWeaponCheck(bool weaponCheck);
-	void setWeaponCheck(int weaponCheck);
+    bool getWeaponCheck() const;
 };
 
 #endif /*ITEM_H_*/
