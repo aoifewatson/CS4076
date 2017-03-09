@@ -17,6 +17,7 @@ int main(int argc, char **argv) {
     MainWindow mainWin;
     mainWin.setFixedSize(400,400);
     mainWin.show();
+
     return app.exec();
     return 0;
 }

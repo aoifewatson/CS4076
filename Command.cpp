@@ -17,7 +17,7 @@ Command::Command(string firstWord, string secondWord) {
  * Return the command word (the first word) of this command. If the
  * command was not understood, the result is null.
  */
-string Command::getCommandWord() {
+string Command::getCommandWord() const {
 	return this->commandWord;
 }
 
@@ -25,7 +25,7 @@ string Command::getCommandWord() {
  * Return the second word of this command. Returns null if there was no
  * second word.
  */
-string Command::getSecondWord() {
+string Command::getSecondWord() const {
 	return this->secondWord;
 }
 

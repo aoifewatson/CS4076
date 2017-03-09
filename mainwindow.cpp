@@ -4,8 +4,9 @@
 #include <QInputDialog>
 #include <QLineEdit>
 #include <QDir>
-
-#include <QCoreApplication>
+#include <QWidget>
+#include <QMainWindow>
+#include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,31 +23,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::startHandler()
 {
-    //charInfo = new CharacterInfo;
-    //charInfo->setFixedSize(400,400);
-    //charInfo->show();
-    //close();
-
-    //return app.exec();
-    /*QApplication app();
-
-    CharacterInfo charInfo;
-    charInfo.setFixedSize(400,400);
-    charInfo.show();
-
-    return app.exec(); */
-
-    //better becuase the game object should last for the whole game
-    //so should be created on heap rather than stack?
-   ZorkUL *game = new ZorkUL();
-
-    //ZorkUL temp;
+    charInfo = new CharacterInfo();
+    charInfo->setFixedSize(400,400);
+    charInfo->show();
     close();
-    //temp.play();
-    game->play();
 }
 
 void MainWindow::exitHandler()
 {
     close();
 }
+

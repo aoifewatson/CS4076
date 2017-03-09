@@ -48,3 +48,5 @@ HEADERS += \
     mainwindow.h \
     characterinfo.h \
     battle.h
+
+FORMS +=

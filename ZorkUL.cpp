@@ -9,19 +9,12 @@
  */
 
 ZorkUL::ZorkUL() {
-    me = new Character("Flan Costello", 10, .85);
+    me = new Character("Flan Costello", 10, .75);
 	createRooms();
 }
 
 void ZorkUL::createRooms()  {
     //creating items and extra characters
-
-    //Item key = new Item("Key", false);
-    //Item knife = new Item("Knife", true);
-    //Item torch = new Item("Torch", true);
-    //Item envelope = new Item("Envelope", true);
-    //Item trap = new Item("Trap", false);
-    //Item water = new Item("Water", false);
 
     Item *key = new Item("Key", false);
     Item *knife = new Item("Knife", true);
@@ -67,17 +60,6 @@ void ZorkUL::createRooms()  {
     roomList.push_back(fourteen);
     roomList.push_back(fifteen);
     roomList.push_back(sixteen);
-
-    //adding items to rooms
-/*
-    three->addItem(new Item("Key", false));
-    four->addItem(new Item("Knife", true));
-    five->addItem(new Item("Torch", true));
-    five->addItem(new Item("Chocolate", false));
-    seven->addItem(new Item("Envelope", true));
-    eleven->addItem(new Item("Trap", false));
-    fifteen->addItem(new Item("Water", false));
-*/
 
     three->addItem(key);
     four->addItem(knife);
@@ -220,8 +202,7 @@ bool ZorkUL::processCommand(Command command) {
         takeItem(command);
     }
     else if (commandWord.compare("pick") == 0){
-        Battle b;
-        b.pickWeapon();
+        //do something here;
     }
     else if (commandWord.compare("inventory") == 0) {
         displayItems();
@@ -253,8 +234,22 @@ void ZorkUL::goRoom(Command command) {
 	// Try to leave current room.
 	Room* nextRoom = currentRoom->nextRoom(direction);
 
-	if (nextRoom == NULL)
+    if (nextRoom == NULL){
 		cout << "underdefined input"<< endl;
+    }
+    //else if statement for battle sequence
+    else if(nextRoom->shortDescription()==("six")){
+        currentRoom = nextRoom;
+        vector <Character*> temp = currentRoom->getOthersInRoom();
+        Battle *battle1 = new Battle();
+        battle1->engageBattle(me, temp[0]);
+    }
+    else if(nextRoom->shortDescription()==("fifteen")){
+        currentRoom = nextRoom;
+        vector <Character*> temp = currentRoom->getOthersInRoom();
+        Battle *battle2 = new Battle();
+        battle2->engageBattle(me, temp[0]);
+    }
 	else {
 		currentRoom = nextRoom;
 		cout << currentRoom->longDescription() << endl;
