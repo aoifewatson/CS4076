@@ -6,9 +6,12 @@ Room::Room(string newDescription){
    description = newDescription;
 }
 
-Room::Room(string newDescription, Item item) {
+Room::Room(string newDescription, Item *item) {
     description = newDescription;
     itemsInRoom.push_back(item);
+}
+
+Room::~Room() {
 }
 
 void Room::setExits(Room *up, Room *left, Room *down, Room *right) {
@@ -49,23 +52,20 @@ Room* Room::nextRoom(string direction) {
 }
 
 void Room::addItem(Item *inItem) {
-    itemsInRoom.push_back(*inItem);
+    itemsInRoom.push_back(inItem);
 }
 
-void Room::removeItemFromRoom(int index) {
-    itemsInRoom.erase(itemsInRoom.begin() + index);
-}
 
 string Room::displayItem() {
     stringstream ss;
     ss << "Items in room:" << endl;
     int sizeItems = itemsInRoom.size();
-    if (itemsInRoom.size() < 1) {
+    if (sizeItems < 1) {
         ss << "There are no items in this room." << endl;
     }
     else {
         for (int n = 0; n < sizeItems; n++) {
-            ss << "- " << itemsInRoom[n].getName() << endl;
+            ss << "- " << itemsInRoom[n]->getName() << endl;
         }
     }
     return ss.str();
@@ -77,72 +77,76 @@ int Room::numberOfItems() {
 
 int Room::isItemInRoom(string inString)
 {
-    int sizeItems = (itemsInRoom.size());
-    if (itemsInRoom.size() < 1) {
-        return false;
+    int sizeItems = itemsInRoom.size();
+    if (sizeItems <= 0) {
+        return -1;
     }
-    else if (itemsInRoom.size() > 0) {
-        int x = 0;
-        for (int n = sizeItems; n > 0; n--) {
-            // compare inString with short description
-            int tempFlag = inString.compare(itemsInRoom[x].getName());
-            if (tempFlag == 0) {
-                itemsInRoom.erase(itemsInRoom.begin()+x);
-                return x;
+    else if (sizeItems > 0) {
+        for (int i = 0; i < sizeItems; i++) {
+            // compare inString with name
+            int tempFlag = inString.compare(itemsInRoom[i]->getName());
+            if (0 == tempFlag) {
+                itemsInRoom.erase(itemsInRoom.begin()+i);
+                return i;
             }
-            x++;
         }
     }
     return -1;
 }
 
 
-string Room:: getItems(){
+string Room::getItems(){
     string items;
     int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1)
         items = "No items in room";
     else{
         for(int i=0; i < sizeItems; i++){
-            items = items + itemsInRoom[i].getName();
+            items = items + itemsInRoom[i]->getName();
         }
     }
     return items;
 }
 
-Item Room::getItemByName(string itemName) {
-    Item item;
+int Room::getItemIndexByName(string itemName) {
+    int index = 0;
     int size = itemsInRoom.size();
     for(int i = 0; i < size; i++) {
-        if (itemName.compare(itemsInRoom[i].getName())) {
-            item = itemsInRoom[i];
+        if (0 == itemName.compare(itemsInRoom[i]->getName())) {
+            index = i;
         }
     }
-    return item;
+    return index;
 }
 
-int Room::getItemIndex(Item item){
+Item* Room::getItemByName(string itemName) {
+    int index = getItemIndexByName(itemName);
+    return itemsInRoom[index];
+}
+
+Item* Room::getItemByIndex(int index) {
+    return itemsInRoom[index];
+}
+
+int Room::getItemIndex(Item *item){
     int itemIndex = 0;
     int size = itemsInRoom.size();
     for(int i = 0; i < size; i++) {
-        if (item == itemsInRoom[i]) {
+        if (item->getName().compare(itemsInRoom[i]->getName())) {
             itemIndex = i;
         }
     }
-
     return itemIndex;
 }
 
 int Room::getItemLocation(Item item) {
     int index = 0;
     int size = itemsInRoom.size();
-    for(int i = 0; i < size; i++) {
-        if(item == itemsInRoom[i]) {
+    for(int i = 0; i < size - 1; i++) {
+        if(item.getName().compare(itemsInRoom[i]->getName())) {
             index = i;
         }
-
     }
-
     return index;
 }
 

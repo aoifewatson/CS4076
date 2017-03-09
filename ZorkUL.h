@@ -23,7 +23,7 @@ private:
     void displayItems();
     //void teleport();
     void takeItem(Command command);
-    Character *me = new Character();
+    Character *me;// = new Character();
     vector <Room*> roomList;
 
 public:

@@ -15,14 +15,15 @@ private:
     string description;
     map<string, Room*> exits;
     string exitString();
-    vector <Item> itemsInRoom;
+    vector <Item*> itemsInRoom;
     vector <Character*> othersInRoom;
+    ~Room();
 
 
 
 public:
     int numberOfItems();
-    Room(string description, Item item);
+    Room(string description, Item *item);
     Room(string description);
     void setExits(Room *up, Room *left, Room *down, Room *right);
     string shortDescription();
@@ -31,12 +32,13 @@ public:
     void addItem(Item *inItem);
     string displayItem();
     int isItemInRoom(string inString);
-    void removeItemFromRoom(int index);
     string getItems();
-    Item getItemByName(string itemName);
-    int getItemIndex(Item item);
+    int getItemIndexByName(string itemName);
+    int getItemIndex(Item *item);
     int getItemLocation(Item item);
     void addCharacter(Character *monster);
+    Item* getItemByIndex(int index);
+    Item* getItemByName(string itemName);
 };
 
 #endif

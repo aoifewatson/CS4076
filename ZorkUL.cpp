@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
 }
 
 ZorkUL::ZorkUL() {
-    Character *me = new Character("default", 10, .85);
+    me = new Character("Flan Costello", 10, .85);
 	createRooms();
 }
 
@@ -45,7 +45,6 @@ void ZorkUL::createRooms()  {
     Item *knife = new Item("Knife", true);
     Item *torch = new Item("Torch", true);
     Item *envelope = new Item("Envelope", true);
-    Item *trap = new Item("Trap", false);
     Item *water = new Item("Water", false);
     Character *monsterOne = new Character("Monster One", 5, .55);
     Character *monsterTwo = new Character("Monster Two", 10, .75);
@@ -102,7 +101,6 @@ void ZorkUL::createRooms()  {
     four->addItem(knife);
     five->addItem(torch);
     seven->addItem(envelope);
-    eleven->addItem(trap);
     fifteen->addItem(water);
     six->addCharacter(monsterOne);
     fifteen->addCharacter(monsterTwo);
@@ -192,7 +190,7 @@ bool ZorkUL::processCommand(Command command) {
         cout << "[8] --- [9] --- [10]"<< endl;
         cout << "         | "         << endl;
         cout << "         | "         << endl;
-        cout << "[5] --- [11] --- [2]" << endl;
+        cout << "        [11]"        << endl;
         cout << "         | "         << endl;
         cout << "         | "         << endl;
         cout << "        [12] --- [13] -- [14]" << endl;
@@ -230,34 +228,39 @@ bool ZorkUL::processCommand(Command command) {
         }
     }
 
-    else if (commandWord.compare("teleport") == 0)
+    else if (commandWord.compare("teleport") == 0) {
         //teleport();
         cout << currentRoom->longDescription() << endl;
+    }
 
-    else if (commandWord.compare("take") == 0)
+    else if (commandWord.compare("take") == 0) {
         takeItem(command);
+    }
 
-    else if (commandWord.compare("inventory") == 0)
+    else if (commandWord.compare("inventory") == 0) {
         displayItems();
+    }
 
     else if (commandWord.compare("quit") == 0) {
-		if (command.hasSecondWord())
+        if (command.hasSecondWord()) {
 			cout << "overdefined input"<< endl;
-		else
+        }
+        else {
 			return true; /**signal to quit*/
+        }
 	}
 	return false;
 }
 /** COMMANDS **/
 void ZorkUL::printHelp() {
-	cout << "valid inputs are; " << endl;
+    cout << "Valid inputs are; " << endl;
 	parser.showCommands();
 
 }
 
 void ZorkUL::goRoom(Command command) {
 	if (!command.hasSecondWord()) {
-		cout << "incomplete input"<< endl;
+        cout << "Incomplete input."<< endl;
 		return;
 	}
 	string direction = command.getSecondWord();
@@ -279,7 +282,7 @@ string ZorkUL::go(string direction) { // is this method needed????
 	//Move to the next room
 	Room* nextRoom = currentRoom->nextRoom(direction);
 	if (nextRoom == NULL)
-		return("direction null");
+        return("There's no exit this way.");
 	else
 	{
 		currentRoom = nextRoom;
@@ -288,34 +291,27 @@ string ZorkUL::go(string direction) { // is this method needed????
 }
 
 void ZorkUL::takeItem(Command command){
-    if (!command.hasSecondWord()) {
-        cout << "incomplete input"<< endl;
+    string itemName = command.getSecondWord();
+    int location = currentRoom->isItemInRoom(itemName);
+    if (0 != location) {
+        cout << "Item '" << itemName << "' is not in the room." << endl;
     }
     else {
+        cout << "Item '" << itemName << "' is in the room." << endl;
+        me->addItem(currentRoom->getItemByName(itemName));
         cout << me->getName() << " took the " + command.getSecondWord() << endl;
-        string itemName = command.getSecondWord();
-        int location = currentRoom->isItemInRoom(itemName);
-        if (location  < 0 ) {
-            cout << "Item is not in room" << endl;
-        }
-        else {
-            cout << "Item is in room" << endl;
-            me->addItem(currentRoom->getItemByName(itemName));
-            //int index = currentRoom->getItemIndex(itemName);
-            //currentRoom->removeItemFromRoom(currentRoom->getItemLocation(itemName));
-        }
-        cout << endl;
-        cout << currentRoom->longDescription() << endl;
     }
+    cout << endl;
+    cout << currentRoom->longDescription() << endl;
 }
 
 void ZorkUL::displayItems(){
    cout << "Items in your inventory:" << endl;
-   vector <Item> itemsList = me->getItemsInCharacter(); //call get method for vector that stores all item picked up
+   vector <Item*> itemsList = me->getItemsInCharacter(); //call get method for vector that stores all item picked up
    //vector<Item*>::iterator itemIterator;
-   int size = me->getItemsInCharacter().size();
+   int size = itemsList.size();
    for (int i = 0; i < size; i++){
-     cout << " -" << itemsList[i].getName() << endl;
+     cout << " -" << itemsList[i]->getName() << endl;
    }
    cout << endl;
    cout << currentRoom->longDescription() << endl;

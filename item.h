@@ -12,8 +12,10 @@ private:
 	string longDescription;
 	bool weaponCheck;
 
+
 public:
-    bool operator==(const Item& item);
+    //bool operator==(const Item& item);
+    ~Item();
 
     Item (string newName, bool newWeaponCheck);
     Item (string name);

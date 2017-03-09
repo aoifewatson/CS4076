@@ -10,25 +10,21 @@ using std::vector;
 
 class Character {
 private:
-	string description;
-    vector <Item> itemsInCharacter;
+    string name;
+    vector <Item*> itemsInCharacter;
     double hitChance;
+    int health;
 
 public:
-    void addItem(Item item);
+    void addItem(Item *item);
     Character(string description, int health, double hitChance);
     Character();
 	string shortDescription();
-    vector <Item> getItemsInCharacter();
-    void setName(string newName);
+    vector <Item*> getItemsInCharacter();
     string getName() const;
     double getHitChance() const;
     int getHealth() const;
     void setHealth(int newHealth);
-
-private:
-    string name;
-    int health;
 };
 
 #endif /*CHARACTER_H_*/
