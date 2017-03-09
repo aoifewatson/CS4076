@@ -1,4 +1,7 @@
 #include "Command.h"
+#include "ZorkUL.h"
+
+using namespace std;
 
 /**
  * Create a command object. First and second word must be supplied, but

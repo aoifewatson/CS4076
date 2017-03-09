@@ -1,30 +1,12 @@
-#include <iostream>
-#include <QApplication>
 #include "Character.h"
 #include "item.h"
-#include "mainwindow.h"
-#include "characterinfo.h"
 #include "ZorkUL.h"
+#include "battle.h"
 
-//Initializer list??
-//Friends
-
-using namespace std;
-
-int main(int argc, char **argv) {
-   QApplication app(argc, argv);
-
-    MainWindow mainWin;
-    mainWin.setFixedSize(400,400);
-    mainWin.show();
-
-    return app.exec();
-
-    //ZorkUL temp;
-    //close();
-    //temp.play();
-    return 0;
-}
+/*ZorkUL::ZorkUL(){ //default constructor
+ *
+ * }
+ */
 
 ZorkUL::ZorkUL() {
     me = new Character("Flan Costello", 10, .85);
@@ -162,6 +144,7 @@ void ZorkUL::printWelcome() {
  * If this command ends the ZorkUL game, true is returned, otherwise false is
  * returned.
  */
+
 bool ZorkUL::processCommand(Command command) {
 	if (command.isUnknown()) {
         cout << "Invalid input."<< endl;
@@ -236,11 +219,13 @@ bool ZorkUL::processCommand(Command command) {
     else if (commandWord.compare("take") == 0) {
         takeItem(command);
     }
-
+    else if (commandWord.compare("pick") == 0){
+        Battle b;
+        b.pickWeapon();
+    }
     else if (commandWord.compare("inventory") == 0) {
         displayItems();
     }
-
     else if (commandWord.compare("quit") == 0) {
         if (command.hasSecondWord()) {
 			cout << "overdefined input"<< endl;

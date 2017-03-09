@@ -7,6 +7,8 @@ class Battle
 private:
 public:
     Battle();
+    void engageBattle();
+    void pickWeapon();
     void engageBattle(Character *me, Character *mon);
     void continueGame();
     void endGame();

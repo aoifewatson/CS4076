@@ -36,9 +36,14 @@ void MainWindow::startHandler()
 
     return app.exec(); */
 
-    ZorkUL temp;
+    //better becuase the game object should last for the whole game
+    //so should be created on heap rather than stack?
+   ZorkUL *game = new ZorkUL();
+
+    //ZorkUL temp;
     close();
-    temp.play();
+    //temp.play();
+    game->play();
 }
 
 void MainWindow::exitHandler()
