@@ -11,8 +11,8 @@ private:
 
 public:
 	Command(string firstWord, string secondWord);
-	string getCommandWord();
-	string getSecondWord();
+    string getCommandWord() const;
+    string getSecondWord() const;
 	bool isUnknown();
 	bool hasSecondWord();
     bool processCommand(Command command);

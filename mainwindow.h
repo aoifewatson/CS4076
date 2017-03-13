@@ -6,13 +6,9 @@
 #include "playwindow.h"
 #include "charinfowindow.h"
 
-namespace Ui {
-    class MainWindow;
-}
-
-class MainWindow : public QMainWindow
+class MainWindow : public QMainWindow //template is QMainWindow
 {
-    Q_OBJECT
+    Q_OBJECT //macro - just leave it as is
 public:
     explicit MainWindow(QWidget *parent = 0);
 private slots:

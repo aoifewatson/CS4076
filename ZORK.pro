@@ -22,7 +22,8 @@ SOURCES += \
     battle.cpp \
     main.cpp \
     playwindow.cpp \
-    charinfowindow.cpp
+    charinfowindow.cpp \
+    battle.h
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -49,4 +50,7 @@ HEADERS += \
     mainwindow.h \
     battle.h \
     playwindow.h \
-    charinfowindow.h
+    charinfowindow.h \
+    characterinfo.h
+
+FORMS +=

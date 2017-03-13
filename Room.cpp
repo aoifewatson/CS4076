@@ -30,7 +30,7 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-    return "Room = " + description + "\n" + displayItem() + exitString();
+    return "Room = " + description + "\n" + displayItem() + displayCharacters() + exitString();
     //return "room = " + this->description + ".\n" + getItems() + exitString();
 }
 
@@ -94,8 +94,8 @@ int Room::isItemInRoom(string inString)
     return -1;
 }
 
+string Room:: getItems() const {
 
-string Room::getItems(){
     string items;
     int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1)
@@ -108,8 +108,20 @@ string Room::getItems(){
     return items;
 }
 
+
 int Room::getItemIndexByName(string itemName) {
     int index = 0;
+    int size = itemsInRoom.size();
+    for(int i = 0; i < size; i++) {
+        if (0 == itemName.compare(itemsInRoom[i]->getName())) {
+            index = i;
+        }
+    }
+    return index;
+}
+
+int Room::getItemByName(string itemName) const {
+    int index=0;
     int size = itemsInRoom.size();
     for(int i = 0; i < size; i++) {
         if (0 == itemName.compare(itemsInRoom[i]->getName())) {
@@ -139,7 +151,7 @@ int Room::getItemIndex(Item *item){
     return itemIndex;
 }
 
-int Room::getItemLocation(Item item) {
+int Room::getItemLocation(Item item) const {
     int index = 0;
     int size = itemsInRoom.size();
     for(int i = 0; i < size - 1; i++) {
@@ -152,5 +164,25 @@ int Room::getItemLocation(Item item) {
 
 void Room::addCharacter(Character *monster){
     othersInRoom.push_back(monster);
-    cout << "monster created in " << this->shortDescription() << endl;
 }
+
+string Room::displayCharacters() const {
+    string characters = "Characters in room: ";
+    int num = this->othersInRoom.size();
+    if(num < 1){
+        characters = characters + "none.";
+        return characters;
+    }
+    else{
+        for(int i=0; i < num; i++){
+            string name = othersInRoom[i]->getName();
+            characters = characters + name;
+        }
+    }
+    return characters;
+}
+
+vector <Character*> Room::getOthersInRoom() const{
+    return othersInRoom;
+}
+

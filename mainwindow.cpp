@@ -2,7 +2,10 @@
 #include <QLineEdit>
 #include <QDir>
 #include <QCoreApplication>
+#include <QWidget>
+#include <QMainWindow>
 
+#include "charinfowindow.h"
 #include "mainwindow.h"
 #include "playwindow.h"
 #include "ZorkUL.h"
@@ -22,22 +25,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::startHandler()
 {
-    close();
     ciWin = new CharInfoWindow();
     ciWin->setFixedSize(400,400);
     ciWin->show();
-
-    //playWin = new PlayWindow();
-    //playWin->setFixedSize(800,500);
-    //playWin->show();
-
-    //ZorkUL temp;
-    //close();
-    //temp.play();
-    //game->play();
+    close();
 }
 
 void MainWindow::exitHandler()
 {
     close();
 }
+

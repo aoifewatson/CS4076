@@ -36,9 +36,18 @@ public:
     int getItemIndexByName(string itemName);
     int getItemIndex(Item *item);
     int getItemLocation(Item item);
-    void addCharacter(Character *monster);
     Item* getItemByIndex(int index);
     Item* getItemByName(string itemName);
+
+    void removeItemFromRoom(int index);
+    string getItems() const;
+    int getItemByName(string itemName) const;
+    int getItemIndex(Item item);
+    int getItemLocation(Item item) const;
+    void addCharacter(Character *monster);
+    string displayCharacters() const;
+    vector <Character*> getOthersInRoom() const;
+
 };
 
 #endif
