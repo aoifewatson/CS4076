@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include <QPushButton>
-#include "characterinfo.h"
+#include "playwindow.h"
+#include "charinfowindow.h"
 
 namespace Ui {
     class MainWindow;
@@ -20,7 +21,9 @@ private slots:
 private:
     QPushButton *startButton;
     QPushButton *exitButton;
-    CharacterInfo *charInfo;
+    PlayWindow *playWin;
+    CharInfoWindow *ciWin;
+
 };
 
 #endif

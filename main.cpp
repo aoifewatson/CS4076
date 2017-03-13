@@ -3,7 +3,6 @@
 #include "Character.h"
 #include "item.h"
 #include "mainwindow.h"
-#include "characterinfo.h"
 #include "ZorkUL.h"
 
 //Initializer list??
@@ -12,7 +11,7 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-   QApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     MainWindow mainWin;
     mainWin.setFixedSize(400,400);

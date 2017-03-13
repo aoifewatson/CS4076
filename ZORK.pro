@@ -19,9 +19,10 @@ SOURCES += \
     Room.cpp \
     ZorkUL.cpp \
     mainwindow.cpp \
-    characterinfo.cpp \
     battle.cpp \
-    main.cpp
+    main.cpp \
+    playwindow.cpp \
+    charinfowindow.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -46,5 +47,6 @@ HEADERS += \
     Room.h \
     ZorkUL.h \
     mainwindow.h \
-    characterinfo.h \
-    battle.h
+    battle.h \
+    playwindow.h \
+    charinfowindow.h

@@ -2,6 +2,7 @@
 #include "item.h"
 #include "ZorkUL.h"
 #include "battle.h"
+#include "playwindow.h"
 
 /*ZorkUL::ZorkUL(){ //default constructor
  *
@@ -119,7 +120,7 @@ void ZorkUL::play() {
 	// execute them until the ZorkUL game is over.
 
 	bool finished = false;
-	while (!finished) {
+    while (!finished) {
 		// Create pointer to command and give it a command.
 		Command* command = parser.getCommand();
 		// Pass dereferenced command and check for end of game.

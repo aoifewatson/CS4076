@@ -1,13 +1,16 @@
 #ifndef ZORKUL_H_
 #define ZORKUL_H_
 
+#include <string>
+#include <iostream>
+
 #include "Command.h"
 #include "Parser.h"
 #include "Room.h"
 #include "item.h"
-#include <iostream>
 #include "Character.h"
-#include <string>
+#include "playwindow.h"
+
 using namespace std;
 
 class ZorkUL {
