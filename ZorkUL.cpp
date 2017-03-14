@@ -9,8 +9,8 @@
  * }
  */
 
-ZorkUL::ZorkUL() {
-    me = new Character("Flan Costello", 10, .75);
+ZorkUL::ZorkUL(string name, string food) {
+    me = new Character(name, food, 10, .75);
 	createRooms();
 }
 
@@ -96,6 +96,10 @@ void ZorkUL::createRooms()  {
  *  Main play routine.  Loops until end of play.
  */
 void ZorkUL::play() {
+    playWin = new PlayWindow();
+    playWin->setFixedSize(800,500);
+    playWin->show();
+
 	printWelcome();
 
 	// Enter the main command loop.  Here we repeatedly read commands and
@@ -103,6 +107,7 @@ void ZorkUL::play() {
 
 	bool finished = false;
     while (!finished) {
+        playWin->sendUpdate(me->getHealth(), currentRoom->shortDescription());
 		// Create pointer to command and give it a command.
 		Command* command = parser.getCommand();
 		// Pass dereferenced command and check for end of game.

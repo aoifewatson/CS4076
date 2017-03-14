@@ -4,6 +4,7 @@
 #include <QCoreApplication>
 #include <QWidget>
 #include <QMainWindow>
+#include <string>
 
 #include "charinfowindow.h"
 #include "mainwindow.h"

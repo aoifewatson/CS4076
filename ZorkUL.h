@@ -17,6 +17,7 @@ class ZorkUL {
 private:
 	Parser parser;
 	Room *currentRoom;
+    PlayWindow *playWin;
     vector <Room*> roomList;
 	void createRooms();
     void printWelcome();
@@ -30,7 +31,7 @@ private:
     void takeItem(Command command); //item.cpp? or character.cpp?
 
 public:
-	ZorkUL();
+    ZorkUL(string name, string food);
 	void play();
     // method should be moved?
 	string go(string direction);

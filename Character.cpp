@@ -1,14 +1,15 @@
 #include "Character.h"
 
 Character::Character() {
-    this->name = "James Reidy (aka the Big Sexy)";
+    this->name = "Flan Costello";
     this->health = 1;
     this->hitChance = 1;
 }
 
 
-Character::Character(string newName, int startingHealth, double newHitChance) {
+Character::Character(string newName, string favFood, int startingHealth, double newHitChance) {
     this->name = newName;
+    this->food = favFood;
     this->health = startingHealth;
     this->hitChance = newHitChance;
 }

@@ -9,7 +9,6 @@
 PlayWindow::PlayWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-
     this->setCentralWidget(new QWidget());
     m_layout = new QHBoxLayout();
     this->centralWidget()->setLayout(m_layout);
@@ -37,6 +36,15 @@ PlayWindow::PlayWindow(QWidget *parent)
 
     rightButton = new QPushButton("Right", this);
     rightButton->setGeometry(QRect(QPoint(450, 425),QSize(50, 50)));
+
+    name = new QLabel(this);
+    name->setGeometry(QRect(QPoint(200, 200),QSize(10, 10)));
+
+    health = new QLabel(this);
+    health->setGeometry(QRect(QPoint(250, 250),QSize(10, 10)));
+
+    currRoom = new QLabel(this);
+    currRoom->setGeometry(QRect(QPoint(220, 220),QSize(10, 10)));
 
     connect(inventoryButton, SIGNAL (clicked()), this, SLOT (inventoryHandler()));
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
@@ -71,4 +79,9 @@ PlayWindow::~PlayWindow() {
     delete downButton;
     delete infoButton;
     delete quitButton;
+}
+
+void PlayWindow::sendUpdate(int newHealth, std::string newRoom) {
+    health->setText(QString::number(newHealth));
+    currRoom->setText(QString::fromStdString(newRoom));
 }

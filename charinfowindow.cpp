@@ -39,10 +39,11 @@ CharInfoWindow::CharInfoWindow(QWidget *parent)
 
 void CharInfoWindow::submitHandler() {
     if(validateText(nameBox->text()) && validateText(foodBox->text())) {
-        playWin = new PlayWindow();
-        playWin->setFixedSize(800,500);
-        playWin->show();
+        name = nameBox->text().toStdString();
+        food = foodBox->text().toStdString();
         close();
+        playGame = new ZorkUL(name, food);
+        playGame->play();
     }
     else if (!validateText(nameBox->text()) || !validateText(foodBox->text())) {
         err->setText("Input must be 3 to 15 characters long and must be alphanumeric.");
@@ -71,7 +72,6 @@ bool CharInfoWindow::validateText(QString toValidate) {
 }
 
 CharInfoWindow::~CharInfoWindow() {
-    delete playWin;
     delete textLayout;
     delete nameBox;
     delete foodBox;

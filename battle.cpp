@@ -25,7 +25,7 @@ void Battle::pickWeapon(Character *me){
 }
 
 void Battle::engageBattle(Character *me, Character *mon){
-    cout << "OH SHIT THERE'S A MONSTER" << endl;
+    cout << "THERE'S A MONSTER" << endl;
     pickWeapon(me);
     //while both characters have health above zero
     while (me->getHealth() > 0 && mon->getHealth() > 0){

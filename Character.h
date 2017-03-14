@@ -11,13 +11,15 @@ using std::vector;
 class Character {
 private:
     string name;
+    string food;
     vector <Item*> itemsInCharacter;
     double hitChance;
     int health;
 
 public:
     void addItem(Item *item);
-    Character(string description, int health, double hitChance);
+    Character(string name, string food, int health, double hitChance);
+    Character(string name, int health, double hitChance);
     Character();
 	string shortDescription();
     vector <Item*> getItemsInCharacter();
