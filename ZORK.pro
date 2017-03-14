@@ -49,6 +49,7 @@ HEADERS += \
     mainwindow.h \
     battle.h \
     playwindow.h \
-    charinfowindow.h
+    charinfowindow.h \
+    main.h
 
 FORMS +=

@@ -4,6 +4,8 @@
 #include "battle.h"
 #include "playwindow.h"
 
+using namespace std;
+
 /*ZorkUL::ZorkUL(){ //default constructor
  *
  * }
@@ -22,9 +24,6 @@ void ZorkUL::createRooms()  {
     Item *torch = new Item("Torch", true);
     Item *envelope = new Item("Envelope", true);
     Item *water = new Item("Water", false);
-    Character *monsterOne = new Character("Monster One", 5, .55);
-    Character *monsterTwo = new Character("Monster Two", 10, .75);
-
 
     Room *one, *two, *three, *four, *five, *six, *seven, *eight, *nine, *ten, *eleven, *twelve, *thirteen, *fourteen, *fifteen, *sixteen;
     one = new Room("one");
@@ -67,8 +66,8 @@ void ZorkUL::createRooms()  {
     five->addItem(torch);
     seven->addItem(envelope);
     fifteen->addItem(water);
-    six->addCharacter(monsterOne);
-    fifteen->addCharacter(monsterTwo);
+    six->addCharacter(new Character("Monster One", 5, .55));
+    fifteen->addCharacter(new Character("Monster Two", 10, .75));
 
     //added character monster to room 15 here
 

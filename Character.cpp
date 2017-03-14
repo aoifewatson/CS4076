@@ -14,6 +14,12 @@ Character::Character(string newName, string favFood, int startingHealth, double 
     this->hitChance = newHitChance;
 }
 
+Character::Character(string newName, int startingHealth, double newHitChance) {
+    this->name = newName;
+    this->health = startingHealth;
+    this->hitChance = newHitChance;
+}
+
 
 void Character::addItem(Item *item) {
     itemsInCharacter.push_back(item);
