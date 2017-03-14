@@ -40,9 +40,9 @@ CharInfoWindow::CharInfoWindow(QWidget *parent)
 void CharInfoWindow::submitHandler() {
     if(validateText(nameBox->text()) && validateText(foodBox->text())) {
         playWin = new PlayWindow();
-        close();
         playWin->setFixedSize(800,500);
         playWin->show();
+        close();
     }
     else if (!validateText(nameBox->text()) || !validateText(foodBox->text())) {
         err->setText("Input must be 3 to 15 characters long and must be alphanumeric.");
@@ -68,4 +68,15 @@ bool CharInfoWindow::validateText(QString toValidate) {
     }
     return valid;
 
+}
+
+CharInfoWindow::~CharInfoWindow() {
+    delete playWin;
+    delete textLayout;
+    delete nameBox;
+    delete foodBox;
+    delete submitButton;
+    delete askName;
+    delete askFood;
+    delete err;
 }

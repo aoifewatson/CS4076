@@ -18,6 +18,7 @@ class CharInfoWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit CharInfoWindow(QWidget *parent = 0);
+    ~CharInfoWindow();
 private slots:
     void submitHandler();
     bool validateText(QString toValidate);

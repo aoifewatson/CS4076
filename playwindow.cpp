@@ -60,3 +60,15 @@ void PlayWindow::infoHandler() {
 void PlayWindow::quitHandler() {
     close();
 }
+
+PlayWindow::~PlayWindow() {
+    delete m_layout;
+    delete inventoryButton;
+    delete mapButton;
+    delete leftButton;
+    delete upButton;
+    delete rightButton;
+    delete downButton;
+    delete infoButton;
+    delete quitButton;
+}

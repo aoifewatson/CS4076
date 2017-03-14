@@ -14,6 +14,7 @@ class PlayWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit PlayWindow(QWidget *parent = 0);
+    ~PlayWindow();
 private slots:
     void inventoryHandler();
     void mapHandler();

@@ -7,7 +7,6 @@
 
 #include "charinfowindow.h"
 #include "mainwindow.h"
-#include "playwindow.h"
 #include "ZorkUL.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -25,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::startHandler()
 {
-    ciWin = new CharInfoWindow();
+    ciWin = new CharInfoWindow;
     ciWin->setFixedSize(400,400);
     ciWin->show();
     close();
@@ -34,5 +33,11 @@ void MainWindow::startHandler()
 void MainWindow::exitHandler()
 {
     close();
+}
+
+MainWindow::~MainWindow() {
+    delete startButton;
+    delete exitButton;
+    delete ciWin;
 }
 
