@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include <QRegExpValidator>
 #include <QValidator>
+
 #include "charinfowindow.h"
 #include "playwindow.h"
 
@@ -31,8 +32,8 @@ CharInfoWindow::CharInfoWindow(QWidget *parent)
     textLayout->addWidget(foodBox,1,1,1,1);
     textLayout->addWidget(submitButton,3,0,1,4);
 
-    QString name = nameBox->text();
-    QString food = foodBox->text();
+    QString qName = nameBox->text();
+    QString qFood = foodBox->text();
 
     connect(submitButton, SIGNAL (clicked()), this, SLOT (submitHandler()));
 }

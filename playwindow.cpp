@@ -38,13 +38,13 @@ PlayWindow::PlayWindow(QWidget *parent)
     rightButton->setGeometry(QRect(QPoint(450, 425),QSize(50, 50)));
 
     name = new QLabel(this);
-    name->setGeometry(QRect(QPoint(200, 200),QSize(10, 10)));
+    name->setGeometry(QRect(QPoint(0, 55),QSize(200, 20)));
 
     health = new QLabel(this);
-    health->setGeometry(QRect(QPoint(250, 250),QSize(10, 10)));
+    health->setGeometry(QRect(QPoint(200, 55),QSize(200, 20)));
 
     currRoom = new QLabel(this);
-    currRoom->setGeometry(QRect(QPoint(220, 220),QSize(10, 10)));
+    currRoom->setGeometry(QRect(QPoint(400, 55),QSize(200, 20)));
 
     connect(inventoryButton, SIGNAL (clicked()), this, SLOT (inventoryHandler()));
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
@@ -81,7 +81,17 @@ PlayWindow::~PlayWindow() {
     delete quitButton;
 }
 
-void PlayWindow::sendUpdate(int newHealth, std::string newRoom) {
-    health->setText(QString::number(newHealth));
-    currRoom->setText(QString::fromStdString(newRoom));
+void PlayWindow::setName(std::string userName) {
+    std::string nameText = "Name: " + userName;
+    name->setText(QString::fromStdString(nameText));
+}
+
+void PlayWindow::setRoom(std::string newRoom) {
+    std::string roomText = "Room: " + newRoom;
+    currRoom->setText(QString::fromStdString(roomText));
+}
+
+void PlayWindow::setHealth(int newHealth) {
+    QString healthText = QString::fromStdString("Health: ") + QString::number(newHealth);
+    health->setText(healthText);
 }
