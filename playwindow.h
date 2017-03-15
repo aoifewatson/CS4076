@@ -16,7 +16,9 @@ class PlayWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit PlayWindow(QWidget *parent = 0);
-    void sendUpdate(int newHealth, std::string newRoom);
+    void setName(std::string userName);
+    void setRoom(std::string newRoom);
+    void setHealth(int newHealth);
     ~PlayWindow();
 
 private slots:

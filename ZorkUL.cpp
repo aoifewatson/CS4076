@@ -13,7 +13,7 @@ using namespace std;
 
 ZorkUL::ZorkUL(string name, string food) {
     me = new Character(name, food, 10, .75);
-	createRooms();
+    createRooms();
 }
 
 void ZorkUL::createRooms()  {
@@ -95,28 +95,12 @@ void ZorkUL::createRooms()  {
  *  Main play routine.  Loops until end of play.
  */
 void ZorkUL::play() {
-    playWin = new PlayWindow();
+    playWin = new PlayWindow;
     playWin->setFixedSize(800,500);
     playWin->show();
-
-	printWelcome();
-
-	// Enter the main command loop.  Here we repeatedly read commands and
-	// execute them until the ZorkUL game is over.
-
-	bool finished = false;
-    while (!finished) {
-        playWin->sendUpdate(me->getHealth(), currentRoom->shortDescription());
-		// Create pointer to command and give it a command.
-		Command* command = parser.getCommand();
-		// Pass dereferenced command and check for end of game.
-		finished = processCommand(*command);
-		// Free the memory allocated by "parser.getCommand()"
-		//   with ("return new Command(...)")
-		delete command;
-	}
-	cout << endl;
-	cout << "end" << endl;
+    playWin->setName(me->getName());
+    playWin->setHealth(me->getHealth());
+    playWin->setRoom(currentRoom->shortDescription());
 }
 
 void ZorkUL::printWelcome() {
@@ -143,7 +127,6 @@ bool ZorkUL::processCommand(Command command) {
 		printHelp();
 
 	else if (commandWord.compare("map") == 0)
-        //only print out rooms on map if they have been visited.
     {
         cout << "                [3]" << endl;
         cout << "                 | " << endl;
@@ -240,7 +223,7 @@ void ZorkUL::goRoom(Command command) {
 	Room* nextRoom = currentRoom->nextRoom(direction);
 
     if (nextRoom == NULL){
-		cout << "underdefined input"<< endl;
+        cout << "underdefined input" << endl;
     }
     //else if statement for battle sequence
     else if(nextRoom->shortDescription()==("six")){
