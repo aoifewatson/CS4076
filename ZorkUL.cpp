@@ -6,13 +6,8 @@
 
 using namespace std;
 
-/*ZorkUL::ZorkUL(){ //default constructor
- *
- * }
- */
-
 ZorkUL::ZorkUL(string name, string food) {
-    me = new Character(name, food, 10, .75);
+    me = new Player(name, food, 10, .75);
 	createRooms();
 }
 
@@ -66,10 +61,10 @@ void ZorkUL::createRooms()  {
     five->addItem(torch);
     seven->addItem(envelope);
     fifteen->addItem(water);
-    six->addCharacter(new Character("Monster One", 5, .55));
-    fifteen->addCharacter(new Character("Monster Two", 10, .75));
+    six->addMonster(new Monster("Monster One", 5, .55));
+    fifteen->addMonster(new Monster("Monster Two", 10, .75));
 
-    //added character monster to room 15 here
+    //added character Monster to room 15 here
 
 //    (N, E, S, W)(up, left, down, right)
     one->setExits(NULL, five, NULL, two);
@@ -104,15 +99,16 @@ void ZorkUL::play() {
 	// Enter the main command loop.  Here we repeatedly read commands and
 	// execute them until the ZorkUL game is over.
 
+    // Create pointer to command and give it a command.
+    // Pass dereferenced command and check for end of game.
+    // Free the memory allocated by "parser.getCommand()"
+    //   with ("return new Command(...)")
+
 	bool finished = false;
     while (!finished) {
         playWin->sendUpdate(me->getHealth(), currentRoom->shortDescription());
-		// Create pointer to command and give it a command.
 		Command* command = parser.getCommand();
-		// Pass dereferenced command and check for end of game.
 		finished = processCommand(*command);
-		// Free the memory allocated by "parser.getCommand()"
-		//   with ("return new Command(...)")
 		delete command;
 	}
 	cout << endl;
@@ -242,23 +238,24 @@ void ZorkUL::goRoom(Command command) {
     if (nextRoom == NULL){
 		cout << "underdefined input"<< endl;
     }
-    //else if statement for battle sequence
-    else if(nextRoom->shortDescription()==("six")){
+    else {
         currentRoom = nextRoom;
-        vector <Character*> temp = currentRoom->getOthersInRoom();
-        Battle *battle1 = new Battle();
-        battle1->engageBattle(me, temp[0]);
+        //else if statement for battle sequence
+        if(currentRoom->shortDescription()==("six")){
+            currentRoom = nextRoom;
+            vector <Monster*> temp = currentRoom->getOthersInRoom();
+            Battle *battle1 = new Battle();
+            battle1->engageBattle(me, temp[0]);
+            //call delete mathodhere - deleteMonsterInRoom()
+        }
+        else if(currentRoom->shortDescription()==("fifteen")){
+            currentRoom = nextRoom;
+            vector <Monster*> temp = currentRoom->getOthersInRoom();
+            Battle *battle2 = new Battle();
+            battle2->engageBattle(me, temp[0]);
+        }
+        cout << currentRoom->longDescription() << endl; //if you win the battle the code automatically go here
     }
-    else if(nextRoom->shortDescription()==("fifteen")){
-        currentRoom = nextRoom;
-        vector <Character*> temp = currentRoom->getOthersInRoom();
-        Battle *battle2 = new Battle();
-        battle2->engageBattle(me, temp[0]);
-    }
-	else {
-		currentRoom = nextRoom;
-		cout << currentRoom->longDescription() << endl;
-	}
 }
 
 string ZorkUL::go(string direction) { // is this method needed????
@@ -310,4 +307,8 @@ void ZorkUL::displayItems(){
     cout <<"You are now in room" << currentRoom->shortDescription() << endl;
     cout << currentRoom->longDescription() << endl;
 }*/
+
+Room* ZorkUL::getCurrentRoom() const{
+    return this->currentRoom;
+}
 

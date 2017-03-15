@@ -5,9 +5,6 @@
 #include "mainwindow.h"
 #include "ZorkUL.h"
 
-//Initializer list??
-//Friends
-
 using namespace std;
 
 int main(int argc, char **argv) {
@@ -18,5 +15,4 @@ int main(int argc, char **argv) {
     mainWin.show();
 
     return app.exec();
-    return 0;
 }

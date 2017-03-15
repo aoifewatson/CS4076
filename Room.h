@@ -5,9 +5,7 @@
 #include <string>
 #include <vector>
 #include "item.h"
-#include "Character.h"
-using namespace std;
-using std::vector;
+#include "Monster.h"
 
 class Room {
 
@@ -16,10 +14,8 @@ private:
     map<string, Room*> exits;
     string exitString();
     vector <Item*> itemsInRoom;
-    vector <Character*> othersInRoom;
+    vector <Monster*> othersInRoom;
     ~Room();
-
-
 
 public:
     int numberOfItems();
@@ -44,9 +40,10 @@ public:
     int getItemByName(string itemName) const;
     int getItemIndex(Item item);
     int getItemLocation(Item item) const;
-    void addCharacter(Character *monster);
+    void addMonster(Monster *Monster);
     string displayCharacters() const;
-    vector <Character*> getOthersInRoom() const;
+    vector <Monster*> getOthersInRoom() const;
+    Room* getCurrentRoom() const;
 
 };
 

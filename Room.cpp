@@ -162,8 +162,8 @@ int Room::getItemLocation(Item item) const {
     return index;
 }
 
-void Room::addCharacter(Character *monster){
-    othersInRoom.push_back(monster);
+void Room::addMonster(Monster *mon){
+    othersInRoom.push_back(mon);
 }
 
 string Room::displayCharacters() const {
@@ -182,7 +182,7 @@ string Room::displayCharacters() const {
     return characters;
 }
 
-vector <Character*> Room::getOthersInRoom() const{
+vector <Monster*> Room::getOthersInRoom() const{
     return othersInRoom;
 }
 

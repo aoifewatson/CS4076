@@ -5,28 +5,13 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-using std::vector;
-
 class Character {
-private:
-    string name;
-    string food;
-    vector <Item*> itemsInCharacter;
-    double hitChance;
-    int health;
-
 public:
-    void addItem(Item *item);
-    Character(string name, string food, int health, double hitChance);
-    Character(string name, int health, double hitChance);
-    Character();
-	string shortDescription();
-    vector <Item*> getItemsInCharacter();
-    string getName() const;
-    double getHitChance() const;
-    int getHealth() const;
-    void setHealth(int newHealth);
+    virtual string getName()const = 0;
+    virtual double getHitChance()const =0;
+    virtual int getHealth()const =0;
+    virtual void setHealth(int newHealth)=0;
+    //virtual ~Character();
 };
 
 #endif /*CHARACTER_H_*/
