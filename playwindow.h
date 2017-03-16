@@ -41,7 +41,6 @@ private slots:
 
 private:
     ZorkUL *playGame;
-    Command *command;
     Parser parser;
     QHBoxLayout *m_layout;
     QPushButton *inventoryButton;

@@ -9,7 +9,6 @@
 #include "Room.h"
 #include "item.h"
 #include "Character.h"
-#include "playwindow.h"
 #include "Player.h"
 
 using namespace std;

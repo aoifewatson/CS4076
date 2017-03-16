@@ -82,27 +82,35 @@ void PlayWindow::quitHandler() {
 }
 
 void PlayWindow::leftHandler() {
+    Command* command;
     command = parser.getCommand("go left");
     playGame->processCommand(*command);
     setRoom();
+    delete command;
 }
 
 void PlayWindow::upHandler() {
+    Command* command;
     command = parser.getCommand("go up");
     playGame->processCommand(*command);
     setRoom();
+    delete command;
 }
 
 void PlayWindow::rightHandler() {
+    Command* command;
     command = parser.getCommand("go right");
     playGame->processCommand(*command);
     setRoom();
+    delete command;
 }
 
 void PlayWindow::downHandler() {
+    Command* command;
     command = parser.getCommand("go down");
     playGame->processCommand(*command);
     setRoom();
+    delete command;
 }
 
 std::string PlayWindow::getCommand() {
