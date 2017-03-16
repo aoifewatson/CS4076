@@ -43,8 +43,12 @@ void CharInfoWindow::submitHandler() {
         name = nameBox->text().toStdString();
         food = foodBox->text().toStdString();
         close();
-        playGame = new ZorkUL(name, food);
-        playGame->play();
+
+        playWin = new PlayWindow;
+        playWin->setFixedSize(800,500);
+        playWin->setup(name, food);
+        //playWin->startGame();
+        playWin->show();
     }
     else if (!validateText(nameBox->text()) || !validateText(foodBox->text())) {
         err->setText("Input must be 3 to 15 characters long and must be alphanumeric.");

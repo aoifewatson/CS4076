@@ -20,10 +20,9 @@ class CharInfoWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit CharInfoWindow(QWidget *parent = 0);
-    ~CharInfoWindow();
     string getName();
     string getFood();
-
+    ~CharInfoWindow();
 
 private slots:
     void submitHandler();
@@ -31,7 +30,8 @@ private slots:
 
 
 private:
-    ZorkUL *playGame;
+    //ZorkUL *playGame;
+    PlayWindow *playWin;
     QGridLayout *textLayout;
     QLineEdit *nameBox;
     QLineEdit *foodBox;
@@ -39,8 +39,8 @@ private:
     QLabel *askName;
     QLabel *askFood;
     QLabel *err;
-    string name;
-    string food;
+    std::string name;
+    std::string food;
 
 };
 

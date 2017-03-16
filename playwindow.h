@@ -6,6 +6,10 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <string>
+#include "Command.h"
+#include "ZorkUL.h"
+#include "parser.h"
+
 
 namespace Ui {
     class PlayWindow;
@@ -17,8 +21,12 @@ class PlayWindow : public QMainWindow
 public:
     explicit PlayWindow(QWidget *parent = 0);
     void setName(std::string userName);
-    void setRoom(std::string newRoom);
+    void setRoom();
     void setHealth(int newHealth);
+    std::string getCommand();
+    void setup(std::string userName, std::string favFood);
+    void startGame();
+
     ~PlayWindow();
 
 private slots:
@@ -26,13 +34,16 @@ private slots:
     void mapHandler();
     void infoHandler();
     void quitHandler();
-    //void leftHandler();
-    //void upHandler();
-    //void rightHandler();
-    //void downHandler();
+    void leftHandler();
+    void upHandler();
+    void rightHandler();
+    void downHandler();
 
 private:
-    QHBoxLayout * m_layout;
+    ZorkUL *playGame;
+    Command *command;
+    Parser parser;
+    QHBoxLayout *m_layout;
     QPushButton *inventoryButton;
     QPushButton *mapButton;
     QPushButton *leftButton;
@@ -44,9 +55,7 @@ private:
     QLabel *name;
     QLabel *health;
     QLabel *currRoom;
-    std::string charName;
-    std::string charHealth;
-    std::string charRoom;
+    std::string commandString;
 };
 
 #endif

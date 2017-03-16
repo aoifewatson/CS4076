@@ -5,6 +5,8 @@
 #include <QVBoxLayout>
 #include <QStackedWidget>
 #include "playwindow.h"
+#include "charinfowindow.h"
+#include "ZorkUL.h"
 
 PlayWindow::PlayWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -50,6 +52,16 @@ PlayWindow::PlayWindow(QWidget *parent)
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
     connect(infoButton, SIGNAL (clicked()), this, SLOT (infoHandler()));
     connect(quitButton, SIGNAL (clicked()), this, SLOT (quitHandler()));
+
+    //Button signals/slots
+    connect(leftButton, SIGNAL (clicked()), this, SLOT (leftHandler()));
+    connect(rightButton, SIGNAL (clicked()), this, SLOT (rightHandler()));
+    connect(upButton, SIGNAL (clicked()), this, SLOT (upHandler()));
+    connect(downButton, SIGNAL (clicked()), this, SLOT (downHandler()));
+}
+
+void PlayWindow::startGame() {
+    playGame->play();
 }
 
 void PlayWindow::inventoryHandler() {
@@ -69,6 +81,34 @@ void PlayWindow::quitHandler() {
     close();
 }
 
+void PlayWindow::leftHandler() {
+    command = parser.getCommand("go left");
+    playGame->processCommand(*command);
+    setRoom();
+}
+
+void PlayWindow::upHandler() {
+    command = parser.getCommand("go up");
+    playGame->processCommand(*command);
+    setRoom();
+}
+
+void PlayWindow::rightHandler() {
+    command = parser.getCommand("go right");
+    playGame->processCommand(*command);
+    setRoom();
+}
+
+void PlayWindow::downHandler() {
+    command = parser.getCommand("go down");
+    playGame->processCommand(*command);
+    setRoom();
+}
+
+std::string PlayWindow::getCommand() {
+    return commandString;
+}
+
 PlayWindow::~PlayWindow() {
     delete m_layout;
     delete inventoryButton;
@@ -86,12 +126,19 @@ void PlayWindow::setName(std::string userName) {
     name->setText(QString::fromStdString(nameText));
 }
 
-void PlayWindow::setRoom(std::string newRoom) {
-    std::string roomText = "Room: " + newRoom;
+void PlayWindow::setRoom() {
+    std::string roomText = "Room: " + playGame->currentRoom->shortDescription();
     currRoom->setText(QString::fromStdString(roomText));
 }
 
 void PlayWindow::setHealth(int newHealth) {
     QString healthText = QString::fromStdString("Health: ") + QString::number(newHealth);
     health->setText(healthText);
+}
+
+void PlayWindow::setup(std::string userName, std::string favFood) {
+    playGame = new ZorkUL(userName, favFood);
+    setName(userName);
+    setHealth(playGame->me->getHealth());
+    setRoom();
 }

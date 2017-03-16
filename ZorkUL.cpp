@@ -95,12 +95,21 @@ void ZorkUL::createRooms()  {
  *  Main play routine.  Loops until end of play.
  */
 void ZorkUL::play() {
-    playWin = new PlayWindow;
+    /*playWin = new PlayWindow;
     playWin->setFixedSize(800,500);
     playWin->show();
     playWin->setName(me->getName());
     playWin->setHealth(me->getHealth());
-    playWin->setRoom(currentRoom->shortDescription());
+    playWin->setRoom(currentRoom->shortDescription()); */
+
+    bool finished = false;
+    while(!finished) {
+        //Command* cmd = parser.getCommand();
+        //finished = processCommand(*cmd);
+        //delete cmd;
+    }
+
+
 }
 
 void ZorkUL::printWelcome() {

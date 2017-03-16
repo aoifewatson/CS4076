@@ -10,7 +10,7 @@ private:
 
 public:
 	Parser();
-	Command* getCommand();
+    Command* getCommand(string newCommand);
 	void showCommands();
 };
 

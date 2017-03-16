@@ -9,15 +9,16 @@
 #include "Room.h"
 #include "item.h"
 #include "Character.h"
-#include "playwindow.h"
+//#include "playwindow.h"
+
 
 using namespace std;
 
 class ZorkUL {
+    friend class PlayWindow;
 private:
 	Parser parser;
 	Room *currentRoom;
-    PlayWindow *playWin;
     vector <Room*> roomList;
 	void createRooms();
     void printWelcome();

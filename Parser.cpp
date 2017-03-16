@@ -4,8 +4,8 @@ Parser::Parser() {
 	commands = new CommandWords();
 }
 
-Command* Parser::getCommand() {
-	string inputLine = ""; // will hold the full input line
+Command* Parser::getCommand(string newCommand) {
+    string inputLine = newCommand; // will hold the full input line
 	string word1;
 	string word2;
 	string buffer;

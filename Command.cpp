@@ -1,3 +1,4 @@
+#include "playwindow.h"
 #include "Command.h"
 #include "ZorkUL.h"
 
