@@ -11,10 +11,6 @@ Command* Parser::getCommand(string newCommand) {
     string buffer = newCommand;
 	vector<string> words;
 
-	cout << "> "; // print prompt
-
-    //getline(cin, buffer, '\n');	// read a line from cin to "buffer"
-
 	string::size_type pos = 0, last_pos = 0;
 
 	// Break "buffer" up by spaces

@@ -54,6 +54,7 @@ private:
     QLabel *name;
     QLabel *health;
     QLabel *currRoom;
+    QLabel *roomDesc;
     std::string commandString;
 };
 

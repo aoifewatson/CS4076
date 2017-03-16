@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "Character.h"
 #include "item.h"
 #include "ZorkUL.h"
@@ -217,8 +219,10 @@ void ZorkUL::printHelp() {
 }
 
 void ZorkUL::goRoom(Command command) {
+    stringstream output;
+
 	if (!command.hasSecondWord()) {
-        cout << "Incomplete input."<< endl;
+        output << "Incomplete input."<< endl;
 		return;
 	}
 	string direction = command.getSecondWord();
@@ -227,7 +231,7 @@ void ZorkUL::goRoom(Command command) {
 	Room* nextRoom = currentRoom->nextRoom(direction);
 
     if (nextRoom == NULL){
-        cout << "underdefined input" << endl;
+        output << "You can't go this way!" << endl;
     }
     else {
         currentRoom = nextRoom;
@@ -245,8 +249,10 @@ void ZorkUL::goRoom(Command command) {
             Battle *battle2 = new Battle();
             battle2->engageBattle(me, temp[0]);
         }
-        cout << currentRoom->longDescription() << endl; //if you win the battle the code automatically go here
+        output << currentRoom->longDescription() << endl; //if you win the battle the code automatically go here
     }
+
+    //return output.str();
 }
 
 string ZorkUL::go(string direction) { // is this method needed????
@@ -259,7 +265,7 @@ string ZorkUL::go(string direction) { // is this method needed????
 	else
 	{
 		currentRoom = nextRoom;
-		return currentRoom->longDescription();
+        return currentRoom->longDescription();
 	}
 }
 

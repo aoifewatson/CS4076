@@ -48,6 +48,10 @@ PlayWindow::PlayWindow(QWidget *parent)
     currRoom = new QLabel(this);
     currRoom->setGeometry(QRect(QPoint(400, 55),QSize(200, 20)));
 
+    roomDesc = new QLabel(this);
+    roomDesc->setGeometry(QRect(QPoint(600, 75),QSize(200, 100)));
+
+    //Top buttons signals/slots
     connect(inventoryButton, SIGNAL (clicked()), this, SLOT (inventoryHandler()));
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
     connect(infoButton, SIGNAL (clicked()), this, SLOT (infoHandler()));
@@ -137,6 +141,7 @@ void PlayWindow::setName(std::string userName) {
 void PlayWindow::setRoom() {
     std::string roomText = "Room: " + playGame->currentRoom->shortDescription();
     currRoom->setText(QString::fromStdString(roomText));
+    roomDesc->setText(QString::fromStdString(playGame->currentRoom->longDescription()));
 }
 
 void PlayWindow::setHealth(int newHealth) {
