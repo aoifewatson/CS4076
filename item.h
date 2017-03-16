@@ -14,7 +14,6 @@ private:
 
 
 public:
-    //bool operator==(const Item& item);
     ~Item();
 
     Item (string newName, bool newWeaponCheck);
@@ -23,6 +22,9 @@ public:
     string getName() const;
     string getLongDescription();
     bool getWeaponCheck() const;
+    bool operator==(const Item& item) {
+             return (this->getName().compare(item.getName()));
+          }
 };
 
 #endif /*ITEM_H_*/

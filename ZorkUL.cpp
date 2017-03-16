@@ -18,8 +18,8 @@ void ZorkUL::createRooms()  {
 
     Item *key = new Item("Key", false);
     Item *knife = new Item("Knife", true);
-    Item *torch = new Item("Torch", true);
-    Item *envelope = new Item("Envelope", true);
+    Item *torch = new Item("Torch", false);
+    Item *envelope = new Item("Envelope", false);
     Item *water = new Item("Water", false);
 
     Room *one, *two, *three, *four, *five, *six, *seven, *eight, *nine, *ten, *eleven, *twelve, *thirteen, *fourteen, *fifteen, *sixteen;
@@ -63,8 +63,8 @@ void ZorkUL::createRooms()  {
     five->addItem(torch);
     seven->addItem(envelope);
     fifteen->addItem(water);
-    six->addMonster(new Monster("Monster One", 5, .55));
-    fifteen->addMonster(new Monster("Monster Two", 10, .75));
+    six->addMonster(new Monster("Small Monster", 5, .55));
+    fifteen->addMonster(new Monster("Bigger Monster", 10, .75));
 
     //added character Monster to room 15 here
 
@@ -76,7 +76,7 @@ void ZorkUL::createRooms()  {
     five->setExits(NULL, NULL, six, one);
     six->setExits(five, NULL, seven, NULL);
     seven->setExits(six, NULL, eight, NULL);
-    eight->setExits(seven, nine, NULL, NULL);
+    eight->setExits(seven, NULL, NULL, nine);
     nine->setExits(NULL, eight, eleven, ten);
     ten->setExits(NULL, nine, NULL, NULL);
     eleven->setExits(nine, NULL, twelve, NULL);
