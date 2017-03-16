@@ -9,8 +9,8 @@
 #include "Room.h"
 #include "item.h"
 #include "Character.h"
-//#include "playwindow.h"
-
+#include "playwindow.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -28,7 +28,7 @@ private:
     void goRoom(Command command); //room.cpp?
     void displayItems(); //item.cpp? or character.cpp?
     //void teleport();
-    Character *me;// = new Character();
+    Player *me;// = new Character();
     void takeItem(Command command); //item.cpp? or character.cpp?
 
 public:
@@ -36,6 +36,7 @@ public:
 	void play();
     // method should be moved?
 	string go(string direction);
+    Room* getCurrentRoom() const;
 
 };
 
