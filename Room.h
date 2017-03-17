@@ -14,7 +14,7 @@ private:
     map<string, Room*> exits;
     string exitString();
     vector <Item*> itemsInRoom;
-    vector <Monster*> othersInRoom;
+    Monster *monsterInRoom;
     ~Room();
 
 public:
@@ -42,8 +42,9 @@ public:
     int getItemLocation(Item item) const;
     void addMonster(Monster *Monster);
     string displayCharacters() const;
-    vector <Monster*> getOthersInRoom() const;
+    Monster* getMonsterInRoom() const;
     Room* getCurrentRoom() const;
+    void deleteMonsterInRoom();
 
 };
 

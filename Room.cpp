@@ -4,6 +4,7 @@
 
 Room::Room(string newDescription){
    description = newDescription;
+   monsterInRoom = NULL;
 }
 
 Room::Room(string newDescription, Item *item) {
@@ -30,8 +31,9 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-    return displayItem() + "\n" + displayCharacters();
+    //return displayItem() + "\n" + displayCharacters();
     //return "room = " + this->description + ".\n" + getItems() + exitString();
+    return displayItem(); //no need to display characters as the monster will be killed before this piece of code is called
 }
 
 string Room::exitString() {
@@ -174,20 +176,22 @@ int Room::getItemLocation(Item item) const {
 }
 
 void Room::addMonster(Monster *mon){
-    othersInRoom.push_back(mon);
+    this->monsterInRoom = mon;
 }
 
-string Room::displayCharacters() const {
-    int num = this->othersInRoom.size();
-    if (num >= 1){
-        for(int i=0; i < num; i++){
-            return "'" + othersInRoom[i]->getName() + "' is in this room!";
-        }
-    }
-    return "";
+string Room::displayCharacters() const { //this method will never return any characters in room, so no need?
+   string result = "";
+   /*bool present = false;
+   if(present){
+       result = "No one else in this room";
+   }*/
+   return result;
 }
 
-vector <Monster*> Room::getOthersInRoom() const{
-    return othersInRoom;
+Monster* Room::getMonsterInRoom() const{
+    return monsterInRoom;
 }
 
+void Room::deleteMonsterInRoom(){
+    delete this->monsterInRoom;
+}

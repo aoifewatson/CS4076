@@ -3,6 +3,7 @@
 #include "Room.h"
 #include "Player.h"
 #include "Monster.h"
+#include "ZorkUL.h"
 
 class Battle
 {
@@ -11,7 +12,7 @@ public:
     Battle();
     void engageBattle(Room *currentRoom);
     void pickWeapon(Player *me);
-    void engageBattle(Player *me, Monster *mon);
+    void engageBattle(ZorkUL *playGame);
     void continueGame();
     void endGame();
 };

@@ -22,6 +22,7 @@ void ZorkUL::createRooms()  {
     Item *envelope = new Item("Envelope", false);
     Item *water = new Item("Water", false);
 
+    //creating rooms
     Room *one, *two, *three, *four, *five, *six, *seven, *eight, *nine, *ten, *eleven, *twelve, *thirteen, *fourteen, *fifteen, *sixteen;
     one = new Room("one");
     two = new Room("two");
@@ -58,6 +59,7 @@ void ZorkUL::createRooms()  {
     roomList.push_back(fifteen);
     roomList.push_back(sixteen);
 
+    //adding items and extra characters to rooms
     three->addItem(key);
     four->addItem(knife);
     five->addItem(torch);
@@ -65,8 +67,6 @@ void ZorkUL::createRooms()  {
     fifteen->addItem(water);
     six->addMonster(new Monster("Small Monster", 5, .55));
     fifteen->addMonster(new Monster("Bigger Monster", 10, .75));
-
-    //added character Monster to room 15 here
 
 //    (N, E, S, W)(up, left, down, right)
     one->setExits(NULL, five, NULL, two);
@@ -229,30 +229,19 @@ void ZorkUL::goRoom(Command command) {
 
 	// Try to leave current room.
 	Room* nextRoom = currentRoom->nextRoom(direction);
-
     if (nextRoom == NULL){
         output << "You can't go this way!" << endl;
     }
     else {
         currentRoom = nextRoom;
-        //else if statement for battle sequence
-        if(currentRoom->shortDescription()==("six")){
-            currentRoom = nextRoom;
-            vector <Monster*> temp = currentRoom->getOthersInRoom();
-            Battle *battle1 = new Battle();
-            battle1->engageBattle(me, temp[0]);
-            //call delete mathodhere - deleteMonsterInRoom()
+        if(currentRoom->getMonsterInRoom() != NULL){ //battle sequence code
+            Battle *battle1;
+            battle1->engageBattle(this);
         }
-        else if(currentRoom->shortDescription()==("fifteen")){
-            currentRoom = nextRoom;
-            vector <Monster*> temp = currentRoom->getOthersInRoom();
-            Battle *battle2 = new Battle();
-            battle2->engageBattle(me, temp[0]);
-        }
-        output << currentRoom->longDescription() << endl; //if you win the battle the code automatically go here
+        //if you get past the if statements, you won the battle and the monster in current room can be deleted
+        currentRoom->deleteMonsterInRoom();
+        cout << currentRoom->longDescription() << endl; //if you win the battle the code automatically go here
     }
-
-    //return output.str();
 }
 
 string ZorkUL::go(string direction) { // is this method needed????
@@ -309,3 +298,6 @@ Room* ZorkUL::getCurrentRoom() const{
     return this->currentRoom;
 }
 
+Player* ZorkUL::getPlayer() const{
+    return this->me;
+}

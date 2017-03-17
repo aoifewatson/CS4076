@@ -1,14 +1,14 @@
 #include "battle.h"
 #include "Character.h"
-#include "Room.h"
 #include "ZorkUL.h"
 #include <random>
+#include <QApplication>
 
 Battle::Battle(){
 
 }
 
-void Battle::engageBattle(Room *currentRoom){
+void Battle::engageBattle(Room *currentRoom){ //this method isn't used?
     cout << "No one to fight here!" << endl;
     cout << currentRoom->longDescription() << endl;
 }
@@ -24,8 +24,14 @@ void Battle::pickWeapon(Player *me){
     cout << "Hint: a weapon might be a good choice" << endl;
 }
 
-void Battle::engageBattle(Player *me, Monster *mon){
-    cout << "THERE'S A Monster" << endl;
+void Battle::engageBattle(ZorkUL *playGame){
+    //is it better to assign temporary variables for monster and player characters
+    //Player *me = playGame ->getPlayer() or just use playGame ->getPlayer() all the time??
+
+    Player *me = playGame->getPlayer();
+    Room *room = playGame->getCurrentRoom();
+    Monster *mon = room->getMonsterInRoom();
+    cout << "THERE'S A MONSTER" << endl;
     pickWeapon(me);
     //while both characters have health above zero
     while (me->getHealth() > 0 && mon->getHealth() > 0){
@@ -43,7 +49,7 @@ void Battle::engageBattle(Player *me, Monster *mon){
     }
     if(mon->getHealth() == 0){
         //continue on in game - continue game method
-        delete mon; //WANT TO DELETE Monster AND POINTER TO Monster IS THIS ENOUGH ???
+        //deleteOthersInRoom();
         cout << endl;
     }
     else if(me->getHealth() == 0){
@@ -54,5 +60,5 @@ void Battle::engageBattle(Player *me, Monster *mon){
 
 void Battle::endGame(){
     cout << "end game" << endl;
-    exit(EXIT_SUCCESS);
+    QApplication::quit(); //slightly more graceful method of exiting game?
 }

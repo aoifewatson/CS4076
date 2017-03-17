@@ -27,16 +27,15 @@ private:
     void goRoom(Command command); //room.cpp?
     void displayItems(); //item.cpp? or character.cpp?
     //void teleport();
-    Player *me;// = new Character();
+    Player *me;//
     void takeItem(Command command); //item.cpp? or character.cpp?
 
 public:
     ZorkUL(string name, string food);
 	void play();
-    // method should be moved?
 	string go(string direction);
     Room* getCurrentRoom() const;
-
+    Player* getPlayer() const;
 };
 
 #endif /*ZORKUL_H_*/
