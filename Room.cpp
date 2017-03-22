@@ -1,4 +1,6 @@
 #include <sstream>
+#include <QString>
+#include <algorithm>
 #include "Room.h"
 #include "Command.h"
 
@@ -195,3 +197,14 @@ Monster* Room::getMonsterInRoom() const{
 void Room::deleteMonsterInRoom(){
     delete this->monsterInRoom;
 }
+
+vector <Item*> Room::getItemsInRoom()const{
+    return itemsInRoom;
+}
+
+void Room::removeItem(Item *item){
+    cout << "line 206" << endl;
+    itemsInRoom.erase( std::remove(itemsInRoom.begin(), itemsInRoom.end(), item), itemsInRoom.end());
+        cout << "line 208" << endl;
+}
+

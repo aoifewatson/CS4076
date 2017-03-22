@@ -19,8 +19,8 @@ void ZorkUL::createRooms()  {
     Item *key = new Item("Key", false);
     Item *knife = new Item("Knife", true);
     Item *torch = new Item("Torch", false);
-    Item *envelope = new Item("Envelope", false);
     Item *water = new Item("Water", false);
+    Item *sword = new Item("Sword", false);
 
     //creating rooms
     Room *one, *two, *three, *four, *five, *six, *seven, *eight, *nine, *ten, *eleven, *twelve, *thirteen, *fourteen, *fifteen, *sixteen;
@@ -63,7 +63,7 @@ void ZorkUL::createRooms()  {
     three->addItem(key);
     four->addItem(knife);
     five->addItem(torch);
-    seven->addItem(envelope);
+    seven->addItem(sword);
     fifteen->addItem(water);
     six->addMonster(new Monster("Small Monster", 5, .55));
     fifteen->addMonster(new Monster("Bigger Monster", 10, .75));
@@ -161,43 +161,6 @@ bool ZorkUL::processCommand(Command command) {
 	else if (commandWord.compare("go") == 0)
 		goRoom(command);
 
-    else if (commandWord.compare("take") == 0)
-    {
-       	if (!command.hasSecondWord()) {
-		cout << "incomplete input"<< endl;
-        }
-        else {
-            ZorkUL::takeItem(command);
-        }
-    }
-
-    else if (commandWord.compare("put") == 0)
-    {
-    cout << "You are trying to put an item in this room" << endl;
-    //cout << currentRoom->longDescription() << endl;
-        {
-        if (!command.hasSecondWord()) {
-            cout << "incomplete input"<< endl;
-            }
-            else
-                if (command.hasSecondWord()) {
-                cout << "You're adding " + command.getSecondWord() << endl;
-                //currentRoom->itemsInRoom.push_back;
-            }
-        }
-    }
-
-    else if (commandWord.compare("teleport") == 0) {
-        //teleport();
-        cout << currentRoom->longDescription() << endl;
-    }
-
-    else if (commandWord.compare("take") == 0) {
-        takeItem(command);
-    }
-    else if (commandWord.compare("pick") == 0){
-        //do something here;
-    }
     else if (commandWord.compare("inventory") == 0) {
         displayItems();
     }
@@ -234,13 +197,6 @@ void ZorkUL::goRoom(Command command) {
     }
     else {
         currentRoom = nextRoom;
-        if(currentRoom->getMonsterInRoom() != NULL){ //battle sequence code
-            Battle *battle1;
-            battle1->engageBattle(this);
-        }
-        //if you get past the if statements, you won the battle and the monster in current room can be deleted
-        currentRoom->deleteMonsterInRoom();
-        cout << currentRoom->longDescription() << endl; //if you win the battle the code automatically go here
     }
 }
 
@@ -256,21 +212,6 @@ string ZorkUL::go(string direction) { // is this method needed????
 		currentRoom = nextRoom;
         return currentRoom->longDescription();
 	}
-}
-
-void ZorkUL::takeItem(Command command){
-    string itemName = command.getSecondWord();
-    int location = currentRoom->isItemInRoom(itemName);
-    if (0 != location) {
-        cout << "Item '" << itemName << "' is not in the room." << endl;
-    }
-    else {
-        cout << "Item '" << itemName << "' is in the room." << endl;
-        me->addItem(currentRoom->getItemByName(itemName));
-        cout << me->getName() << " took the " + command.getSecondWord() << endl;
-    }
-    cout << endl;
-    cout << currentRoom->longDescription() << endl;
 }
 
 void ZorkUL::displayItems(){

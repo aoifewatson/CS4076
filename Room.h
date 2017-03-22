@@ -2,6 +2,7 @@
 #define ROOM_H_
 
 #include <map>
+#include <QString>
 #include <string>
 #include <vector>
 #include "item.h"
@@ -45,6 +46,8 @@ public:
     Monster* getMonsterInRoom() const;
     Room* getCurrentRoom() const;
     void deleteMonsterInRoom();
+    vector <Item*> getItemsInRoom()const;
+    void removeItem(Item *item);
 
 };
 

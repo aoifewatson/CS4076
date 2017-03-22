@@ -39,3 +39,4 @@ void Player::addItem(Item *item){
     itemsInCharacter.push_back(item);
     //delete item;
 }
+
