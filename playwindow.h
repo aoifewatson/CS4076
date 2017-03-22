@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QComboBox>
 #include <string>
 #include "Command.h"
 #include "ZorkUL.h"
@@ -43,7 +44,7 @@ private:
     ZorkUL *playGame;
     Parser parser;
     QHBoxLayout *m_layout;
-    QPushButton *inventoryButton;
+    QComboBox *inventoryButton;
     QPushButton *mapButton;
     QPushButton *leftButton;
     QPushButton *upButton;

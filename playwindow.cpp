@@ -2,6 +2,7 @@
 #include <iostream>
 #include <QLabel>
 #include <QLineEdit>
+#include <QComboBox>
 #include <QVBoxLayout>
 #include <QStackedWidget>
 #include "playwindow.h"
@@ -15,7 +16,7 @@ PlayWindow::PlayWindow(QWidget *parent)
     m_layout = new QHBoxLayout();
     this->centralWidget()->setLayout(m_layout);
 
-    inventoryButton = new QPushButton("Inventory", this);
+    inventoryButton = new QComboBox;
     inventoryButton->setGeometry(QRect(QPoint(0, 0),QSize(200, 50)));
 
     mapButton = new QPushButton("Map", this);
@@ -52,7 +53,7 @@ PlayWindow::PlayWindow(QWidget *parent)
     roomDesc->setGeometry(QRect(QPoint(600, 75),QSize(200, 100)));
 
     //Top buttons signals/slots
-    connect(inventoryButton, SIGNAL (clicked()), this, SLOT (inventoryHandler()));
+    //connect(inventoryButton, SIGNAL (clicked()), this, SLOT (inventoryHandler()));
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
     connect(infoButton, SIGNAL (clicked()), this, SLOT (infoHandler()));
     connect(quitButton, SIGNAL (clicked()), this, SLOT (quitHandler()));
@@ -90,6 +91,7 @@ void PlayWindow::leftHandler() {
     command = parser.getCommand("go left");
     playGame->processCommand(*command);
     setRoom();
+    setItemButtons();
     delete command;
 }
 
@@ -98,6 +100,7 @@ void PlayWindow::upHandler() {
     command = parser.getCommand("go up");
     playGame->processCommand(*command);
     setRoom();
+    addItemButtons();
     delete command;
 }
 
@@ -121,17 +124,7 @@ std::string PlayWindow::getCommand() {
     return commandString;
 }
 
-PlayWindow::~PlayWindow() {
-    delete m_layout;
-    delete inventoryButton;
-    delete mapButton;
-    delete leftButton;
-    delete upButton;
-    delete rightButton;
-    delete downButton;
-    delete infoButton;
-    delete quitButton;
-}
+
 
 void PlayWindow::setName(std::string userName) {
     std::string nameText = "Name: " + userName;
@@ -154,4 +147,24 @@ void PlayWindow::setup(std::string userName, std::string favFood) {
     setName(userName);
     setHealth(playGame->me->getHealth());
     setRoom();
+}
+
+void PlayWindow::setItemButtons() {
+    for (int i = 0; i < playGame->currentRoom->numberOfItems(); i++) {
+        m_layout->addItem(playGame->currentRoom->itemButtons(i));
+    }
+}
+
+
+
+PlayWindow::~PlayWindow() {
+    delete m_layout;
+    delete inventoryButton;
+    delete mapButton;
+    delete leftButton;
+    delete upButton;
+    delete rightButton;
+    delete downButton;
+    delete infoButton;
+    delete quitButton;
 }

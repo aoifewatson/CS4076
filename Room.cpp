@@ -15,6 +15,10 @@ Room::Room(string newDescription, Item *item) {
 Room::~Room() {
 }
 
+vector <QPushButton> Room::getItemButtons() {
+    return itemButtons;
+}
+
 void Room::setExits(Room *up, Room *left, Room *down, Room *right) {
     if (up != NULL)
         exits["up"] = up;
@@ -88,12 +92,17 @@ int Room::isItemInRoom(string inString)
             // compare inString with name
             int tempFlag = inString.compare(itemsInRoom[i]->getName());
             if (0 == tempFlag) {
-                itemsInRoom.erase(itemsInRoom.begin()+i);
+                eraseItemFromRoom(i);
                 return i;
             }
         }
     }
     return -1;
+}
+
+void Room::eraseItemFromRoom(int index) {
+    itemButtons.erase(itemButtons.begin()+index);
+    itemsInRoom.erase(itemsInRoom.begin()+index);
 }
 
 string Room::getItems() const {

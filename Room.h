@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <QPushButton>
 #include "item.h"
 #include "Monster.h"
 
@@ -15,6 +16,7 @@ private:
     string exitString();
     vector <Item*> itemsInRoom;
     Monster *monsterInRoom;
+    vector <QPushButton> itemButtons;
     ~Room();
 
 public:
@@ -34,6 +36,8 @@ public:
     int getItemLocation(Item item);
     Item* getItemByIndex(int index);
     Item* getItemByName(string itemName);
+    void eraseItemFromRoom(int index);
+    vector <QPushButton> getItemButtons();
 
     void removeItemFromRoom(int index);
     string getItems() const;
