@@ -5,9 +5,19 @@
 #include <QComboBox>
 #include <QVBoxLayout>
 #include <QStackedWidget>
+#include <QRadioButton>
+#include <QButtonGroup>
+#include <QVBoxLayout>
+#include <QComboBox>
+#include <QString>
+#include <string.h>
+#include <QCheckBox>
+#include "Command.h"
 #include "playwindow.h"
 #include "charinfowindow.h"
 #include "ZorkUL.h"
+#include "battle.h"
+#include "Room.h"
 
 PlayWindow::PlayWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +25,14 @@ PlayWindow::PlayWindow(QWidget *parent)
     this->setCentralWidget(new QWidget());
     m_layout = new QHBoxLayout();
     this->centralWidget()->setLayout(m_layout);
+
+    itemBox = new QComboBox;
+    m_layout->addWidget(itemBox);
+
+    map = new QLabel(this);
+    map->setPixmap(QPixmap("map.png").scaled(350,300));
+    map->setGeometry(QRect(QPoint(0,250),QSize(350,300)));
+    map->hide();
 
     inventoryButton = new QComboBox;
     inventoryButton->setGeometry(QRect(QPoint(0, 0),QSize(200, 50)));
@@ -40,6 +58,22 @@ PlayWindow::PlayWindow(QWidget *parent)
     rightButton = new QPushButton("Right", this);
     rightButton->setGeometry(QRect(QPoint(450, 425),QSize(50, 50)));
 
+    attackButton = new QPushButton("Attack Monster!", this);
+    attackButton->setGeometry(QRect(QPoint(300, 200),QSize(100, 100)));
+    attackButton->hide();
+
+    takeButton = new QPushButton("Take Item", this);
+    takeButton->setGeometry(QRect(QPoint(500, 100),QSize(100, 100)));
+    takeButton->hide();
+
+
+    QGroupBox *weaponsBox = new QGroupBox("Pick a weapon!", this);
+    weaponsBox->hide();
+
+    buttonGroup = new QButtonGroup();
+
+
+
     name = new QLabel(this);
     name->setGeometry(QRect(QPoint(0, 55),QSize(200, 20)));
 
@@ -52,6 +86,7 @@ PlayWindow::PlayWindow(QWidget *parent)
     roomDesc = new QLabel(this);
     roomDesc->setGeometry(QRect(QPoint(600, 75),QSize(200, 100)));
 
+
     //Top buttons signals/slots
     //connect(inventoryButton, SIGNAL (clicked()), this, SLOT (inventoryHandler()));
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
@@ -63,6 +98,10 @@ PlayWindow::PlayWindow(QWidget *parent)
     connect(rightButton, SIGNAL (clicked()), this, SLOT (rightHandler()));
     connect(upButton, SIGNAL (clicked()), this, SLOT (upHandler()));
     connect(downButton, SIGNAL (clicked()), this, SLOT (downHandler()));
+
+    connect(attackButton, SIGNAL (clicked()), this, SLOT (attackHandler()));
+    connect(takeButton, SIGNAL (clicked()), this, SLOT (takeHandler()));
+
 }
 
 void PlayWindow::startGame() {
@@ -74,8 +113,14 @@ void PlayWindow::inventoryHandler() {
 }
 
 void PlayWindow::mapHandler() {
-    std::cout << "map button" << std::endl;
-
+    if(0 == showMap) {
+        map->show();
+        showMap = 1;
+    }
+    else {
+        map->hide();
+        showMap = 0;
+    }
 }
 
 void PlayWindow::infoHandler() {
@@ -91,7 +136,6 @@ void PlayWindow::leftHandler() {
     command = parser.getCommand("go left");
     playGame->processCommand(*command);
     setRoom();
-    setItemButtons();
     delete command;
 }
 
@@ -100,7 +144,6 @@ void PlayWindow::upHandler() {
     command = parser.getCommand("go up");
     playGame->processCommand(*command);
     setRoom();
-    addItemButtons();
     delete command;
 }
 
@@ -120,41 +163,28 @@ void PlayWindow::downHandler() {
     delete command;
 }
 
-std::string PlayWindow::getCommand() {
-    return commandString;
-}
-
-
-
-void PlayWindow::setName(std::string userName) {
-    std::string nameText = "Name: " + userName;
-    name->setText(QString::fromStdString(nameText));
-}
-
-void PlayWindow::setRoom() {
-    std::string roomText = "Room: " + playGame->currentRoom->shortDescription();
-    currRoom->setText(QString::fromStdString(roomText));
-    roomDesc->setText(QString::fromStdString(playGame->currentRoom->longDescription()));
-}
-
-void PlayWindow::setHealth(int newHealth) {
-    QString healthText = QString::fromStdString("Health: ") + QString::number(newHealth);
-    health->setText(healthText);
-}
-
-void PlayWindow::setup(std::string userName, std::string favFood) {
-    playGame = new ZorkUL(userName, favFood);
-    setName(userName);
-    setHealth(playGame->me->getHealth());
+void PlayWindow::takeHandler() {
+    if (playGame->currentRoom->numberOfItems() > 0)
+    {
+        string item = (itemBox->currentText()).toStdString(); //string name of item being taken
+        Item *temp = (playGame->getCurrentRoom())->getItemByName(item);//getcorresponding object
+        cout << "line 154" << endl;
+        (playGame->getPlayer())->addItem(temp);
+        cout << "line 156" << endl;
+        (playGame->getCurrentRoom())->removeItem(temp);
+        cout << "line 158" << endl;
+    }
     setRoom();
 }
 
-void PlayWindow::setItemButtons() {
-    for (int i = 0; i < playGame->currentRoom->numberOfItems(); i++) {
-        m_layout->addItem(playGame->currentRoom->itemButtons(i));
-    }
+void PlayWindow::attackHandler() {
+    Battle *battle = 0;
+    battle->engageBattle(playGame);
 }
 
+std::string PlayWindow::getCommand() {
+    return commandString;
+}
 
 
 PlayWindow::~PlayWindow() {
@@ -167,4 +197,55 @@ PlayWindow::~PlayWindow() {
     delete downButton;
     delete infoButton;
     delete quitButton;
+    delete attackButton;
+}
+
+void PlayWindow::setName(std::string userName) {
+    std::string nameText = "Name: " + userName;
+    name->setText(QString::fromStdString(nameText));
+}
+
+void PlayWindow::setRoom() {
+    std::string roomText = "Room: " + playGame->currentRoom->shortDescription();
+    currRoom->setText(QString::fromStdString(roomText));
+    roomDesc->setText(QString::fromStdString(playGame->currentRoom->longDescription()));
+    displayRoomItems();
+    //checking if monster is in room
+    if((playGame->getCurrentRoom())->getMonsterInRoom() != NULL){
+        setRadioButtons();
+        attackButton->show(); //when attack is pressed, you attack and the monster attacks back
+    }
+}
+
+void PlayWindow::setHealth(int newHealth) {
+    QString healthText = QString::fromStdString("Health: ") + QString::number(newHealth);
+    health->setText(healthText);
+}
+
+void PlayWindow::setup(std::string userName, std::string favFood) {
+    playGame = new ZorkUL(userName, favFood);
+    setName(userName);
+    setHealth(playGame->me->getHealth());
+    attackButton->hide();
+    setRoom();
+}
+
+
+void PlayWindow::setRadioButtons(){
+    /*vector <Item*> items = (playGame->getPlayer())->getItemsInCharacter();
+    for(vector<Item*>::iterator it = items.begin(); it != items.end(); ++it){
+        if((*it)->getWeaponCheck() != false){
+          buttonGroup->addButton(new QRadioButton(QString::fromStdString((*it)->getName()), this));
+        }
+    }*/
+}
+
+void PlayWindow::displayRoomItems(){
+    itemBox->clear(); //clears items from previous room
+    vector <Item*> itemList = (playGame->getCurrentRoom())->getItemsInRoom();
+    for(vector<Item*>::iterator it = itemList.begin(); it != itemList.end(); ++it){
+        string name = (*it)->getName();
+        itemBox->addItem(QString::fromStdString(name));
+    }
+    takeButton->show();
 }

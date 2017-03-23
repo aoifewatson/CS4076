@@ -1,4 +1,6 @@
 #include <sstream>
+#include <QString>
+#include <algorithm>
 #include "Room.h"
 #include "Command.h"
 
@@ -13,10 +15,6 @@ Room::Room(string newDescription, Item *item) {
 }
 
 Room::~Room() {
-}
-
-vector <QPushButton> Room::getItemButtons() {
-    return itemButtons;
 }
 
 void Room::setExits(Room *up, Room *left, Room *down, Room *right) {
@@ -101,7 +99,6 @@ int Room::isItemInRoom(string inString)
 }
 
 void Room::eraseItemFromRoom(int index) {
-    itemButtons.erase(itemButtons.begin()+index);
     itemsInRoom.erase(itemsInRoom.begin()+index);
 }
 
@@ -202,5 +199,16 @@ Monster* Room::getMonsterInRoom() const{
 }
 
 void Room::deleteMonsterInRoom(){
-    delete this->monsterInRoom;
+    //delete this->monsterInRoom;
 }
+
+vector <Item*> Room::getItemsInRoom()const{
+    return itemsInRoom;
+}
+
+void Room::removeItem(Item *item){
+    cout << "line 206" << endl;
+    itemsInRoom.erase( std::remove(itemsInRoom.begin(), itemsInRoom.end(), item), itemsInRoom.end());
+        cout << "line 208" << endl;
+}
+

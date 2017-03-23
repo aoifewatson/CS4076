@@ -4,7 +4,7 @@
 #include "item.h"
 #include <vector>
 #include <string>
-
+//add implementation for this class !!!
 class Character {
 public:
     virtual string getName()const = 0;

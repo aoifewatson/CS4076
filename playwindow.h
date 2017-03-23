@@ -5,6 +5,9 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QRadioButton>
+#include <QGroupBox>
+#include <QButtonGroup>
 #include <QComboBox>
 #include <string>
 #include "Command.h"
@@ -27,6 +30,9 @@ public:
     std::string getCommand();
     void setup(std::string userName, std::string favFood);
     void startGame();
+    void setRadioButtons();
+    void displayRoomItems();
+
 
     ~PlayWindow();
 
@@ -39,6 +45,8 @@ private slots:
     void upHandler();
     void rightHandler();
     void downHandler();
+    void attackHandler();
+    void takeHandler();
 
 private:
     ZorkUL *playGame;
@@ -57,6 +65,15 @@ private:
     QLabel *currRoom;
     QLabel *roomDesc;
     std::string commandString;
+    QPushButton *attackButton;
+    QRadioButton *knife;
+    QRadioButton *sword;
+    QButtonGroup *buttonGroup;
+    QPushButton *takeButton;
+    QComboBox *itemBox;
+    QLabel *map;
+    bool showMap;
 };
+
 
 #endif

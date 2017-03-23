@@ -2,6 +2,7 @@
 #define ROOM_H_
 
 #include <map>
+#include <QString>
 #include <string>
 #include <vector>
 #include <QPushButton>
@@ -16,7 +17,6 @@ private:
     string exitString();
     vector <Item*> itemsInRoom;
     Monster *monsterInRoom;
-    vector <QPushButton> itemButtons;
     ~Room();
 
 public:
@@ -49,6 +49,8 @@ public:
     Monster* getMonsterInRoom() const;
     Room* getCurrentRoom() const;
     void deleteMonsterInRoom();
+    vector <Item*> getItemsInRoom()const;
+    void removeItem(Item *item);
 
 };
 

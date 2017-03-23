@@ -10,7 +10,6 @@ class Battle
 private:
 public:
     Battle();
-    void engageBattle(Room *currentRoom);
     void pickWeapon(Player *me);
     void engageBattle(ZorkUL *playGame);
     void continueGame();
