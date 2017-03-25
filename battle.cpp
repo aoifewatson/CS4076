@@ -8,17 +8,6 @@ Battle::Battle(){
 
 }
 
-void Battle::pickWeapon(Player *me){
-    //cout << "Pick a weapon to fight with" << endl;
-    //iterate through vector here and pick item to fight with
-    //possible not able to fight with something with weaponCheck of false???
-    //vector <Item*> temp = me->getItemsInCharacter();
-    //for(vector<Item*>::iterator it = temp.begin(); it != temp.end(); ++it){
-        //cout << (*it)->getName() << endl;
-
-    //cout << "Hint: a weapon might be a good choice" << endl;
-}
-
 void Battle::engageBattle(ZorkUL *playGame){
 
     cout << "engage battle method" << endl;
@@ -46,7 +35,7 @@ void Battle::engageBattle(ZorkUL *playGame){
         endGame();
     }
     else if(mon->getHealth() == 0){
-        //do something ?
+        delete mon;
     }
 }
 

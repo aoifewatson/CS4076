@@ -11,7 +11,7 @@ public:
     double getHitChance()const;
     int getHealth()const;
     void setHealth(int newHealth);
-    ~Monster();
+    virtual ~Monster();
 
 private:
     string name;

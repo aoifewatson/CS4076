@@ -207,8 +207,6 @@ vector <Item*> Room::getItemsInRoom()const{
 }
 
 void Room::removeItem(Item *item){
-    cout << "line 206" << endl;
     itemsInRoom.erase( std::remove(itemsInRoom.begin(), itemsInRoom.end(), item), itemsInRoom.end());
-        cout << "line 208" << endl;
 }
 

@@ -20,7 +20,7 @@ void ZorkUL::createRooms()  {
     Item *knife = new Item("Knife", true);
     Item *torch = new Item("Torch", false);
     Item *water = new Item("Water", false);
-    Item *sword = new Item("Sword", false);
+    Item *sword = new Item("Sword", true);
 
     //creating rooms
     Room *one, *two, *three, *four, *five, *six, *seven, *eight, *nine, *ten, *eleven, *twelve, *thirteen, *fourteen, *fifteen, *sixteen;

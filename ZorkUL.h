@@ -26,7 +26,6 @@ private:
     bool processCommand(Command command); //command.cpp?
     void goRoom(Command command); //room.cpp?
     void displayItems(); //item.cpp? or character.cpp?
-    //void teleport();
     Player *me;//
     void takeItem(Command command); //item.cpp? or character.cpp?
 

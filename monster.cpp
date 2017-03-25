@@ -5,6 +5,7 @@ Monster::Monster(){
 }
 
 Monster::~Monster(){
+    cout << "deleting monster" << endl;
 
 }
 
