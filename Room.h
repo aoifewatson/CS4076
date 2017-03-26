@@ -51,6 +51,7 @@ public:
     void deleteMonsterInRoom();
     vector <Item*> getItemsInRoom()const;
     void removeItem(Item *item);
+    void setNullMonster();
 
 };
 

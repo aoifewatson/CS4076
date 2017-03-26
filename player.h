@@ -8,10 +8,10 @@ public:
     void addItem(Item *item);
     Player(string name, string food, int health, double hitChance);
     Player();
-    string getName()const;
-    double getHitChance()const;
-    int getHealth()const;
-    void setHealth(int newHealth);
+    //string getName()const;
+    //double getHitChance()const;
+    //int getHealth()const;
+    //void setHealth(int newHealth);
     vector <Item*> getItemsInCharacter()const;
     ~Player();
 

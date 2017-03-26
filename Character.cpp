@@ -1,10 +1,20 @@
-//#include "Character.h"
+#include "Character.h"
 
-/*Character::Character(){
+//Character::~Character(){
+//}
+
+string Character::getName()const{
+    return this->name;
 }
 
-Character::Character(string newName, int newHealth, double newHitChance){
-    this->name = newName;
+double Character::getHitChance()const{
+    return this->hitChance;
+}
+
+int Character::getHealth()const{
+   return this->health;
+}
+
+void Character::setHealth(int newHealth){
     this->health = newHealth;
-    this->hitChance = newHitChance;
-}*/
+}

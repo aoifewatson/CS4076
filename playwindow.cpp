@@ -141,7 +141,7 @@ PlayWindow::PlayWindow(QWidget *parent)
 }
 
 void PlayWindow::startGame() {
-    playGame->play();
+    //playGame->play();
 }
 
 void PlayWindow::inventoryHandler() {

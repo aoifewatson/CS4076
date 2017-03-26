@@ -7,11 +7,11 @@ class Monster : public Character
 public:
     Monster();
     Monster(string name, int health, double hitChance);
-    string getName()const;
-    double getHitChance()const;
-    int getHealth()const;
-    void setHealth(int newHealth);
-    virtual ~Monster();
+    //string getName()const;
+    //double getHitChance()const;
+    //int getHealth()const;
+    //void setHealth(int newHealth);
+    ~Monster();
 
 private:
     string name;

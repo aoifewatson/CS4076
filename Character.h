@@ -4,14 +4,19 @@
 #include "item.h"
 #include <vector>
 #include <string>
-//add implementation for this class !!!
+
 class Character {
 public:
-    virtual string getName()const = 0;
-    virtual double getHitChance()const =0;
-    virtual int getHealth()const =0;
-    virtual void setHealth(int newHealth)=0;
+    virtual string getName()const;
+    virtual double getHitChance()const;
+    virtual int getHealth()const;
+    virtual void setHealth(int newHealth);
     //virtual ~Character();
+
+private:
+    string name;
+    int health;
+    double hitChance;
 };
 
 #endif /*CHARACTER_H_*/

@@ -88,99 +88,22 @@ void ZorkUL::createRooms()  {
     currentRoom = one;
 }
 
-/**
- *  Main play routine.  Loops until end of play.
- */
-void ZorkUL::play() {
-    /*playWin = new PlayWindow;
-    playWin->setFixedSize(800,500);
-    playWin->show();
-    playWin->setName(me->getName());
-    playWin->setHealth(me->getHealth());
-    playWin->setRoom(currentRoom->shortDescription()); */
-
-    bool finished = false;
-    while(!finished) {
-        //Command* cmd = parser.getCommand();
-        //finished = processCommand(*cmd);
-        //delete cmd;
-    }
-
-
-}
-
-void ZorkUL::printWelcome() {
-	cout << "start"<< endl;
-	cout << "info for help"<< endl;
-	cout << endl;
-	cout << currentRoom->longDescription() << endl;
-}
-
-/**
- * Given a command, process (that is: execute) the command.
- * If this command ends the ZorkUL game, true is returned, otherwise false is
- * returned.
- */
 
 bool ZorkUL::processCommand(Command command) {
+    string commandWord = command.getCommandWord();
 	if (command.isUnknown()) {
         cout << "Invalid input."<< endl;
 		return false;
 	}
-
-	string commandWord = command.getCommandWord();
-	if (commandWord.compare("info") == 0)
-		printHelp();
-
-	else if (commandWord.compare("map") == 0)
-    {
-        cout << "                [3]" << endl;
-        cout << "                 | " << endl;
-        cout << "                 | " << endl;
-        cout << "[5] --- [1] --- [2]" << endl;
-        cout << " |               | " << endl;
-        cout << " |               | " << endl;
-        cout << "[6]             [4]" << endl;
-        cout << " |"                  << endl;
-        cout << " |"                  << endl;
-        cout << "[7]"                 << endl;
-        cout << " |"                  << endl;
-        cout << " |"                  << endl;
-        cout << "[8] --- [9] --- [10]"<< endl;
-        cout << "         | "         << endl;
-        cout << "         | "         << endl;
-        cout << "        [11]"        << endl;
-        cout << "         | "         << endl;
-        cout << "         | "         << endl;
-        cout << "        [12] --- [13] -- [14]" << endl;
-        cout << "         |                |"   << endl;
-        cout << "         |                |"   << endl;
-        cout << "        [15]             [16]" << endl;
-    }
-
-	else if (commandWord.compare("go") == 0)
+    if (commandWord.compare("go") == 0)
 		goRoom(command);
 
-    else if (commandWord.compare("inventory") == 0) {
-        displayItems();
-    }
-    else if (commandWord.compare("quit") == 0) {
-        if (command.hasSecondWord()) {
-			cout << "overdefined input"<< endl;
-        }
-        else {
-			return true; /**signal to quit*/
-        }
-	}
+    //else if (commandWord.compare("inventory") == 0)
+        //displayItems();
+
 	return false;
 }
 /** COMMANDS **/
-void ZorkUL::printHelp() {
-    cout << "Valid inputs are; " << endl;
-	parser.showCommands();
-
-}
-
 void ZorkUL::goRoom(Command command) {
     stringstream output;
 
@@ -201,9 +124,6 @@ void ZorkUL::goRoom(Command command) {
 }
 
 string ZorkUL::go(string direction) { // is this method needed????
-	//Make the direction lowercase
-	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
-	//Move to the next room
 	Room* nextRoom = currentRoom->nextRoom(direction);
 	if (nextRoom == NULL)
         return("There's no exit this way.");
@@ -214,25 +134,11 @@ string ZorkUL::go(string direction) { // is this method needed????
 	}
 }
 
-void ZorkUL::displayItems(){
-   cout << "Items in your inventory:" << endl;
+/*void ZorkUL::displayItems(){
    vector <Item*> itemsList = me->getItemsInCharacter(); //call get method for vector that stores all item picked up
-   //vector<Item*>::iterator itemIterator;
    int size = itemsList.size();
    for (int i = 0; i < size; i++){
-     cout << " -" << itemsList[i]->getName() << endl;
    }
-   cout << endl;
-   cout << currentRoom->longDescription() << endl;
-}
-
-/*void ZorkUL::teleport() {
-    //currentRoom = a;
-    cout << "attempting to teleport" << endl;
-    int i = (rand()%9)+1;
-    currentRoom = roomList[i];
-    cout <<"You are now in room" << currentRoom->shortDescription() << endl;
-    cout << currentRoom->longDescription() << endl;
 }*/
 
 Room* ZorkUL::getCurrentRoom() const{

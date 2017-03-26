@@ -210,3 +210,6 @@ void Room::removeItem(Item *item){
     itemsInRoom.erase( std::remove(itemsInRoom.begin(), itemsInRoom.end(), item), itemsInRoom.end());
 }
 
+void Room::setNullMonster(){
+    this->monsterInRoom = NULL;
+}
