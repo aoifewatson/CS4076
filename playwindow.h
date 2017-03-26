@@ -49,13 +49,15 @@ private slots:
     void downHandler();
     void attackHandler();
     void takeHandler();
-    void on_pushButton_clicked();
+    void weaponHandler();
+    void hideDirectionalButtons();
+    void showDirectionalButtons();
 
 private:
     ZorkUL *playGame;
     Parser parser;
     QVBoxLayout *m_layout;
-    QComboBox *inventoryButton;
+    QComboBox *inventory;
     QPushButton *mapButton;
     QPushButton *leftButton;
     QPushButton *upButton;

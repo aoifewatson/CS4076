@@ -36,7 +36,8 @@ PlayWindow::PlayWindow(QWidget *parent)
     map->setPixmap(QPixmap("map.png").scaled(350,300));
     map->setGeometry(QRect(QPoint(0,250),QSize(350,300)));
 
-    inventoryButton = new QComboBox;
+    inventory = new QComboBox;
+    inventory->addItem("Inventory");
     mapButton = new QPushButton("Map", this);
     infoButton = new QPushButton("Info", this);
     quitButton = new QPushButton("Quit", this);
@@ -47,10 +48,15 @@ PlayWindow::PlayWindow(QWidget *parent)
     //quitButton->setGeometry(QRect(QPoint(600, 0),QSize(200, 50)));
 
     //adding buttons to toolbar
-    toolBar->addWidget(inventoryButton);
+    toolBar->addWidget(inventory);
     toolBar->addWidget(mapButton);
     toolBar->addWidget(infoButton);
     toolBar->addWidget(quitButton);
+
+    itemBox = new QComboBox;
+    //m_layout->addWidget(itemBox);
+    toolBar->addWidget(itemBox);
+
     toolBar ->setFloatable(false);
     toolBar ->setMovable(false);
     toolBar -> show();
@@ -65,8 +71,7 @@ PlayWindow::PlayWindow(QWidget *parent)
     sword = new QRadioButton(tr("Sword"));
     sword->setChecked(false);
 
-    itemBox = new QComboBox;
-    m_layout->addWidget(itemBox);
+
 
     rLayout -> addWidget(sword);
     rLayout -> addWidget(knife);
@@ -79,23 +84,23 @@ PlayWindow::PlayWindow(QWidget *parent)
 
 
     upButton = new QPushButton("Up", this);
-   // upButton->setGeometry(QRect(QPoint(400, 400),QSize(50, 50)));
+    upButton->setGeometry(QRect(QPoint(400, 400),QSize(50, 50)));
     leftButton = new QPushButton("Left", this);
-    //leftButton->setGeometry(QRect(QPoint(350, 425),QSize(50, 50)));
+    leftButton->setGeometry(QRect(QPoint(350, 425),QSize(50, 50)));
     downButton = new QPushButton("Down", this);
-    //downButton->setGeometry(QRect(QPoint(400, 450),QSize(50, 50)));
+    downButton->setGeometry(QRect(QPoint(400, 450),QSize(50, 50)));
     rightButton = new QPushButton("Right", this);
-   // rightButton->setGeometry(QRect(QPoint(450, 425),QSize(50, 50)));
+    rightButton->setGeometry(QRect(QPoint(450, 425),QSize(50, 50)));
 
 
     attackButton = new QPushButton("Attack Monster!", this);
     takeButton = new QPushButton("Take Item", this);
     weaponButton = new QPushButton("Use this weapon", this);
 
-    arrowLayout->addWidget(upButton);
-    arrowLayout->addWidget(downButton);
-    arrowLayout->addWidget(leftButton);
-    arrowLayout->addWidget(rightButton);
+    //arrowLayout->addWidget(upButton);
+    //arrowLayout->addWidget(downButton);
+    //arrowLayout->addWidget(leftButton);
+    //arrowLayout->addWidget(rightButton);
 
     name = new QLabel(this);
     //name->setGeometry(QRect(QPoint(0, 55),QSize(200, 20)));
@@ -132,8 +137,7 @@ PlayWindow::PlayWindow(QWidget *parent)
     connect(downButton, SIGNAL (clicked()), this, SLOT (downHandler()));
     connect(attackButton, SIGNAL (clicked()), this, SLOT (attackHandler()));
     connect(takeButton, SIGNAL (clicked()), this, SLOT (takeHandler()));
-    connect(weaponButton, SIGNAL (clicked()), this, SLOT (on_pushButton_clicked()));
-
+    connect(weaponButton, SIGNAL (clicked()), this, SLOT (weaponHandler()));
 }
 
 void PlayWindow::startGame() {
@@ -216,7 +220,7 @@ void PlayWindow::attackHandler() {
     }
 }
 
-void PlayWindow::on_pushButton_clicked(){
+void PlayWindow::weaponHandler(){
     rButtons->hide();
     weaponButton->hide();
     attackButton->show(); //after weapon is shown, attack button appears
@@ -229,7 +233,7 @@ std::string PlayWindow::getCommand() {
 
 PlayWindow::~PlayWindow() {
     delete m_layout;
-    delete inventoryButton;
+    delete inventory;
     delete mapButton;
     delete leftButton;
     delete upButton;
@@ -250,7 +254,9 @@ void PlayWindow::setRoom() {
     currRoom->setText(QString::fromStdString(roomText));
     roomDesc->setText(QString::fromStdString(playGame->currentRoom->longDescription()));
     displayRoomItems();
+    showDirectionalButtons();
     if((playGame->getCurrentRoom())->getMonsterInRoom() != NULL){
+        hideDirectionalButtons();
         setRadioButtons();
     }
 }
@@ -277,7 +283,7 @@ void PlayWindow::setRadioButtons(){
               knife->show();
             }
             else{
-               sword -> show();
+               sword->show();
             }
         }
     }
@@ -299,6 +305,20 @@ void PlayWindow::displayRoomItems(){
     else{
         takeButton->hide();//hide button if there are no items in room
     }
+}
+
+void PlayWindow::hideDirectionalButtons() {
+    upButton->hide();
+    downButton->hide();
+    leftButton->hide();
+    rightButton->hide();
+}
+
+void PlayWindow::showDirectionalButtons() {
+    upButton->show();
+    downButton->show();
+    leftButton->show();
+    rightButton->show();
 }
 
 void PlayWindow::hideButtons(){
