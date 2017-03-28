@@ -1,13 +1,15 @@
 #include "Character.h"
 
+Character::Character(){ }
+
 Character::~Character(){
 }
 
-//Character::Character(string name, int health, double hitChance) {
-//    this->name = name;
-//    this->health = health;
-//    this->hitChance = hitChance;
-//}
+Character::Character(string name, int health, double hitChance) {
+    this->name = name;
+    this->health = health;
+    this->hitChance = hitChance;
+}
 
 string Character::getName()const{
     return this->name;

@@ -16,8 +16,6 @@ void Battle::engageBattle(ZorkUL *playGame){
 
     int myHealth = me->getHealth();
     int monHealth = mon->getHealth();
-    cout << "me "<<myHealth<<endl;
-    cout <<"mon "<<monHealth<<endl;
     if(hit <= me->getHitChance()){
         mon->setHealth(monHealth - 1);
     }
@@ -31,8 +29,6 @@ void Battle::engageBattle(ZorkUL *playGame){
         delete mon;
         room->setNullMonster();
     }
-    cout << "Me: " << me->getHealth() << endl;
-    cout << "Monster: " << mon->getHealth() << endl;
 }
 
 void Battle::endGame(){

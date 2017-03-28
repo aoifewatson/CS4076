@@ -12,10 +12,7 @@ TEMPLATE = app
 
 SOURCES += \
     Character.cpp \
-    Command.cpp \
-    CommandWords.cpp \
     item.cpp \
-    Parser.cpp \
     Room.cpp \
     ZorkUL.cpp \
     mainwindow.cpp \
@@ -43,10 +40,7 @@ DISTFILES += \
 
 HEADERS += \
     Character.h \
-    Command.h \
-    CommandWords.h \
     item.h \
-    Parser.h \
     Room.h \
     ZorkUL.h \
     mainwindow.h \

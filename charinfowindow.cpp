@@ -47,18 +47,15 @@ void CharInfoWindow::submitHandler() {
         playWin = new PlayWindow;
         playWin->setFixedSize(800,600);
         playWin->setup(name, food);
-        //playWin->startGame();
         playWin->show();
     }
     else if (!validateText(nameBox->text()) || !validateText(foodBox->text())) {
-        err->setText("Input must be 3 to 15 characters long and must be alphanumeric.");
+        err->setText("Input must be 3 to 15 characters long and must be alphabetic.");
 
     }
     else {
         err->setText("Invalid input.");
     }
-
-    cout << nameBox->text().toStdString() << " " << foodBox->text().toStdString() << endl;
 }
 
 bool CharInfoWindow::validateText(QString toValidate) {
