@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QPushButton>
+#include <QVBoxLayout>
 
 class FinalWindow : public QMainWindow
 {
@@ -18,6 +19,7 @@ public slots:
     void quitHandler();
 
 private:
+    QVBoxLayout *layout;
     QLabel *endMessage;
     QPushButton *quitButton;
 };

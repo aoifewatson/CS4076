@@ -42,13 +42,11 @@ PlayWindow::PlayWindow(QWidget *parent)
     inventory->setMinimumWidth(180);
     mapButton = new QPushButton("Map", this);
     mapButton->setMinimumWidth(180);
-    //infoButton = new QPushButton("Info", this);
     quitButton = new QPushButton("Quit", this);
     quitButton->setMinimumWidth(180);
 
     toolBar->addWidget(inventory);
     toolBar->addWidget(mapButton);
-    //toolBar->addWidget(infoButton);
     toolBar->addWidget(quitButton);
 
     itemBox = new QComboBox;
@@ -111,7 +109,6 @@ PlayWindow::PlayWindow(QWidget *parent)
     m_layout->addWidget(takeButton);
 
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
-    //connect(infoButton, SIGNAL (clicked()), this, SLOT (infoHandler()));
     connect(quitButton, SIGNAL (clicked()), this, SLOT (quitHandler()));
     connect(leftButton, SIGNAL (clicked()), this, SLOT (leftHandler()));
     connect(rightButton, SIGNAL (clicked()), this, SLOT (rightHandler()));
@@ -131,10 +128,6 @@ void PlayWindow::mapHandler() {
         map->hide();
         showMap = 0;
     }
-}
-
-void PlayWindow::infoHandler() {
-
 }
 
 void PlayWindow::quitHandler() {
@@ -175,16 +168,17 @@ void PlayWindow::takeHandler() {
 
 void PlayWindow::attackHandler() {
     Battle *battle = 0;
-    if(playGame->getPlayer()->getHealth() >= 0 && playGame->getCurrentRoom()->getMonsterInRoom()->getHealth() >= 0){
+    if(playGame->me->getHealth() != 0 && playGame->currentRoom->getMonsterInRoom()->getHealth() != 0){
         battle->engageBattle(playGame);
     }
-    else if(playGame->currentRoom->getMonsterInRoom()->getHealth() == 0){
+    if(playGame->currentRoom->getMonsterInRoom()->getHealth() == 0){
+        playGame->currentRoom->deleteMonsterInRoom();
+        playGame->currentRoom->setNullMonster();
         attackButton->hide();
         monsterDead->show();
         showDirectionalButtons();
     }
-    else{
-        //player has died - do something
+    else if(playGame->me->getHealth() ==0){
         QApplication::quit();
     }
 }
@@ -195,11 +189,6 @@ void PlayWindow::weaponHandler(){
     attackButton->show();
 }
 
-std::string PlayWindow::getCommand() {
-    return commandString;
-}
-
-
 PlayWindow::~PlayWindow() {
     delete m_layout;
     delete inventory;
@@ -208,7 +197,6 @@ PlayWindow::~PlayWindow() {
     delete upButton;
     delete rightButton;
     delete downButton;
-    delete infoButton;
     delete quitButton;
     delete attackButton;
     delete takeButton;
@@ -225,7 +213,6 @@ PlayWindow::~PlayWindow() {
     delete map;
     delete rButtons;
     delete toolBar;
-    delete mainLayout;
 
 }
 
@@ -247,6 +234,7 @@ void PlayWindow::setRoom() {
     }
     else if(playGame->currentRoom->getLast() != false){
         fw = new FinalWindow();
+        fw->setFixedSize(200, 400);
         fw->show();
     }
 }
@@ -282,9 +270,9 @@ void PlayWindow::setRadioButtons(){
 }
 
 void PlayWindow::displayRoomItems(){
+    itemBox->clear();
     vector <Item*> itemList = (playGame->getCurrentRoom())->getItemsInRoom();
     if(itemList.size() > 0){
-        itemBox->clear();
         takeButton->show();
             for(vector<Item*>::iterator it = itemList.begin(); it != itemList.end(); ++it){
             string name = (*it)->getName();

@@ -2,7 +2,6 @@
 #include <QString>
 #include <algorithm>
 #include "Room.h"
-#include "Command.h"
 
 Room::Room(string newDescription){
    description = newDescription;
@@ -200,7 +199,7 @@ Monster* Room::getMonsterInRoom() const{
 }
 
 void Room::deleteMonsterInRoom(){
-    //delete this->monsterInRoom;
+    delete this->monsterInRoom;
 }
 
 vector <Item*> Room::getItemsInRoom()const{

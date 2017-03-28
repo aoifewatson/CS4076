@@ -36,7 +36,7 @@ void ZorkUL::createRooms()  {
     roomList.push_back(five);
     roomList.push_back(six);
     roomList.push_back(seven);
-    seven -> setLast(); //setting room 16 as the last room
+    seven -> setLast();
 
     //adding items and extra characters to rooms
     three->addItem(sword);

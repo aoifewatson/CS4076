@@ -42,7 +42,6 @@ private:
 
 private slots:
     void mapHandler();
-    void infoHandler();
     void quitHandler();
     void leftHandler();
     void upHandler();
@@ -62,14 +61,12 @@ private:
     QPushButton *upButton;
     QPushButton *rightButton;
     QPushButton *downButton;
-    QPushButton *infoButton;
     QPushButton *quitButton;
     QLabel *name;
     QLabel *health;
     QLabel *currRoom;
     QLabel *roomDesc;
     QLabel *monsterDead;
-    std::string commandString;
     QPushButton *attackButton;
     QPushButton *weaponButton;
     QRadioButton *knife;
@@ -81,7 +78,6 @@ private:
     QGroupBox *rButtons;
     QVBoxLayout *rLayout;
     QToolBar *toolBar;
-    QGridLayout *mainLayout;
     FinalWindow * fw;
 
 };
