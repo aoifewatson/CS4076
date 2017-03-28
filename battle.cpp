@@ -31,6 +31,8 @@ void Battle::engageBattle(ZorkUL *playGame){
         delete mon;
         room->setNullMonster();
     }
+    cout << "Me: " << me->getHealth() << endl;
+    cout << "Monster: " << mon->getHealth() << endl;
 }
 
 void Battle::endGame(){
