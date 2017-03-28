@@ -11,7 +11,7 @@ public:
     virtual double getHitChance()const;
     virtual int getHealth()const;
     virtual void setHealth(int newHealth);
-    //virtual ~Character();
+    virtual ~Character();
 
 private:
     string name;

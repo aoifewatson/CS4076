@@ -12,6 +12,7 @@ Room::Room(string newDescription){
 Room::Room(string newDescription, Item *item) {
     description = newDescription;
     itemsInRoom.push_back(item);
+    last = false;
 }
 
 Room::~Room() {
@@ -212,4 +213,12 @@ void Room::removeItem(Item *item){
 
 void Room::setNullMonster(){
     this->monsterInRoom = NULL;
+}
+
+void Room::setLast(){
+    this->last = true;
+}
+
+bool Room::getLast()const{
+    return this->last;
 }

@@ -58,6 +58,7 @@ void ZorkUL::createRooms()  {
     roomList.push_back(fourteen);
     roomList.push_back(fifteen);
     roomList.push_back(sixteen);
+    sixteen -> setLast(); //setting room 16 as the last room
 
     //adding items and extra characters to rooms
     three->addItem(key);
@@ -68,7 +69,7 @@ void ZorkUL::createRooms()  {
     six->addMonster(new Monster("Small Monster", 5, .55));
     fifteen->addMonster(new Monster("Bigger Monster", 10, .75));
 
-//    (N, E, S, W)(up, left, down, right)
+                //(up, left, down, right)
     one->setExits(NULL, five, NULL, two);
     two->setExits(three, one, four, NULL);
     three->setExits(NULL, NULL, two, NULL);
@@ -88,7 +89,6 @@ void ZorkUL::createRooms()  {
     currentRoom = one;
 }
 
-
 bool ZorkUL::processCommand(Command command) {
     string commandWord = command.getCommandWord();
 	if (command.isUnknown()) {
@@ -97,9 +97,6 @@ bool ZorkUL::processCommand(Command command) {
 	}
     if (commandWord.compare("go") == 0)
 		goRoom(command);
-
-    //else if (commandWord.compare("inventory") == 0)
-        //displayItems();
 
 	return false;
 }
@@ -134,17 +131,14 @@ string ZorkUL::go(string direction) { // is this method needed????
 	}
 }
 
-/*void ZorkUL::displayItems(){
-   vector <Item*> itemsList = me->getItemsInCharacter(); //call get method for vector that stores all item picked up
-   int size = itemsList.size();
-   for (int i = 0; i < size; i++){
-   }
-}*/
-
 Room* ZorkUL::getCurrentRoom() const{
     return this->currentRoom;
 }
 
 Player* ZorkUL::getPlayer() const{
     return this->me;
+}
+
+ZorkUL::~ZorkUL(){
+    delete me;
 }

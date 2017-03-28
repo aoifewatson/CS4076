@@ -1,7 +1,7 @@
 #include "Character.h"
 
-//Character::~Character(){
-//}
+Character::~Character(){
+}
 
 string Character::getName()const{
     return this->name;

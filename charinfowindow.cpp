@@ -45,7 +45,7 @@ void CharInfoWindow::submitHandler() {
         close();
 
         playWin = new PlayWindow;
-        playWin->setFixedSize(800,500);
+        playWin->setFixedSize(800,600);
         playWin->setup(name, food);
         //playWin->startGame();
         playWin->show();

@@ -31,6 +31,7 @@ private:
 
 public:
     ZorkUL(string name, string food);
+    ~ZorkUL();
 	void play();
 	string go(string direction);
     Room* getCurrentRoom() const;
