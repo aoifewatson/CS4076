@@ -12,4 +12,3 @@ Monster::Monster(string newName, int newHealth, double newHitChance){
     this->health = newHealth;
     this->hitChance = newHitChance;
 }
-

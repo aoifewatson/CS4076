@@ -18,6 +18,7 @@ private:
     vector <Item*> itemsInRoom;
     Monster *monsterInRoom;
     ~Room();
+    bool last;
 
 public:
     int numberOfItems();
@@ -52,6 +53,9 @@ public:
     vector <Item*> getItemsInRoom()const;
     void removeItem(Item *item);
     void setNullMonster();
+    void setLast();
+    bool getLast()const;
+
 
 };
 

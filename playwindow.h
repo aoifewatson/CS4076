@@ -15,6 +15,7 @@
 #include "Command.h"
 #include "ZorkUL.h"
 #include "parser.h"
+#include "finalwindow.h"
 
 
 namespace Ui {
@@ -31,15 +32,17 @@ public:
     void setHealth(int newHealth);
     std::string getCommand();
     void setup(std::string userName, std::string favFood);
-    void startGame();
     void setRadioButtons();
     void displayRoomItems();
     void hideButtons();
 
+private:
+    void hideDirectionalButtons();
+    void showDirectionalButtons();
+
     ~PlayWindow();
 
 private slots:
-    void inventoryHandler();
     void mapHandler();
     void infoHandler();
     void quitHandler();
@@ -50,8 +53,7 @@ private slots:
     void attackHandler();
     void takeHandler();
     void weaponHandler();
-    void hideDirectionalButtons();
-    void showDirectionalButtons();
+
 
 private:
     ZorkUL *playGame;
@@ -83,7 +85,7 @@ private:
     QVBoxLayout *rLayout;
     QToolBar *toolBar;
     QGridLayout *mainLayout;
-    QVBoxLayout *arrowLayout;
+    FinalWindow * fw;
 
 };
 

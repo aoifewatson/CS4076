@@ -26,8 +26,9 @@ PlayWindow::PlayWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     this->setCentralWidget(new QWidget());
-    m_layout = new QVBoxLayout(); //overall layout for the screen
+    m_layout = new QVBoxLayout();
     (this->centralWidget())->setLayout(m_layout);
+    m_layout->setSpacing(0);
 
     toolBar = new QToolBar();
 
@@ -42,26 +43,20 @@ PlayWindow::PlayWindow(QWidget *parent)
     infoButton = new QPushButton("Info", this);
     quitButton = new QPushButton("Quit", this);
 
-    //inventoryButton->setGeometry(QRect(QPoint(0, 0),QSize(200, 50)));
-    //mapButton->setGeometry(QRect(QPoint(200, 0),QSize(200, 50)));
-    //infoButton->setGeometry(QRect(QPoint(400, 0),QSize(200, 50)));
-    //quitButton->setGeometry(QRect(QPoint(600, 0),QSize(200, 50)));
-
-    //adding buttons to toolbar
     toolBar->addWidget(inventory);
     toolBar->addWidget(mapButton);
     toolBar->addWidget(infoButton);
     toolBar->addWidget(quitButton);
 
     itemBox = new QComboBox;
-    //m_layout->addWidget(itemBox);
+    itemBox->addItem("Items in room");
     toolBar->addWidget(itemBox);
 
     toolBar ->setFloatable(false);
     toolBar ->setMovable(false);
     toolBar -> show();
 
-    m_layout->setMenuBar(toolBar); //correct place but too small, needs to be wider
+    m_layout->setMenuBar(toolBar);
 
     rButtons = new QGroupBox("Pick a weapon!");
     rLayout = new QVBoxLayout();
@@ -71,49 +66,37 @@ PlayWindow::PlayWindow(QWidget *parent)
     sword = new QRadioButton(tr("Sword"));
     sword->setChecked(false);
 
-
-
     rLayout -> addWidget(sword);
     rLayout -> addWidget(knife);
-    //rButtons->addWidget(weaponButton);
 
     rButtons->setLayout(rLayout);
     m_layout->addWidget(rButtons);
 
-    arrowLayout = new QVBoxLayout();
-
-
     upButton = new QPushButton("Up", this);
-    upButton->setGeometry(QRect(QPoint(400, 400),QSize(50, 50)));
+    upButton->setGeometry(QRect(QPoint(400, 500),QSize(50, 50)));
     leftButton = new QPushButton("Left", this);
-    leftButton->setGeometry(QRect(QPoint(350, 425),QSize(50, 50)));
+    leftButton->setGeometry(QRect(QPoint(350, 525),QSize(50, 50)));
     downButton = new QPushButton("Down", this);
-    downButton->setGeometry(QRect(QPoint(400, 450),QSize(50, 50)));
+    downButton->setGeometry(QRect(QPoint(400, 550),QSize(50, 50)));
     rightButton = new QPushButton("Right", this);
-    rightButton->setGeometry(QRect(QPoint(450, 425),QSize(50, 50)));
-
+    rightButton->setGeometry(QRect(QPoint(450, 525),QSize(50, 50)));
 
     attackButton = new QPushButton("Attack Monster!", this);
     takeButton = new QPushButton("Take Item", this);
     weaponButton = new QPushButton("Use this weapon", this);
-
-    //arrowLayout->addWidget(upButton);
-    //arrowLayout->addWidget(downButton);
-    //arrowLayout->addWidget(leftButton);
-    //arrowLayout->addWidget(rightButton);
+    takeButton->setMaximumWidth(100);
+    attackButton->setMaximumWidth(100);
+    weaponButton->setMaximumWidth(100);
 
     name = new QLabel(this);
-    //name->setGeometry(QRect(QPoint(0, 55),QSize(200, 20)));
     health = new QLabel(this);
-   // health->setGeometry(QRect(QPoint(200, 55),QSize(200, 20)));
     currRoom = new QLabel(this);
-   // currRoom->setGeometry(QRect(QPoint(400, 55),QSize(200, 20)));
     roomDesc = new QLabel(this);
-   // roomDesc->setGeometry(QRect(QPoint(600, 75),QSize(200, 100)));
     monsterDead = new QLabel(this);
     QString monText = QString::fromStdString("You have killed the monster!");
     monsterDead->setText(monText);
-    monsterDead->hide();
+
+    name->setContentsMargins(0,0,0,0);
 
     m_layout->addWidget(weaponButton);
     m_layout->addWidget(name);
@@ -123,14 +106,10 @@ PlayWindow::PlayWindow(QWidget *parent)
     m_layout->addWidget(monsterDead);
     m_layout->addWidget(attackButton);
     m_layout->addWidget(takeButton);
-    m_layout->addLayout(arrowLayout);
 
-    //Top buttons signals/slots
-    //connect(inventoryButton, SIGNAL (clicked()), this, SLOT (inventoryHandler()));
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
     connect(infoButton, SIGNAL (clicked()), this, SLOT (infoHandler()));
     connect(quitButton, SIGNAL (clicked()), this, SLOT (quitHandler()));
-    //Button signals/slots
     connect(leftButton, SIGNAL (clicked()), this, SLOT (leftHandler()));
     connect(rightButton, SIGNAL (clicked()), this, SLOT (rightHandler()));
     connect(upButton, SIGNAL (clicked()), this, SLOT (upHandler()));
@@ -138,14 +117,6 @@ PlayWindow::PlayWindow(QWidget *parent)
     connect(attackButton, SIGNAL (clicked()), this, SLOT (attackHandler()));
     connect(takeButton, SIGNAL (clicked()), this, SLOT (takeHandler()));
     connect(weaponButton, SIGNAL (clicked()), this, SLOT (weaponHandler()));
-}
-
-void PlayWindow::startGame() {
-    //playGame->play();
-}
-
-void PlayWindow::inventoryHandler() {
-    std::cout << "Inventory button" << std::endl;
 }
 
 void PlayWindow::mapHandler() {
@@ -201,11 +172,13 @@ void PlayWindow::downHandler() {
 
 void PlayWindow::takeHandler() {
     if (playGame->currentRoom->numberOfItems() > 0){
-        string item = (itemBox->currentText()).toStdString();           //string name of item being taken
-        Item *temp = (playGame->getCurrentRoom())->getItemByName(item); //get corresponding object
+        string itemName = (itemBox->currentText()).toStdString();
+        Item *temp = (playGame->getCurrentRoom())->getItemByName(itemName);
         (playGame->getPlayer())->addItem(temp);
         (playGame->getCurrentRoom())->removeItem(temp);
         setRoom();
+        playGame->getPlayer()->addItem(temp);
+        inventory->addItem(QString::fromStdString(itemName));
     }
 }
 
@@ -223,7 +196,7 @@ void PlayWindow::attackHandler() {
 void PlayWindow::weaponHandler(){
     rButtons->hide();
     weaponButton->hide();
-    attackButton->show(); //after weapon is shown, attack button appears
+    attackButton->show();
 }
 
 std::string PlayWindow::getCommand() {
@@ -242,6 +215,22 @@ PlayWindow::~PlayWindow() {
     delete infoButton;
     delete quitButton;
     delete attackButton;
+    delete takeButton;
+    delete playGame;
+    delete name;
+    delete health;
+    delete currRoom;
+    delete roomDesc;
+    delete monsterDead;
+    delete weaponButton;
+    delete knife;
+    delete sword;
+    delete itemBox;
+    delete map;
+    delete rButtons;
+    delete toolBar;
+    delete mainLayout;
+
 }
 
 void PlayWindow::setName(std::string userName) {
@@ -259,6 +248,10 @@ void PlayWindow::setRoom() {
         hideDirectionalButtons();
         setRadioButtons();
     }
+    else if(playGame->currentRoom->getLast() != false){
+        fw = new FinalWindow();
+        fw->show();
+    }
 }
 
 void PlayWindow::setHealth(int newHealth) {
@@ -270,11 +263,11 @@ void PlayWindow::setup(std::string userName, std::string favFood) {
     playGame = new ZorkUL(userName, favFood);
     setName(userName);
     setHealth(playGame->me->getHealth());
+    showDirectionalButtons();
     setRoom();
     hideButtons();
 }
 
-//setting radio buttons for picking weapon to attack
 void PlayWindow::setRadioButtons(){
     vector <Item*> items = (playGame->getPlayer())->getItemsInCharacter();
     for(vector<Item*>::iterator it = items.begin(); it != items.end(); ++it){
@@ -282,7 +275,7 @@ void PlayWindow::setRadioButtons(){
             if((*it)->getName() == "Knife"){
               knife->show();
             }
-            else{
+            else if((*it)->getName() == "Sword"){
                sword->show();
             }
         }
@@ -291,9 +284,8 @@ void PlayWindow::setRadioButtons(){
    weaponButton->show();
 }
 
-//combo box got displaying items in room
 void PlayWindow::displayRoomItems(){
-    itemBox->clear(); //clears items from previous room
+    itemBox->clear();
     vector <Item*> itemList = (playGame->getCurrentRoom())->getItemsInRoom();
     if(itemList.size() > 0){
         takeButton->show();
@@ -303,7 +295,7 @@ void PlayWindow::displayRoomItems(){
         }
     }
     else{
-        takeButton->hide();//hide button if there are no items in room
+        takeButton->hide();
     }
 }
 
@@ -329,4 +321,5 @@ void PlayWindow::hideButtons(){
     map->hide();
     knife->hide();
     sword->hide();
+    monsterDead->hide();
 }
