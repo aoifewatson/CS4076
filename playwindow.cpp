@@ -211,7 +211,7 @@ void PlayWindow::takeHandler() {
 
 void PlayWindow::attackHandler() {
     Battle *battle = 0;
-    if(playGame->getPlayer()->getHealth() > 0 && playGame->getCurrentRoom()->getMonsterInRoom()->getHealth()>0){
+    if(playGame->getPlayer()->getHealth() > 0 && playGame->getCurrentRoom()->getMonsterInRoom()->getHealth() > 0){
         battle->engageBattle(playGame);
     }
     else{
