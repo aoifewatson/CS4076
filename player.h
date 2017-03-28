@@ -12,9 +12,6 @@ public:
     ~Player();
 
 private:
-    string name;
-    int health;
-    double hitChance;
     string food;
     vector <Item*> itemsInCharacter;
 

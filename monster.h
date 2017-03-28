@@ -6,13 +6,9 @@ class Monster : public Character
 {
 public:
     Monster();
-    Monster(string name, int health, double hitChance);
+    Monster(string newName, int newHealth, double newHitChance);
     ~Monster();
 
-private:
-    string name;
-    int health;
-    double hitChance;
 };
 
 #endif // Monster_H
