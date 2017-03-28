@@ -1,4 +1,5 @@
 #include <QCoreApplication>
+#include <QApplication>
 #include <iostream>
 #include <QLabel>
 #include <QLineEdit>
@@ -15,7 +16,6 @@
 #include <string.h>
 #include <QCheckBox>
 #include <QToolBar>
-#include "Command.h"
 #include "playwindow.h"
 #include "charinfowindow.h"
 #include "ZorkUL.h"
@@ -39,18 +39,21 @@ PlayWindow::PlayWindow(QWidget *parent)
 
     inventory = new QComboBox;
     inventory->addItem("Inventory");
+    inventory->setMinimumWidth(180);
     mapButton = new QPushButton("Map", this);
-    infoButton = new QPushButton("Info", this);
+    mapButton->setMinimumWidth(180);
+    //infoButton = new QPushButton("Info", this);
     quitButton = new QPushButton("Quit", this);
+    quitButton->setMinimumWidth(180);
 
     toolBar->addWidget(inventory);
     toolBar->addWidget(mapButton);
-    toolBar->addWidget(infoButton);
+    //toolBar->addWidget(infoButton);
     toolBar->addWidget(quitButton);
 
     itemBox = new QComboBox;
-    itemBox->addItem("Items in room");
     toolBar->addWidget(itemBox);
+    itemBox->setMinimumWidth(180);
 
     toolBar ->setFloatable(false);
     toolBar ->setMovable(false);
@@ -108,7 +111,7 @@ PlayWindow::PlayWindow(QWidget *parent)
     m_layout->addWidget(takeButton);
 
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
-    connect(infoButton, SIGNAL (clicked()), this, SLOT (infoHandler()));
+    //connect(infoButton, SIGNAL (clicked()), this, SLOT (infoHandler()));
     connect(quitButton, SIGNAL (clicked()), this, SLOT (quitHandler()));
     connect(leftButton, SIGNAL (clicked()), this, SLOT (leftHandler()));
     connect(rightButton, SIGNAL (clicked()), this, SLOT (rightHandler()));
@@ -139,35 +142,23 @@ void PlayWindow::quitHandler() {
 }
 
 void PlayWindow::leftHandler() {
-    Command* command;
-    command = parser.getCommand("go left");
-    playGame->processCommand(*command);
+    playGame->goRoom("left");
     setRoom();
-    delete command;
 }
 
 void PlayWindow::upHandler() {
-    Command* command;
-    command = parser.getCommand("go up");
-    playGame->processCommand(*command);
+    playGame->goRoom("up");
     setRoom();
-    delete command;
 }
 
 void PlayWindow::rightHandler() {
-    Command* command;
-    command = parser.getCommand("go right");
-    playGame->processCommand(*command);
+    playGame->goRoom("right");
     setRoom();
-    delete command;
 }
 
 void PlayWindow::downHandler() {
-    Command* command;
-    command = parser.getCommand("go down");
-    playGame->processCommand(*command);
+    playGame->goRoom("down");
     setRoom();
-    delete command;
 }
 
 void PlayWindow::takeHandler() {
@@ -184,12 +175,17 @@ void PlayWindow::takeHandler() {
 
 void PlayWindow::attackHandler() {
     Battle *battle = 0;
-    if(playGame->getPlayer()->getHealth() > 0 && playGame->getCurrentRoom()->getMonsterInRoom()->getHealth() > 0){
+    if(playGame->getPlayer()->getHealth() >= 0 && playGame->getCurrentRoom()->getMonsterInRoom()->getHealth() >= 0){
         battle->engageBattle(playGame);
     }
-    else{
+    else if(playGame->currentRoom->getMonsterInRoom()->getHealth() == 0){
         attackButton->hide();
         monsterDead->show();
+        showDirectionalButtons();
+    }
+    else{
+        //player has died - do something
+        QApplication::quit();
     }
 }
 
@@ -244,6 +240,7 @@ void PlayWindow::setRoom() {
     roomDesc->setText(QString::fromStdString(playGame->currentRoom->longDescription()));
     displayRoomItems();
     showDirectionalButtons();
+    monsterDead->hide();
     if((playGame->getCurrentRoom())->getMonsterInRoom() != NULL){
         hideDirectionalButtons();
         setRadioButtons();
@@ -285,9 +282,9 @@ void PlayWindow::setRadioButtons(){
 }
 
 void PlayWindow::displayRoomItems(){
-    itemBox->clear();
     vector <Item*> itemList = (playGame->getCurrentRoom())->getItemsInRoom();
     if(itemList.size() > 0){
+        itemBox->clear();
         takeButton->show();
             for(vector<Item*>::iterator it = itemList.begin(); it != itemList.end(); ++it){
             string name = (*it)->getName();
@@ -296,6 +293,7 @@ void PlayWindow::displayRoomItems(){
     }
     else{
         takeButton->hide();
+        itemBox->addItem("No items in Room");
     }
 }
 

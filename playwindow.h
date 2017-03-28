@@ -12,9 +12,7 @@
 #include <QGroupBox>
 #include <QComboBox>
 #include <string>
-#include "Command.h"
 #include "ZorkUL.h"
-#include "parser.h"
 #include "finalwindow.h"
 
 
@@ -57,7 +55,6 @@ private slots:
 
 private:
     ZorkUL *playGame;
-    Parser parser;
     QVBoxLayout *m_layout;
     QComboBox *inventory;
     QPushButton *mapButton;
