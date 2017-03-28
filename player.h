@@ -6,7 +6,7 @@ class Player : public Character
 {
 public:
     void addItem(Item *item);
-    Player(string name, string food, int health, double hitChance);
+    Player(string name, int health, double hitChance, string food);
     Player();
     //string getName()const;
     //double getHitChance()const;

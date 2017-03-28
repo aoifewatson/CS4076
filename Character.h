@@ -7,6 +7,7 @@
 
 class Character {
 public:
+    //Character(string name, int health, double hitChance);
     virtual string getName()const;
     virtual double getHitChance()const;
     virtual int getHealth()const;

@@ -9,7 +9,7 @@
 using namespace std;
 
 ZorkUL::ZorkUL(string name, string food) {
-    me = new Player(name, food, 10, .75);
+    me = new Player(name, 10, .75, food);
 	createRooms();
 }
 

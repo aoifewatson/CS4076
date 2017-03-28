@@ -3,12 +3,9 @@
 Player::Player(){
 }
 
-Player::Player(string newName, string favFood, int newHealth, double newHitChance){
-    this->name = newName;
-    this->food = favFood;
-    this->health = newHealth;
-    this->hitChance = newHitChance;
-}
+Player::Player(string newName, int newHealth, double newHitChance, string favFood)
+    : name(newName), health(newHealth), hitChance(newHitChance), food(favFood)
+{ }
 
 Player::~Player(){
 
