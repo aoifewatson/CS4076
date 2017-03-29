@@ -3,20 +3,19 @@
 
 #include <vector>
 #include <string>
-using std::string;
 
 class Character {
 public:
     Character();
-    Character(string name, int health, double hitChance);
-    virtual string getName()const;
+    Character(std::string name, int health, double hitChance);
+    virtual std::string getName()const;
     virtual double getHitChance()const;
     virtual int getHealth()const;
     virtual void setHealth(int newHealth);
     virtual ~Character();
 
 protected:
-    string name;
+    std::string name;
     int health;
     double hitChance;
 };

@@ -12,40 +12,34 @@
 class Room {
 
 private:
-    string name;
-    map<string, Room*> exits;
-    string exitString();
-    vector <Item*> itemsInRoom;
+    std::string name;
+    std::map<std::string, Room*> exits;
+    std::string exitString();
+    std::vector <Item*> itemsInRoom;
     Monster *monsterInRoom;
-    ~Room();
     bool last;
 
 public:
+    ~Room();
     int numberOfItems();
-    Room(string description, Item *item);
-    Room(string description);
+    Room(std::string description, Item *item);
+    Room(std::string description);
     void setExits(Room *up, Room *left, Room *down, Room *right);
-    string getName();
-    Room* nextRoom(string direction);
+    std::string getName();
+    Room* nextRoom(std::string direction);
     void addItem(Item *inItem);
-    string displayItem();
-    string getItems();
-    int getItemIndexByName(string itemName);
-    Item* getItemByName(string itemName);
-    //void eraseItemFromRoom(int index);
-    vector <QPushButton> getItemButtons();
-    void removeItemFromRoom(int index);
-    string getItems() const;
+    std::string displayItem();
+    std::string getItems();
+    int getItemIndexByName(std::string itemName);
+    Item* getItemByName(std::string itemName);
     void addMonster(Monster *Monster);
     Monster* getMonsterInRoom() const;
-    Room* getCurrentRoom() const;
     void deleteMonsterInRoom();
-    vector <Item*> getItemsInRoom()const;
+    std::vector <Item*> getItemsInRoom()const;
     void removeItem(Item *item);
     void setNullMonster();
     void setLast();
     bool getLast()const;
-
 
 };
 

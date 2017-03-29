@@ -1,14 +1,10 @@
 #include <QInputDialog>
 #include <QLineEdit>
-#include <QDir>
 #include <QCoreApplication>
 #include <QWidget>
 #include <QMainWindow>
-#include <string>
 
-#include "charinfowindow.h"
 #include "mainwindow.h"
-#include "ZorkUL.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

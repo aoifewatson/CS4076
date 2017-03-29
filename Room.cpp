@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "Room.h"
 #include "battle.h"
+using namespace std;
 
 Room::Room(string newName) : name(newName), monsterInRoom(NULL), last(false) { }
 
@@ -26,16 +27,15 @@ void Room::setExits(Room *up, Room *left, Room *down, Room *right) {
         exits["right"] = right;
 }
 
-string Room::getName() { //used
+string Room::getName() {
     return name;
 }
 
 Room* Room::nextRoom(string direction) {
     map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
     if (next == exits.end())
-		return NULL; // if exits.end() was returned, there's no room in that direction.
-	return next->second; // If there is a room, remove the "second" (Room*)
-				// part of the "pair" (<string, Room*>) and return it.
+        return NULL;
+    return next->second;
 }
 
 void Room::addItem(Item *inItem) {

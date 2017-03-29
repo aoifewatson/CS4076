@@ -7,16 +7,13 @@
 #include <QLabel>
 #include <QToolBar>
 #include <QRadioButton>
-#include <QGridLayout>
 #include <QVBoxLayout>
 #include <QGroupBox>
 #include <QComboBox>
 #include <QString>
-#include <string>
 #include "ZorkUL.h"
 #include "finalwindow.h"
 #include "battle.h"
-
 
 namespace Ui {
     class PlayWindow;
@@ -30,8 +27,8 @@ public:
     void setName(std::string userName);
     void setRoom();
     void setHealth(int newHealth);
-    std::string getCommand();
-    void setup(std::string userName, std::string favFood);
+    string getCommand();
+    void setup(string userName, string favFood);
     void setRadioButtons();
     void displayRoomItems();
     void hideButtons();

@@ -1,19 +1,16 @@
 #include "ZorkUL.h"
 #include "playwindow.h"
 
-using namespace std;
-
 ZorkUL::ZorkUL(string name, string food) {
     me = new Player(name, 10, .75, food);
 	createRooms();
 }
 
 void ZorkUL::createRooms()  {
-    //creating items and extra characters
+//This function creates all the rooms, objects and monsters in the game
     Item *knife = new Item("Knife", true);
     Item *sword = new Item("Sword", true);
 
-    //creating rooms
     Room *one, *two, *three, *four, *five, *six, *seven;
     one = new Room("one");
     two = new Room("two");
@@ -23,7 +20,6 @@ void ZorkUL::createRooms()  {
     six = new Room("six");
     seven = new Room("seven");
 
-    //adding rooms to vector of rooms
     roomList.push_back(one);
     roomList.push_back(two);
     roomList.push_back(three);
@@ -33,7 +29,6 @@ void ZorkUL::createRooms()  {
     roomList.push_back(seven);
     seven -> setLast();
 
-    //adding items and extra characters to rooms
     three->addItem(sword);
     four->addItem(knife);
     five->addMonster(new Monster("Small Monster", 6, .55));
@@ -51,6 +46,8 @@ void ZorkUL::createRooms()  {
 }
 
 void ZorkUL::goRoom(string direction) {
+// This function moves the current room pointer to the next room,
+// depending on the string direction passed to it
 	Room* nextRoom = currentRoom->nextRoom(direction);
     if (nextRoom != NULL){
         currentRoom = nextRoom;
@@ -67,4 +64,5 @@ Player* ZorkUL::getPlayer() const{
 
 ZorkUL::~ZorkUL(){
     delete me;
+    delete currentRoom;
 }

@@ -1,13 +1,12 @@
 #include <vector>
-#include "item.h"
 #include "Player.h"
-
+#include "item.h"
+using namespace std;
 
 Player::Player(){
 }
 
 Player::Player(string newName, int newHealth, double newHitChance, string favFood) : Character(newName, newHealth, newHitChance), food(favFood)
-    //: name(newName), health(newHealth), hitChance(newHitChance), food(favFood)
 { }
 
 Player::~Player(){

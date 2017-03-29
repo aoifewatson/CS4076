@@ -3,13 +3,11 @@
 
 #include <QMainWindow>
 #include <QPushButton>
-#include <QHBoxLayout>
 #include <QFormLayout>
 #include <QLineEdit>
 #include <QLabel>
 #include <string>
 #include "playwindow.h"
-#include "ZorkUL.h"
 
 namespace Ui {
     class CharInfoWindow;
@@ -30,7 +28,6 @@ private slots:
 
 
 private:
-    //ZorkUL *playGame;
     PlayWindow *playWin;
     QGridLayout *textLayout;
     QLineEdit *nameBox;
@@ -39,8 +36,8 @@ private:
     QLabel *askName;
     QLabel *askFood;
     QLabel *err;
-    std::string name;
-    std::string food;
+    string name;
+    string food;
 
 };
 

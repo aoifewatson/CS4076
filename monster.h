@@ -6,7 +6,7 @@ class Monster : public Character
 {
 public:
     Monster();
-    Monster(string newName, int newHealth, double newHitChance);
+    Monster(std::string newName, int newHealth, double newHitChance);
     ~Monster();
 
 };

@@ -1,13 +1,8 @@
 #include <QCoreApplication>
-#include <iostream>
-#include <QLabel>
-#include <string>
 #include <QLineEdit>
 #include <QRegExpValidator>
 #include <QValidator>
-
 #include "charinfowindow.h"
-#include "playwindow.h"
 
 using namespace std;
 

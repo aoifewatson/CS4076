@@ -1,21 +1,23 @@
 #ifndef Player_H
 #define Player_H
+#include <vector>
+#include "item.h"
 #include "Character.h"
 
 class Player : public Character
 {
 public:
     void addItem(Item *item);
-    Player(string name, int health, double hitChance, string food);
+    Player(std::string name, int health, double hitChance, std::string food);
     Player();
-    vector <Item*> getItemsInCharacter()const;
+    std::vector <Item*> getItemsInCharacter()const;
     void setCurrentItem(Item item);
     Item getCurrentItem();
     ~Player();
 
 private:
-    string food;
-    vector <Item*> itemsInCharacter;
+    std::string food;
+    std::vector <Item*> itemsInCharacter;
     Item currentItem;
 
 };

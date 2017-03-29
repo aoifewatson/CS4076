@@ -47,7 +47,6 @@ HEADERS += \
     battle.h \
     playwindow.h \
     charinfowindow.h \
-    main.h \
     Player.h \
     Monster.h \
     finalwindow.h

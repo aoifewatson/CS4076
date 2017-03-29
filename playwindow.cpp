@@ -1,8 +1,6 @@
 #include <QCoreApplication>
 #include <QApplication>
-#include <iostream>
 #include <QLabel>
-//#include <QLineEdit>
 #include <QComboBox>
 #include <QVBoxLayout>
 #include <QStackedWidget>
@@ -11,10 +9,8 @@
 #include <QVBoxLayout>
 #include <QComboBox>
 #include <QString>
-#include <string.h>
 #include <QToolBar>
 #include <QSignalMapper>
-
 #include "playwindow.h"
 #include "charinfowindow.h"
 #include "ZorkUL.h"
@@ -143,7 +139,7 @@ void PlayWindow::mapHandler() {
 }
 
 void PlayWindow::quitHandler() {
-    close();
+    QApplication::quit();
 }
 
 void PlayWindow::directionSelected(QString direction) {
@@ -227,16 +223,15 @@ PlayWindow::~PlayWindow() {
     delete map;
     delete rButtons;
     delete toolBar;
-
 }
 
-void PlayWindow::setName(std::string userName) {
-    std::string nameText = "Name: " + userName;
+void PlayWindow::setName(string userName) {
+    string nameText = "Name: " + userName;
     name->setText(QString::fromStdString(nameText));
 }
 
 void PlayWindow::setRoom() {
-    std::string roomText = "Room: " + playGame->currentRoom->getName();
+    string roomText = "Room: " + playGame->currentRoom->getName();
     currRoom->setText(QString::fromStdString(roomText));
     roomDesc->setText(QString::fromStdString(playGame->currentRoom->displayItem()));
     displayRoomItems();
@@ -268,7 +263,7 @@ void PlayWindow::setHealth(int newHealth) {
     health->setText(healthText);
 }
 
-void PlayWindow::setup(std::string userName, std::string favFood) {
+void PlayWindow::setup(string userName, string favFood) {
     playGame = new ZorkUL(userName, favFood);
     setName(userName);
     setHealth(playGame->me->getHealth());

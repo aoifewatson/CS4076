@@ -1,30 +1,22 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 
-#include <map>
 #include <string>
-#include <iostream>
-using namespace std;
 
 class Item {
 private:
-    string name;
-	string longDescription;
+    std::string name;
 	bool weaponCheck;
 
 
 public:
     ~Item();
-
-    Item (string newName, bool newWeaponCheck);
-    Item (string name);
+    Item (std::string newName, bool newWeaponCheck);
     Item ();
-    string getName() const;
-    string getLongDescription();
+    std::string getName() const;
+    std::string getLongDescription();
     bool getWeaponCheck() const;
-    bool operator==(const string& itemName);// {
-    //         return (this->getName().compare(item.getName()));
-    //      }
+    bool operator==(const std::string& itemName);
 };
 
 #endif /*ITEM_H_*/

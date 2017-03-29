@@ -3,12 +3,11 @@
 
 #include <QMainWindow>
 #include <QPushButton>
-#include "playwindow.h"
 #include "charinfowindow.h"
 
-class MainWindow : public QMainWindow //template is QMainWindow
+class MainWindow : public QMainWindow
 {
-    Q_OBJECT //macro - just leave it as is
+    Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();

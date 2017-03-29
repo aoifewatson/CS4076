@@ -1,17 +1,12 @@
 #include "item.h"
+using namespace std;
 
-//pass by const reference because it is NOT a cheap copy - slightly improves performance
 bool Item::operator==(const string& itemName) {
-    //return((name == item.getName()) && (weaponCheck == item.getWeaponCheck()));
     return (this->getName().compare(itemName));
 }
+Item::Item() { }
 
-Item::Item() {
-}
-
-Item::~Item() {
-
-}
+Item::~Item() { }
 
 Item::Item(string newName, bool newWeaponCheck) {
     name = newName;
@@ -30,5 +25,3 @@ string Item::getLongDescription()
 {
     return " item(s), " + name + ".\n";
 }
-
-

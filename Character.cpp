@@ -1,9 +1,10 @@
 #include "Character.h"
 
+using std::string;
+
 Character::Character(){ }
 
-Character::~Character(){
-}
+Character::~Character(){ }
 
 Character::Character(string name, int health, double hitChance) : name(name), health(health), hitChance(hitChance){ }
 
