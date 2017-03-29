@@ -2,6 +2,9 @@
 #include <QVBoxLayout>
 #include <string.h>
 #include "finalwindow.h"
+#include <iostream>
+
+using std::cout;
 
 FinalWindow::FinalWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -12,6 +15,7 @@ FinalWindow::FinalWindow(QWidget *parent) : QMainWindow(parent)
     endMessage = new QLabel(this);
     quitButton = new QPushButton("Quit");
     quitButton->setMinimumSize(200,200);
+
     endMessage->setMinimumSize(100, 100);
 
     endMessage->show();

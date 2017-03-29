@@ -154,6 +154,7 @@ void PlayWindow::downHandler() {
 }
 
 void PlayWindow::takeHandler() {
+    haveWeapon = true;
     if (playGame->currentRoom->numberOfItems() > 0){
         string itemName = (itemBox->currentText()).toStdString();
         Item *temp = (playGame->getCurrentRoom())->getItemByName(itemName);
@@ -237,12 +238,6 @@ void PlayWindow::setRoom() {
         if(haveWeapon == false){
             string message = "You can't fight a monster with no weapon! Game Over :( ";
             showFinalWindow(message);
-            /*fw = new FinalWindow;
-            fw->setMinimumSize(400, 400);
-            fw->setMessage(message);
-            delete this;
-            fw->show();*/
-
         }
         else{
             battle = new Battle();
@@ -273,7 +268,6 @@ void PlayWindow::setup(std::string userName, std::string favFood) {
 void PlayWindow::setRadioButtons(){
     vector <Item*> items = (playGame->getPlayer())->getItemsInCharacter();
     for(vector<Item*>::iterator it = items.begin(); it != items.end(); ++it){
-        haveWeapon = true;
         if((*it)->getWeaponCheck() != false){
             if((*it)->getName() == "Knife"){
               knife->show();
