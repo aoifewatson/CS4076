@@ -2,25 +2,21 @@
 #include <QApplication>
 #include <iostream>
 #include <QLabel>
-#include <QLineEdit>
+//#include <QLineEdit>
 #include <QComboBox>
 #include <QVBoxLayout>
 #include <QStackedWidget>
 #include <QRadioButton>
 #include <QGroupBox>
-#include <QGridLayout>
 #include <QVBoxLayout>
-#include <QHBoxLayout>
 #include <QComboBox>
 #include <QString>
 #include <string.h>
-#include <QCheckBox>
 #include <QToolBar>
+
 #include "playwindow.h"
 #include "charinfowindow.h"
 #include "ZorkUL.h"
-#include "battle.h"
-#include "Room.h"
 
 PlayWindow::PlayWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -98,7 +94,7 @@ PlayWindow::PlayWindow(QWidget *parent)
     QString monText = QString::fromStdString("You have killed the monster!");
     monsterDead->setText(monText);
 
-    name->setContentsMargins(0,0,0,0);
+    haveWeapon = false;
 
     m_layout->addWidget(weaponButton);
     m_layout->addWidget(name);
@@ -170,16 +166,12 @@ void PlayWindow::takeHandler() {
 }
 
 void PlayWindow::attackHandler() {
-    Battle *battle = 0;
-
     if(playGame->me->getHealth() != 0 && playGame->currentRoom->getMonsterInRoom()->getHealth() != 0){
         battle->engageBattle(playGame);
         monHealth->show();
     }
-
     monHealth->setText("Monster Health: " + QString::number(playGame->currentRoom->getMonsterInRoom()->getHealth()));
     setHealth(playGame->me->getHealth());
-
     if(playGame->currentRoom->getMonsterInRoom()->getHealth() == 0){
         playGame->currentRoom->deleteMonsterInRoom();
         playGame->currentRoom->setNullMonster();
@@ -188,8 +180,9 @@ void PlayWindow::attackHandler() {
         monsterDead->show();
         showDirectionalButtons();
     }
-    else if(playGame->me->getHealth() == 0){
-        QApplication::quit();
+    else if(playGame->me->getHealth() ==0){
+        string message = "You have no health left! Game over :( ";
+        showFinalWindow(message);
     }
 }
 
@@ -236,18 +229,30 @@ void PlayWindow::setName(std::string userName) {
 void PlayWindow::setRoom() {
     std::string roomText = "Room: " + playGame->currentRoom->getName();
     currRoom->setText(QString::fromStdString(roomText));
-    roomDesc->setText(QString::fromStdString(playGame->currentRoom->longDescription()));
+    roomDesc->setText(QString::fromStdString(playGame->currentRoom->displayItem()));
     displayRoomItems();
     showDirectionalButtons();
     monsterDead->hide();
     if((playGame->getCurrentRoom())->getMonsterInRoom() != NULL){
-        hideDirectionalButtons();
-        setRadioButtons();
+        if(haveWeapon == false){
+            string message = "You can't fight a monster with no weapon! Game Over :( ";
+            showFinalWindow(message);
+            /*fw = new FinalWindow;
+            fw->setMinimumSize(400, 400);
+            fw->setMessage(message);
+            delete this;
+            fw->show();*/
+
+        }
+        else{
+            battle = new Battle();
+            hideDirectionalButtons();
+            setRadioButtons();
+        }
     }
     else if(playGame->currentRoom->getLast() == true){
-        fw = new FinalWindow;
-        fw->setMinimumSize(400, 400);
-        fw->show();
+        string message = "You have completed the game! :) ";
+        showFinalWindow(message);
     }
 }
 
@@ -268,6 +273,7 @@ void PlayWindow::setup(std::string userName, std::string favFood) {
 void PlayWindow::setRadioButtons(){
     vector <Item*> items = (playGame->getPlayer())->getItemsInCharacter();
     for(vector<Item*>::iterator it = items.begin(); it != items.end(); ++it){
+        haveWeapon = true;
         if((*it)->getWeaponCheck() != false){
             if((*it)->getName() == "Knife"){
               knife->show();
@@ -320,4 +326,12 @@ void PlayWindow::hideButtons(){
     knife->hide();
     sword->hide();
     monsterDead->hide();
+}
+
+void PlayWindow::showFinalWindow(string message){
+    fw = new FinalWindow;
+    fw->setMinimumSize(400, 400);
+    fw->setMessage(message);
+    delete this;
+    fw->show();
 }

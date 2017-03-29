@@ -2,9 +2,9 @@
 #include <QString>
 #include <algorithm>
 #include "Room.h"
+#include "battle.h"
 
-Room::Room(string newName) : name(newName), monsterInRoom(NULL), last(false) {
-}
+Room::Room(string newName) : name(newName), monsterInRoom(NULL), last(false) { }
 
 Room::Room(string newName, Item *item) {
     name = newName;
@@ -26,24 +26,9 @@ void Room::setExits(Room *up, Room *left, Room *down, Room *right) {
         exits["right"] = right;
 }
 
-string Room::getName() {
+string Room::getName() { //used
     return name;
 }
-
-string Room::longDescription() {
-    //return displayItem() + "\n" + displayCharacters();
-    //return "room = " + this->description + ".\n" + getItems() + exitString();
-    return displayItem(); //no need to display characters as the monster will be killed before this piece of code is called
-}
-
-string Room::exitString() {
-	string returnString = "\nexits =";
-	for (map<string, Room*>::iterator i = exits.begin(); i != exits.end(); i++)
-		// Loop through map
-		returnString += "  " + i->first;	// access the "first" element of the pair (direction as a string)
-	return returnString;
-}
-
 
 Room* Room::nextRoom(string direction) {
     map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
@@ -57,64 +42,26 @@ void Room::addItem(Item *inItem) {
     itemsInRoom.push_back(inItem);
 }
 
-
-string Room::displayItem() {
-    stringstream ss;
-    ss << "Items in room:" << endl;
+string Room::displayItem(){
+    string items;
     int sizeItems = itemsInRoom.size();
     if (sizeItems < 1) {
-        ss << "There are no items in this room." << endl;
+        items = "There are no items in this room.\n";
     }
     else {
+        items =  "Items in room:\n";
         for (int n = 0; n < sizeItems; n++) {
-            ss << "- " << itemsInRoom[n]->getName() << endl;
+            items += " - " + itemsInRoom[n]->getName() + "\n";
         }
     }
-    return ss.str();
+    return items;
 }
 
 int Room::numberOfItems() {
     return itemsInRoom.size();
 }
 
-int Room::isItemInRoom(string inString)
-{
-    int sizeItems = itemsInRoom.size();
-    if (sizeItems <= 0) {
-        return -1;
-    }
-    else if (sizeItems > 0) {
-        for (int i = 0; i < sizeItems; i++) {
-            // compare inString with name
-            int tempFlag = inString.compare(itemsInRoom[i]->getName());
-            if (0 == tempFlag) {
-                eraseItemFromRoom(i);
-                return i;
-            }
-        }
-    }
-    return -1;
-}
-
-void Room::eraseItemFromRoom(int index) {
-    itemsInRoom.erase(itemsInRoom.begin()+index);
-}
-
-string Room::getItems() const {
-    string items;
-    int sizeItems = (itemsInRoom.size());
-    if (itemsInRoom.size() < 1)
-        items = "No items in room";
-    else{
-        for(int i=0; i < sizeItems; i++){
-            items = items + itemsInRoom[i]->getName();
-        }
-    }
-    return items;
-}
-
-
-int Room::getItemIndexByName(string itemName) {
+int Room::getItemIndexByName(string itemName) { //used for getItemByName
     int index = 0;
     int size = itemsInRoom.size();
     for(int i = 0; i < size; i++) {
@@ -125,71 +72,13 @@ int Room::getItemIndexByName(string itemName) {
     return index;
 }
 
-int Room::getItemByName(string itemName) const {
-    int index=0;
-    int size = itemsInRoom.size();
-    for(int i = 0; i < size; i++) {
-        if (0 == itemName.compare(itemsInRoom[i]->getName())) {
-            index = i;
-        }
-    }
-    return index;
-}
-
-Item* Room::getItemByName(string itemName) {
+Item* Room::getItemByName(string itemName) { //used
     int index = getItemIndexByName(itemName);
     return itemsInRoom[index];
 }
 
-Item* Room::getItemByIndex(int index) {
-    return itemsInRoom[index];
-}
-
-int Room::getItemIndex(Item *item){
-    int itemIndex = 0;
-    int size = itemsInRoom.size();
-    for(int i = 0; i < size; i++) {
-        if (item->getName().compare(itemsInRoom[i]->getName())) {
-            itemIndex = i;
-        }
-    }
-    return itemIndex;
-}
-
-/*int Room::getItemLocation(Item item) const {
-    int index = 0;
-    int size = itemsInRoom.size();
-    for(int i = 0; i < size - 1; i++) {
-        if(item.getName().compare(itemsInRoom[i]->getName())) {
-            index = i;
-        }
-    }
-    return index;
-} */
-
-int Room::getItemLocation(Item item) const {
-    int index = 0;
-    int size = itemsInRoom.size();
-    for(int i = 0; i < size - 1; i++) {
-        if(item == *itemsInRoom[i]) {
-            index = i;
-            i = size;
-        }
-    }
-    return index;
-}
-
 void Room::addMonster(Monster *mon){
     this->monsterInRoom = mon;
-}
-
-string Room::displayCharacters() const { //this method will never return any characters in room, so no need?
-   string result = "";
-   /*bool present = false;
-   if(present){
-       result = "No one else in this room";
-   }*/
-   return result;
 }
 
 Monster* Room::getMonsterInRoom() const{

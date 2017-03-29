@@ -4,7 +4,6 @@
 #include <string>
 #include <iostream>
 #include "Room.h"
-#include "item.h"
 #include "Character.h"
 #include "Player.h"
 

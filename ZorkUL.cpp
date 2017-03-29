@@ -1,9 +1,4 @@
-#include <sstream>
-
-#include "Character.h"
-#include "item.h"
 #include "ZorkUL.h"
-#include "battle.h"
 #include "playwindow.h"
 
 using namespace std;
@@ -56,7 +51,6 @@ void ZorkUL::createRooms()  {
 }
 
 void ZorkUL::goRoom(string direction) {
-    stringstream output;
 	Room* nextRoom = currentRoom->nextRoom(direction);
     if (nextRoom != NULL){
         currentRoom = nextRoom;

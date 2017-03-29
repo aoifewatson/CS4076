@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QVBoxLayout>
+#include <string.h>
 #include "finalwindow.h"
 
 FinalWindow::FinalWindow(QWidget *parent) : QMainWindow(parent)
@@ -8,9 +9,12 @@ FinalWindow::FinalWindow(QWidget *parent) : QMainWindow(parent)
     layout = new QVBoxLayout;
     this->centralWidget()->setLayout(layout);
 
-    endMessage = new QLabel("You have finished the game!");
+    endMessage = new QLabel(QString::fromStdString(message));
     quitButton = new QPushButton("Quit");
     quitButton->setMinimumSize(200,200);
+
+    endMessage->setMinimumSize(100, 100);
+    quitButton->setMinimumSize(50, 50);
 
     endMessage->show();
     quitButton->show();
@@ -30,4 +34,12 @@ FinalWindow::~FinalWindow(){
     delete endMessage;
     delete quitButton;
     delete layout;
+}
+
+void FinalWindow::setMessage(string m){
+    this->message = m;
+}
+
+string FinalWindow::getMessage()const{
+    return this->message;
 }

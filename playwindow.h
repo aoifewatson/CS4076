@@ -11,9 +11,11 @@
 #include <QVBoxLayout>
 #include <QGroupBox>
 #include <QComboBox>
+#include <QString>
 #include <string>
 #include "ZorkUL.h"
 #include "finalwindow.h"
+#include "battle.h"
 
 
 namespace Ui {
@@ -33,6 +35,7 @@ public:
     void setRadioButtons();
     void displayRoomItems();
     void hideButtons();
+    void showFinalWindow(string message);
 
 private:
     void hideDirectionalButtons();
@@ -80,6 +83,8 @@ private:
     QVBoxLayout *rLayout;
     QToolBar *toolBar;
     FinalWindow * fw;
+    bool haveWeapon;
+    Battle *battle;
 
 };
 

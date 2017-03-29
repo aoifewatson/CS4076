@@ -1,8 +1,5 @@
 #ifndef BATTLE_H
 #define BATTLE_H
-#include "Room.h"
-#include "Player.h"
-#include "Monster.h"
 #include "ZorkUL.h"
 
 class Battle

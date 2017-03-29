@@ -5,6 +5,9 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QString>
+
+using std::string;
 
 class FinalWindow : public QMainWindow
 {
@@ -12,6 +15,8 @@ class FinalWindow : public QMainWindow
 public:
     explicit FinalWindow(QWidget *parent = 0);
     ~FinalWindow();
+    void setMessage(string message);
+    string getMessage()const;
 
 signals:
 
@@ -22,6 +27,7 @@ private:
     QVBoxLayout *layout;
     QLabel *endMessage;
     QPushButton *quitButton;
+    string message;
 };
 
 #endif // FINALWINDOW_H

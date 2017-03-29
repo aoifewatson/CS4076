@@ -26,27 +26,17 @@ public:
     Room(string description);
     void setExits(Room *up, Room *left, Room *down, Room *right);
     string getName();
-    string longDescription();
     Room* nextRoom(string direction);
     void addItem(Item *inItem);
     string displayItem();
-    int isItemInRoom(string inString);
     string getItems();
     int getItemIndexByName(string itemName);
-    int getItemIndex(Item *item);
-    int getItemLocation(Item item);
-    Item* getItemByIndex(int index);
     Item* getItemByName(string itemName);
-    void eraseItemFromRoom(int index);
+    //void eraseItemFromRoom(int index);
     vector <QPushButton> getItemButtons();
-
     void removeItemFromRoom(int index);
     string getItems() const;
-    int getItemByName(string itemName) const;
-    int getItemIndex(Item item);
-    int getItemLocation(Item item) const;
     void addMonster(Monster *Monster);
-    string displayCharacters() const;
     Monster* getMonsterInRoom() const;
     Room* getCurrentRoom() const;
     void deleteMonsterInRoom();
