@@ -40,19 +40,18 @@ public:
 private:
     void hideDirectionalButtons();
     void showDirectionalButtons();
+    void noWeapon();
 
     ~PlayWindow();
 
 private slots:
     void mapHandler();
     void quitHandler();
-    void leftHandler();
-    void upHandler();
-    void rightHandler();
-    void downHandler();
     void attackHandler();
     void takeHandler();
     void weaponHandler();
+    void weaponSelected(QString weapon);
+    void directionSelected(QString direction);
 
 
 private:
@@ -83,7 +82,6 @@ private:
     QVBoxLayout *rLayout;
     QToolBar *toolBar;
     FinalWindow * fw;
-    bool haveWeapon;
     Battle *battle;
 
 };

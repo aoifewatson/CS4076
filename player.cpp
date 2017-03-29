@@ -22,3 +22,11 @@ void Player::addItem(Item *item){
     itemsInCharacter.push_back(item);
 }
 
+void Player::setCurrentItem(Item item) {
+    currentItem = item;
+}
+
+Item Player::getCurrentItem() {
+    return currentItem;
+}
+

@@ -36,7 +36,7 @@ void ZorkUL::createRooms()  {
     //adding items and extra characters to rooms
     three->addItem(sword);
     four->addItem(knife);
-    five->addMonster(new Monster("Small Monster", 5, .55));
+    five->addMonster(new Monster("Small Monster", 6, .55));
     six->addMonster(new Monster("Bigger Monster", 10, .75));
 
                 //(up, left, down, right)

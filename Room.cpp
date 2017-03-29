@@ -65,7 +65,8 @@ int Room::getItemIndexByName(string itemName) { //used for getItemByName
     int index = 0;
     int size = itemsInRoom.size();
     for(int i = 0; i < size; i++) {
-        if (0 == itemName.compare(itemsInRoom[i]->getName())) {
+        //if (0 == itemName.compare(itemsInRoom[i]->getName())) {
+        if ((*itemsInRoom[i]) == itemName) {
             index = i;
         }
     }

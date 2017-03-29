@@ -13,6 +13,7 @@
 #include <QString>
 #include <string.h>
 #include <QToolBar>
+#include <QSignalMapper>
 
 #include "playwindow.h"
 #include "charinfowindow.h"
@@ -94,8 +95,6 @@ PlayWindow::PlayWindow(QWidget *parent)
     QString monText = QString::fromStdString("You have killed the monster!");
     monsterDead->setText(monText);
 
-    haveWeapon = false;
-
     m_layout->addWidget(weaponButton);
     m_layout->addWidget(name);
     m_layout->addWidget(currRoom);
@@ -106,16 +105,30 @@ PlayWindow::PlayWindow(QWidget *parent)
     m_layout->addWidget(attackButton);
     m_layout->addWidget(takeButton);
 
+    QSignalMapper *signalMapperWeapon = new QSignalMapper(this);
+    QSignalMapper *signalMapperDirection = new QSignalMapper(this);
 
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
     connect(quitButton, SIGNAL (clicked()), this, SLOT (quitHandler()));
-    connect(leftButton, SIGNAL (clicked()), this, SLOT (leftHandler()));
-    connect(rightButton, SIGNAL (clicked()), this, SLOT (rightHandler()));
-    connect(upButton, SIGNAL (clicked()), this, SLOT (upHandler()));
-    connect(downButton, SIGNAL (clicked()), this, SLOT (downHandler()));
+    connect(leftButton, SIGNAL (clicked()), signalMapperDirection, SLOT (map()));
+    connect(rightButton, SIGNAL (clicked()), signalMapperDirection, SLOT (map()));
+    connect(upButton, SIGNAL (clicked()), signalMapperDirection, SLOT (map()));
+    connect(downButton, SIGNAL (clicked()), signalMapperDirection, SLOT (map()));
     connect(attackButton, SIGNAL (clicked()), this, SLOT (attackHandler()));
     connect(takeButton, SIGNAL (clicked()), this, SLOT (takeHandler()));
     connect(weaponButton, SIGNAL (clicked()), this, SLOT (weaponHandler()));
+    connect(knife, SIGNAL (toggled(bool)), signalMapperWeapon, SLOT (map()));
+    connect(sword, SIGNAL (toggled(bool)), signalMapperWeapon, SLOT (map()));
+
+    signalMapperDirection->setMapping(leftButton, "left");
+    signalMapperDirection->setMapping(rightButton, "right");
+    signalMapperDirection->setMapping(upButton, "up");
+    signalMapperDirection->setMapping(downButton, "down");
+    signalMapperWeapon->setMapping(knife, "Knife");
+    signalMapperWeapon->setMapping(sword, "Sword");
+
+    connect(signalMapperDirection, SIGNAL(mapped(QString)), this, SLOT(directionSelected(QString)));
+    connect(signalMapperWeapon, SIGNAL(mapped(QString)), this, SLOT(weaponSelected(QString)));
 }
 
 void PlayWindow::mapHandler() {
@@ -133,28 +146,12 @@ void PlayWindow::quitHandler() {
     close();
 }
 
-void PlayWindow::leftHandler() {
-    playGame->goRoom("left");
-    setRoom();
-}
-
-void PlayWindow::upHandler() {
-    playGame->goRoom("up");
-    setRoom();
-}
-
-void PlayWindow::rightHandler() {
-    playGame->goRoom("right");
-    setRoom();
-}
-
-void PlayWindow::downHandler() {
-    playGame->goRoom("down");
+void PlayWindow::directionSelected(QString direction) {
+    playGame->goRoom(direction.toStdString());
     setRoom();
 }
 
 void PlayWindow::takeHandler() {
-    haveWeapon = true;
     if (playGame->currentRoom->numberOfItems() > 0){
         string itemName = (itemBox->currentText()).toStdString();
         Item *temp = (playGame->getCurrentRoom())->getItemByName(itemName);
@@ -173,7 +170,7 @@ void PlayWindow::attackHandler() {
     }
     monHealth->setText("Monster Health: " + QString::number(playGame->currentRoom->getMonsterInRoom()->getHealth()));
     setHealth(playGame->me->getHealth());
-    if(playGame->currentRoom->getMonsterInRoom()->getHealth() == 0){
+    if(playGame->currentRoom->getMonsterInRoom()->getHealth() <= 0){
         playGame->currentRoom->deleteMonsterInRoom();
         playGame->currentRoom->setNullMonster();
         attackButton->hide();
@@ -181,13 +178,24 @@ void PlayWindow::attackHandler() {
         monsterDead->show();
         showDirectionalButtons();
     }
-    else if(playGame->me->getHealth() ==0){
+    else if(playGame->me->getHealth() <= 0){
         string message = "You have no health left! Game over :( ";
         showFinalWindow(message);
     }
 }
 
 void PlayWindow::weaponHandler(){
+    QString weapon;
+    if (knife->isChecked()) {
+        weapon = "Knife";
+    }
+    else if (sword->isChecked()) {
+        weapon = "Sword";
+    }
+    else {
+        noWeapon();
+    }
+    weaponSelected(weapon);
     rButtons->hide();
     weaponButton->hide();
     monHealth->setText("Monster Health: " + QString::number(playGame->currentRoom->getMonsterInRoom()->getHealth()));
@@ -235,9 +243,8 @@ void PlayWindow::setRoom() {
     showDirectionalButtons();
     monsterDead->hide();
     if((playGame->getCurrentRoom())->getMonsterInRoom() != NULL){
-        if(haveWeapon == false){
-            string message = "You can't fight a monster with no weapon! Game Over :( ";
-            showFinalWindow(message);
+        if(playGame->me->getItemsInCharacter().size() == 0){
+            noWeapon();
         }
         else{
             battle = new Battle();
@@ -249,6 +256,11 @@ void PlayWindow::setRoom() {
         string message = "You have completed the game! :) ";
         showFinalWindow(message);
     }
+}
+
+void PlayWindow::noWeapon() {
+    string message = "You can't fight a monster with no weapon! Game Over :( ";
+    showFinalWindow(message);
 }
 
 void PlayWindow::setHealth(int newHealth) {
@@ -268,12 +280,13 @@ void PlayWindow::setup(std::string userName, std::string favFood) {
 void PlayWindow::setRadioButtons(){
     vector <Item*> items = (playGame->getPlayer())->getItemsInCharacter();
     for(vector<Item*>::iterator it = items.begin(); it != items.end(); ++it){
+        Item *item = *it;
         if((*it)->getWeaponCheck() != false){
-            if((*it)->getName() == "Knife"){
-              knife->show();
+            if((*item) == "Knife"){
+                knife->show();
             }
-            else if((*it)->getName() == "Sword"){
-               sword->show();
+            else if((*item) == "Sword"){
+                sword->show();
             }
         }
     }
@@ -322,10 +335,24 @@ void PlayWindow::hideButtons(){
     monsterDead->hide();
 }
 
+void PlayWindow::weaponSelected(QString qweapon) {
+    string weapon = qweapon.toStdString();
+    vector<Item*> items = playGame->me->getItemsInCharacter();
+    for(std::vector<Item*>::iterator it = items.begin();
+        it != items.end(); ++it) {
+        Item *temp = *it;
+        if((*temp) == weapon) {
+            playGame->me->setCurrentItem(*temp);
+            delete temp;
+        }
+    }
+}
+
 void PlayWindow::showFinalWindow(string message){
     fw = new FinalWindow;
     fw->setMinimumSize(400, 400);
     fw->setMessage(message);
-    delete this;
+    //delete this;
+    close();
     fw->show();
 }

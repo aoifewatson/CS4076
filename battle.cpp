@@ -13,15 +13,26 @@ void Battle::engageBattle(ZorkUL *playGame){
     Monster *mon = room->getMonsterInRoom();
     double hit = ((double) rand() / (RAND_MAX));
 
+    int monsterStrength = 1;
+    int playerStrength = 1;
+
+    if(me->getCurrentItem() == "Knife") {
+        playerStrength = 2;
+        monsterStrength = 2;
+    }
+    else if (me->getCurrentItem() == "Sword") {
+        playerStrength = 3;
+    }
+
     int myHealth = me->getHealth();
     int monHealth = mon->getHealth();
     if(hit <= me->getHitChance()){
-        mon->setHealth(monHealth - 1);
+        mon->setHealth(monHealth - playerStrength);
     }
     if(hit >= mon->getHitChance()){
-        me->setHealth(myHealth - 1);
+        me->setHealth(myHealth - monsterStrength);
     }
-    if(me->getHealth() == 0){
+    if(me->getHealth() <= 0){
         endGame();
     }
 }

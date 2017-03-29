@@ -1,9 +1,10 @@
 #include "item.h"
 
 //pass by const reference because it is NOT a cheap copy - slightly improves performance
-//bool Item::operator==(const Item& item) {
-//    return((name == item.getName()) && (weaponCheck == item.getWeaponCheck()));
-//}
+bool Item::operator==(const string& itemName) {
+    //return((name == item.getName()) && (weaponCheck == item.getWeaponCheck()));
+    return (this->getName().compare(itemName));
+}
 
 Item::Item() {
 }

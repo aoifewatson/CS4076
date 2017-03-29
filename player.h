@@ -9,11 +9,14 @@ public:
     Player(string name, int health, double hitChance, string food);
     Player();
     vector <Item*> getItemsInCharacter()const;
+    void setCurrentItem(Item item);
+    Item getCurrentItem();
     ~Player();
 
 private:
     string food;
     vector <Item*> itemsInCharacter;
+    Item currentItem;
 
 };
 
