@@ -67,6 +67,7 @@ private:
     QLabel *currRoom;
     QLabel *roomDesc;
     QLabel *monsterDead;
+    QLabel *monHealth;
     QPushButton *attackButton;
     QPushButton *weaponButton;
     QRadioButton *knife;

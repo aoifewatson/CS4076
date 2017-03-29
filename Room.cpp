@@ -4,9 +4,6 @@
 #include "Room.h"
 
 Room::Room(string newName) : name(newName), monsterInRoom(NULL), last(false) {
-   //name = newName;
-   //monsterInRoom = NULL;
-   //last = false;
 }
 
 Room::Room(string newName, Item *item) {

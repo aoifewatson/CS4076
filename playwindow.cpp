@@ -94,6 +94,7 @@ PlayWindow::PlayWindow(QWidget *parent)
     currRoom = new QLabel(this);
     roomDesc = new QLabel(this);
     monsterDead = new QLabel(this);
+    monHealth = new QLabel(this);
     QString monText = QString::fromStdString("You have killed the monster!");
     monsterDead->setText(monText);
 
@@ -105,8 +106,10 @@ PlayWindow::PlayWindow(QWidget *parent)
     m_layout->addWidget(roomDesc);
     m_layout->addWidget(health);
     m_layout->addWidget(monsterDead);
+    m_layout->addWidget(monHealth);
     m_layout->addWidget(attackButton);
     m_layout->addWidget(takeButton);
+
 
     connect(mapButton, SIGNAL (clicked()), this, SLOT (mapHandler()));
     connect(quitButton, SIGNAL (clicked()), this, SLOT (quitHandler()));
@@ -168,17 +171,24 @@ void PlayWindow::takeHandler() {
 
 void PlayWindow::attackHandler() {
     Battle *battle = 0;
+
     if(playGame->me->getHealth() != 0 && playGame->currentRoom->getMonsterInRoom()->getHealth() != 0){
         battle->engageBattle(playGame);
+        monHealth->show();
     }
+
+    monHealth->setText("Monster Health: " + QString::number(playGame->currentRoom->getMonsterInRoom()->getHealth()));
+    setHealth(playGame->me->getHealth());
+
     if(playGame->currentRoom->getMonsterInRoom()->getHealth() == 0){
         playGame->currentRoom->deleteMonsterInRoom();
         playGame->currentRoom->setNullMonster();
         attackButton->hide();
+        monHealth->hide();
         monsterDead->show();
         showDirectionalButtons();
     }
-    else if(playGame->me->getHealth() ==0){
+    else if(playGame->me->getHealth() == 0){
         QApplication::quit();
     }
 }
@@ -186,6 +196,8 @@ void PlayWindow::attackHandler() {
 void PlayWindow::weaponHandler(){
     rButtons->hide();
     weaponButton->hide();
+    monHealth->setText("Monster Health: " + QString::number(playGame->currentRoom->getMonsterInRoom()->getHealth()));
+    monHealth->show();
     attackButton->show();
 }
 
