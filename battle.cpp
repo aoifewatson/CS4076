@@ -19,7 +19,7 @@ void Battle::engageBattle(ZorkUL *playGame){
     if(hit <= me->getHitChance()){
         mon->setHealth(monHealth - 1);
     }
-    if(hit >= mon->getHitChance()){
+    else if(hit >= mon->getHitChance()){
         me->setHealth(myHealth - 1);
     }
     if(me->getHealth() == 0){

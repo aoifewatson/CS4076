@@ -42,7 +42,6 @@ private:
 
 private slots:
     void mapHandler();
-    void infoHandler();
     void quitHandler();
     void leftHandler();
     void upHandler();

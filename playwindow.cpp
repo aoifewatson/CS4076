@@ -133,10 +133,6 @@ void PlayWindow::mapHandler() {
     }
 }
 
-void PlayWindow::infoHandler() {
-
-}
-
 void PlayWindow::quitHandler() {
     close();
 }
@@ -245,7 +241,7 @@ void PlayWindow::setRoom() {
         hideDirectionalButtons();
         setRadioButtons();
     }
-    else if(playGame->currentRoom->getLast() != false){
+    else if(playGame->currentRoom->getLast() == true){
         fw = new FinalWindow();
         fw->show();
     }

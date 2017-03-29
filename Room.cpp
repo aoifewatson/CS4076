@@ -2,7 +2,6 @@
 #include <QString>
 #include <algorithm>
 #include "Room.h"
-#include "Command.h"
 
 Room::Room(string newDescription){
    description = newDescription;

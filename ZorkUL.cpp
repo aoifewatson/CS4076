@@ -58,10 +58,7 @@ void ZorkUL::createRooms()  {
 void ZorkUL::goRoom(string direction) {
     stringstream output;
 	Room* nextRoom = currentRoom->nextRoom(direction);
-    if (nextRoom == NULL){
-        output << "You can't go this way!" << endl;
-    }
-    else {
+    if (nextRoom != NULL){
         currentRoom = nextRoom;
     }
 }
