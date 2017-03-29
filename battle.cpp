@@ -41,3 +41,5 @@ void Battle::endGame(){
     QApplication::quit();
 }
 
+Battle::~Battle() {}
+

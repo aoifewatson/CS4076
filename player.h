@@ -12,7 +12,7 @@ public:
     Player();
     std::vector <Item*> getItemsInCharacter()const;
     void setCurrentItem(Item item);
-    Item getCurrentItem();
+    Item getCurrentItem()const;
     ~Player();
 
 private:

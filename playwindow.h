@@ -23,6 +23,7 @@ class PlayWindow : public QMainWindow
 {
     Q_OBJECT
 public:
+    ~PlayWindow();
     explicit PlayWindow(QWidget *parent = 0);
     void setName(std::string userName);
     void setRoom();
@@ -38,8 +39,6 @@ private:
     void hideDirectionalButtons();
     void showDirectionalButtons();
     void noWeapon();
-
-    ~PlayWindow();
 
 private slots:
     void mapHandler();
@@ -78,7 +77,7 @@ private:
     QGroupBox *rButtons;
     QVBoxLayout *rLayout;
     QToolBar *toolBar;
-    FinalWindow * fw;
+    FinalWindow *fw;
     Battle *battle;
 
 };

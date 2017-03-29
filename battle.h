@@ -5,6 +5,7 @@
 class Battle
 {
 public:
+    ~Battle();
     Battle();
     void engageBattle(ZorkUL *playGame);
     void continueGame();

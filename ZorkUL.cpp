@@ -65,4 +65,8 @@ Player* ZorkUL::getPlayer() const{
 ZorkUL::~ZorkUL(){
     delete me;
     delete currentRoom;
+
+    for(unsigned int i = 0; i < roomList.size(); i++) {
+        delete roomList[i];
+    }
 }

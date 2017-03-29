@@ -25,7 +25,7 @@ void Player::setCurrentItem(Item item) {
     currentItem = item;
 }
 
-Item Player::getCurrentItem() {
+Item Player::getCurrentItem()const{
     return currentItem;
 }
 

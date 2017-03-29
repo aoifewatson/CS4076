@@ -14,6 +14,11 @@ Room::Room(string newName, Item *item) {
 }
 
 Room::~Room() {
+    delete monsterInRoom;
+
+    for(unsigned int i = 0; i < itemsInRoom.size(); i++) {
+        delete itemsInRoom[i];
+    }
 }
 
 void Room::setExits(Room *up, Room *left, Room *down, Room *right) {

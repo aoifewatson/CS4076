@@ -173,6 +173,7 @@ void PlayWindow::attackHandler() {
         monHealth->hide();
         monsterDead->show();
         showDirectionalButtons();
+        delete battle;
     }
     else if(playGame->me->getHealth() <= 0){
         string message = "You have no health left! Game over :( ";

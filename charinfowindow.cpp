@@ -76,4 +76,5 @@ CharInfoWindow::~CharInfoWindow() {
     delete askName;
     delete askFood;
     delete err;
+    delete playWin;
 }
