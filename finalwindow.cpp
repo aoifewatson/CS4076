@@ -9,12 +9,10 @@ FinalWindow::FinalWindow(QWidget *parent) : QMainWindow(parent)
     layout = new QVBoxLayout;
     this->centralWidget()->setLayout(layout);
 
-    endMessage = new QLabel(QString::fromStdString(message));
+    endMessage = new QLabel(this);
     quitButton = new QPushButton("Quit");
     quitButton->setMinimumSize(200,200);
-
     endMessage->setMinimumSize(100, 100);
-    quitButton->setMinimumSize(50, 50);
 
     endMessage->show();
     quitButton->show();
@@ -37,7 +35,7 @@ FinalWindow::~FinalWindow(){
 }
 
 void FinalWindow::setMessage(string m){
-    this->message = m;
+    endMessage->setText(QString::fromStdString(m));
 }
 
 string FinalWindow::getMessage()const{
