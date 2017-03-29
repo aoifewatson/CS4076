@@ -12,7 +12,7 @@
 class Room {
 
 private:
-    string description;
+    string name;
     map<string, Room*> exits;
     string exitString();
     vector <Item*> itemsInRoom;
@@ -25,7 +25,7 @@ public:
     Room(string description, Item *item);
     Room(string description);
     void setExits(Room *up, Room *left, Room *down, Room *right);
-    string shortDescription();
+    string getName();
     string longDescription();
     Room* nextRoom(string direction);
     void addItem(Item *inItem);

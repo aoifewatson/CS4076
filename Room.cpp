@@ -3,13 +3,14 @@
 #include <algorithm>
 #include "Room.h"
 
-Room::Room(string newDescription){
-   description = newDescription;
-   monsterInRoom = NULL;
+Room::Room(string newName) : name(newName), monsterInRoom(NULL), last(false) {
+   //name = newName;
+   //monsterInRoom = NULL;
+   //last = false;
 }
 
-Room::Room(string newDescription, Item *item) {
-    description = newDescription;
+Room::Room(string newName, Item *item) {
+    name = newName;
     itemsInRoom.push_back(item);
     last = false;
 }
@@ -28,8 +29,8 @@ void Room::setExits(Room *up, Room *left, Room *down, Room *right) {
         exits["right"] = right;
 }
 
-string Room::shortDescription() {
-	return description;
+string Room::getName() {
+    return name;
 }
 
 string Room::longDescription() {
@@ -199,7 +200,7 @@ Monster* Room::getMonsterInRoom() const{
 }
 
 void Room::deleteMonsterInRoom(){
-    //delete this->monsterInRoom;
+    delete this->monsterInRoom;
 }
 
 vector <Item*> Room::getItemsInRoom()const{

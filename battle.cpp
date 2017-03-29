@@ -8,7 +8,6 @@ Battle::Battle(){
 }
 
 void Battle::engageBattle(ZorkUL *playGame){
-
     Player *me = playGame->getPlayer();
     Room *room = playGame->getCurrentRoom();
     Monster *mon = room->getMonsterInRoom();
@@ -25,12 +24,9 @@ void Battle::engageBattle(ZorkUL *playGame){
     if(me->getHealth() == 0){
         endGame();
     }
-    else if(mon->getHealth() == 0){
-        delete mon;
-        room->setNullMonster();
-    }
 }
 
 void Battle::endGame(){
-    QApplication::quit(); //exit game
+    QApplication::quit();
 }
+
