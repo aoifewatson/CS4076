@@ -2,7 +2,14 @@
 using namespace std;
 
 bool Item::operator==(const string& itemName) {
-    return (this->getName().compare(itemName));
+    bool returnBool;
+    if (this->getName().compare(itemName) == 0) {
+        returnBool = 1;
+    }
+    else {
+        returnBool = 0;
+    }
+    return returnBool;
 }
 Item::Item() { }
 

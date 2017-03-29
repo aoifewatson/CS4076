@@ -45,7 +45,7 @@ void CharInfoWindow::submitHandler() {
         playWin->show();
     }
     else if (!validateText(nameBox->text()) || !validateText(foodBox->text())) {
-        err->setText("Input must be 3 to 15 characters long and must be alphabetic.");
+        err->setText("Input must be alphabetic.");
 
     }
     else {
@@ -56,7 +56,7 @@ void CharInfoWindow::submitHandler() {
 bool CharInfoWindow::validateText(QString toValidate) {
     bool valid = false;
 
-    QRegExp rx("[A-Za-z\\s]*");
+    QRegExp rx("[A-Za-z]*");
     QRegExpValidator validator(rx, 0);
     int pos = 0;
     string validText;

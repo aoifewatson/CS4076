@@ -274,13 +274,13 @@ void PlayWindow::setup(string userName, string favFood) {
 
 void PlayWindow::setRadioButtons(){
     vector <Item*> items = (playGame->getPlayer())->getItemsInCharacter();
-    for(vector<Item*>::iterator it = items.begin(); it != items.end(); ++it){
+    for(vector<Item*>::iterator it = items.begin(); it != items.end(); it++){
         Item *item = *it;
-        if((*it)->getWeaponCheck() != false){
-            if((*item) == "Knife"){
+        if(item->getWeaponCheck() != false){
+            if(*item == "Knife"){
                 knife->show();
             }
-            else if((*item) == "Sword"){
+            else if(*item == "Sword"){
                 sword->show();
             }
         }
@@ -334,11 +334,10 @@ void PlayWindow::weaponSelected(QString qweapon) {
     string weapon = qweapon.toStdString();
     vector<Item*> items = playGame->me->getItemsInCharacter();
     for(std::vector<Item*>::iterator it = items.begin();
-        it != items.end(); ++it) {
+        it != items.end(); it++) {
         Item *temp = *it;
         if((*temp) == weapon) {
             playGame->me->setCurrentItem(*temp);
-            delete temp;
         }
     }
 }
@@ -347,7 +346,6 @@ void PlayWindow::showFinalWindow(string message){
     fw = new FinalWindow;
     fw->setMinimumSize(400, 400);
     fw->setMessage(message);
-    //delete this;
     close();
     fw->show();
 }

@@ -4,7 +4,6 @@
 
 class Battle
 {
-private:
 public:
     Battle();
     void engageBattle(ZorkUL *playGame);
